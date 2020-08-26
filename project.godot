@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Character",
-"class": "Bullet",
-"language": "GDScript",
-"path": "res://src/bullets/Bullet.gd"
-}, {
 "base": "Hitbox",
 "class": "BulletLite",
 "language": "GDScript",
@@ -95,7 +90,6 @@ _global_script_classes=[ {
 "path": "res://src/stats/Stats.gd"
 } ]
 _global_script_class_icons={
-"Bullet": "",
 "BulletLite": "",
 "BulletPatterns": "",
 "Character": "",

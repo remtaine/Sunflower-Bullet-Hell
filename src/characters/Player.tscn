@@ -15,17 +15,17 @@
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
-"name": "up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
 "name": "left",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 1 ) ],
@@ -42,12 +42,12 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1.17203, 1.08181 )
 
-[sub_resource type="DynamicFont" id=3]
-font_data = ExtResource( 5 )
-
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id=3]
 offsets = PoolRealArray( 0, 0.795756 )
 colors = PoolColorArray( 1, 1, 1, 0.235294, 1, 1, 1, 0 )
+
+[sub_resource type="DynamicFont" id=4]
+font_data = ExtResource( 5 )
 
 [node name="Player" type="KinematicBody2D" groups=[
 "allies",
@@ -128,6 +128,23 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
+[node name="Particles" type="Node2D" parent="."]
+
+[node name="Trail" type="CPUParticles2D" parent="Particles"]
+visible = false
+amount = 16
+local_coords = false
+texture = ExtResource( 1 )
+gravity = Vector2( 0, 0 )
+scale_amount = 0.45
+color_ramp = SubResource( 3 )
+hue_variation_random = 1.0
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[node name="Health" parent="Stats" instance=ExtResource( 9 )]
+
 [node name="Addons" type="Node2D" parent="."]
 
 [node name="BulletSpawner" parent="Addons" instance=ExtResource( 7 )]
@@ -139,7 +156,7 @@ margin_left = -100.0
 margin_top = 13.7887
 margin_right = 100.0
 margin_bottom = 33.7887
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "State"
 align = 1
 __meta__ = {
@@ -162,21 +179,4 @@ begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 200
 antialiased = true
-
-[node name="Particles" type="Node2D" parent="."]
-
-[node name="Trail" type="CPUParticles2D" parent="Particles"]
-visible = false
-amount = 16
-local_coords = false
-texture = ExtResource( 1 )
-gravity = Vector2( 0, 0 )
-scale_amount = 0.45
-color_ramp = SubResource( 4 )
-hue_variation_random = 1.0
-
-[node name="Stats" type="Node" parent="."]
-script = ExtResource( 10 )
-
-[node name="Health" parent="Stats" instance=ExtResource( 9 )]
 [connection signal="timeout" from="Timers/BulletRecharge" to="." method="_on_BulletRecharge_timeout"]

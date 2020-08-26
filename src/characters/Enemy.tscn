@@ -10,17 +10,17 @@
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
 "name": "left",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -58,6 +58,16 @@ speed = 0
 
 [node name="Shooting" parent="States" index="2" instance=ExtResource( 5 )]
 
+[node name="BulletCD" parent="Timers" index="0"]
+wait_time = 0.5
+
+[node name="Trail" parent="Particles" index="0"]
+visible = true
+draw_order = 1
+texture = null
+scale_amount = 2.0
+color_ramp = SubResource( 2 )
+
 [node name="BulletSpawner" parent="Addons" index="0"]
 position = Vector2( 0, 29.2687 )
 
@@ -73,11 +83,4 @@ rect = Rect2( -10, 20, 20, 20 )
 
 [node name="BulletPatterns" parent="Addons" index="6" instance=ExtResource( 4 )]
 position = Vector2( 0, -9.62376 )
-
-[node name="Trail" parent="Particles" index="0"]
-visible = true
-draw_order = 1
-texture = null
-scale_amount = 2.0
-color_ramp = SubResource( 2 )
 [connection signal="screen_exited" from="Addons/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

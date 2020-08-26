@@ -5,10 +5,7 @@ var owner_type = null
 
 func _ready():
 	owner = get_parent().get_parent()
-	if owner is Bullet:
-		owner_type = owner.owner_type
-	elif owner is Character:
-		owner_type = owner.character_type
+	owner_type = owner.character_type
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

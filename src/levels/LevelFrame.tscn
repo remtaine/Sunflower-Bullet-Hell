@@ -8,11 +8,11 @@
 size = 60
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 48
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 2 )
 
@@ -35,11 +35,17 @@ position = Vector2( 200, 30 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="LevelLabel" type="Label" parent="HUD"]
-margin_left = 11.3241
-margin_top = 144.948
-margin_right = 195.324
-margin_bottom = 274.948
+[node name="LeftSide" type="VBoxContainer" parent="HUD"]
+margin_top = 196.331
+margin_right = 181.0
+margin_bottom = 500.331
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelLabel" type="Label" parent="HUD/LeftSide"]
+margin_right = 181.0
+margin_bottom = 120.0
 custom_fonts/font = SubResource( 1 )
 custom_constants/line_spacing = -30
 text = "LEVEL
@@ -49,12 +55,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LogoLabel" type="Label" parent="HUD"]
-margin_left = 11.3241
-margin_top = 311.412
-margin_right = 208.324
-margin_bottom = 521.412
-custom_fonts/font = SubResource( 3 )
+[node name="LogoLabel" type="Label" parent="HUD/LeftSide"]
+margin_top = 124.0
+margin_right = 181.0
+margin_bottom = 304.0
+custom_fonts/font = SubResource( 2 )
 custom_constants/line_spacing = -20
 text = "Insert
 Logo
@@ -77,7 +82,7 @@ __meta__ = {
 [node name="ScoreLabel" type="Label" parent="HUD/RightSide"]
 margin_right = 180.0
 margin_bottom = 83.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Score:
 23423423"
 align = 1
@@ -86,14 +91,14 @@ align = 1
 margin_top = 87.0
 margin_right = 180.0
 margin_bottom = 127.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 align = 1
 
 [node name="LivesLabel" type="Label" parent="HUD/RightSide"]
 margin_top = 131.0
 margin_right = 180.0
 margin_bottom = 171.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Lives: L L L "
 align = 1
 
@@ -101,7 +106,7 @@ align = 1
 margin_top = 175.0
 margin_right = 180.0
 margin_bottom = 215.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Spec: S S S "
 align = 1
 
@@ -109,14 +114,14 @@ align = 1
 margin_top = 219.0
 margin_right = 180.0
 margin_bottom = 259.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 align = 1
 
 [node name="PowerLabel" type="Label" parent="HUD/RightSide"]
 margin_top = 263.0
 margin_right = 180.0
 margin_bottom = 303.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Power: 8"
 align = 1
 
@@ -124,6 +129,6 @@ align = 1
 margin_top = 307.0
 margin_right = 180.0
 margin_bottom = 347.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Graze: 2"
 align = 1
