@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/bullets/BulletFrames.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://src/bullets/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://src/states/Moving.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/states/Idle.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/Kenney Mini.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://src/addons/Hitbox.tscn" type="PackedScene" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 5 )
+
+[node name="Bullet" type="KinematicBody2D"]
+collision_layer = 17
+collision_mask = 8
+script = ExtResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.7, 0.7 )
+frames = ExtResource( 1 )
+animation = "enemy"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.52, 1.52 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="States" type="Node" parent="."]
+
+[node name="Moving" parent="States" instance=ExtResource( 3 )]
+speed = 120
+
+[node name="Idle" parent="States" instance=ExtResource( 4 )]
+
+[node name="Addons" type="Node2D" parent="."]
+
+[node name="StateLabel" type="Label" parent="Addons"]
+visible = false
+margin_left = -100.0
+margin_top = 21.2434
+margin_right = 100.0
+margin_bottom = 41.2434
+custom_fonts/font = SubResource( 2 )
+text = "State"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Addons"]
+rect = Rect2( -10, -140, 20, 20 )
+
+[node name="Hitbox" parent="Addons" instance=ExtResource( 6 )]
+[connection signal="screen_exited" from="Addons/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

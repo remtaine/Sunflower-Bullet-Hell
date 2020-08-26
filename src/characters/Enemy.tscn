@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/characters/enemies/enemyBlue4.png" type="Texture" id=2]
+[ext_resource path="res://src/characters/Enemy.gd" type="Script" id=3]
+[ext_resource path="res://src/addons/BulletPatterns.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/states/Enemy Only/Shooting.tscn" type="PackedScene" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "right",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "down",
+"speed": 5.0
+} ]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0.111406, 0.899204 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="Enemy" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+character_type = "enemy"
+
+[node name="Sprite" parent="Pivot" index="0"]
+position = Vector2( -0.152756, -5.04102 )
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="Petals" parent="Pivot" index="1"]
+visible = false
+
+[node name="CollisionShape2D" parent="." index="1"]
+scale = Vector2( 16.52, 18.56 )
+
+[node name="Moving" parent="States" index="1"]
+speed = 0
+
+[node name="Shooting" parent="States" index="2" instance=ExtResource( 5 )]
+
+[node name="BulletSpawner" parent="Addons" index="0"]
+position = Vector2( 0, 29.2687 )
+
+[node name="StateLabel" parent="Addons" index="1"]
+margin_top = -42.2826
+margin_bottom = -22.2826
+
+[node name="Hurtbox" parent="Addons" index="3"]
+scale = Vector2( 1.68377, 1.64 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Addons" index="4"]
+rect = Rect2( -10, 20, 20, 20 )
+
+[node name="BulletPatterns" parent="Addons" index="6" instance=ExtResource( 4 )]
+position = Vector2( 0, -9.62376 )
+
+[node name="Trail" parent="Particles" index="0"]
+visible = true
+draw_order = 1
+texture = null
+scale_amount = 2.0
+color_ramp = SubResource( 2 )
+[connection signal="screen_exited" from="Addons/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

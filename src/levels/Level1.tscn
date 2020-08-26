@@ -1,0 +1,75 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/levels/Level.gd" type="Script" id=2]
+[ext_resource path="res://src/characters/Enemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://fonts/Kenney Mini.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://sounds/music/1st Level Boss/First Boss Theme.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/music/1st Level Boss/First Boss Theme In Bullet Time.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/bullets/BulletPool.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[node name="Level1" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="BG" type="Node2D" parent="."]
+
+[node name="Background" type="ColorRect" parent="BG"]
+margin_top = -200.0
+margin_right = 560.0
+margin_bottom = 480.0
+rect_pivot_offset = Vector2( 684.139, 807.989 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Characters" type="Node2D" parent="."]
+
+[node name="Player" parent="Characters" instance=ExtResource( 1 )]
+position = Vector2( 254.825, 349.136 )
+z_index = 1
+
+[node name="Enemy1" parent="Characters" instance=ExtResource( 3 )]
+position = Vector2( 243.458, 125.524 )
+collision_layer = 1
+collision_mask = 1
+
+[node name="ObjectsHolder" type="Node2D" parent="."]
+
+[node name="BulletPool" parent="ObjectsHolder" instance=ExtResource( 7 )]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="FPSLabel" type="Label" parent="HUD"]
+margin_left = 7.08008
+margin_right = 75.0801
+margin_bottom = 200.0
+rect_pivot_offset = Vector2( 7.63635, 159.971 )
+custom_fonts/font = SubResource( 1 )
+text = "FPS:
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Normal" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 5 )
+autoplay = true
+
+[node name="Tween" type="Tween" parent="Audio/Normal"]
+
+[node name="BulletTime" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 6 )
+volume_db = -80.0
+autoplay = true
+
+[node name="Tween" type="Tween" parent="Audio/BulletTime"]
+
+[node name="Addons" type="Node2D" parent="."]
