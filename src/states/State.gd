@@ -26,8 +26,6 @@ func get_raw_input() -> Dictionary:
 				input_direction = owner.goal_position_direction(),
 				is_shooting = true,
 			}
-
-			print(inputs)
 	return inputs
 	
 func interpret_inputs(input):

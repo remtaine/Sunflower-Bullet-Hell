@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/First Level Theme In Bullet Time.wav-775e953ab6b42bbb5391761ce337e4bd.sample"
+
+[deps]
+
+source_file="res://sounds/music/1st Level/First Level Theme In Bullet Time.wav"
+dest_files=[ "res://.import/First Level Theme In Bullet Time.wav-775e953ab6b42bbb5391761ce337e4bd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=2]
 [ext_resource path="res://src/characters/Enemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://fonts/Kenney Mini.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://sounds/music/1st Level Boss/First Boss Theme.wav" type="AudioStream" id=5]
-[ext_resource path="res://sounds/music/1st Level Boss/First Boss Theme In Bullet Time.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/music/1st Level/First Level Theme.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/music/1st Level/First Level Theme In Bullet Time.wav" type="AudioStream" id=6]
 [ext_resource path="res://src/bullets/BulletPool.tscn" type="PackedScene" id=7]
+[ext_resource path="res://images/backgrounds/Sunflower_Bullet_Hell_Background_Level_1.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -17,12 +18,24 @@ script = ExtResource( 2 )
 
 [node name="BG" type="Node2D" parent="."]
 
-[node name="Background" type="ColorRect" parent="BG"]
+[node name="Background2" type="ColorRect" parent="BG"]
+visible = false
 margin_top = -200.0
 margin_right = 560.0
 margin_bottom = 480.0
 rect_pivot_offset = Vector2( 684.139, 807.989 )
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="BG"]
+margin_top = -275.0
+margin_right = 657.0
+margin_bottom = 550.0
+rect_scale = Vector2( 0.85, 0.9 )
+texture = ExtResource( 8 )
+stretch_mode = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -34,12 +47,12 @@ position = Vector2( 254.825, 349.136 )
 z_index = 1
 
 [node name="Enemy1" parent="Characters" instance=ExtResource( 3 )]
-position = Vector2( 280, -100 )
+position = Vector2( 280, -157.241 )
 collision_layer = 1
 collision_mask = 1
 
 [node name="Enemy2" parent="Characters" instance=ExtResource( 3 )]
-position = Vector2( 515.534, -100 )
+position = Vector2( 515.534, -157.241 )
 collision_layer = 1
 collision_mask = 1
 

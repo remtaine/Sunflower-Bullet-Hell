@@ -7,7 +7,7 @@ onready var bullet_resource = preload("res://src/bullets/BulletLite.tscn")
 onready var bullet_cd_timer = $Timers/BulletCD
 onready var bullet_recharge_timer = $Timers/BulletRecharge
 onready var bullet_spawn_point = $Addons/BulletSpawner
-onready var bullet_time_bar = $HUD/Control/ChargeBar
+onready var bullet_time_bar = $Bars/ChargeBar
 
 var slowed_down_time = 0.2
 var auto_shoot = false
@@ -17,6 +17,7 @@ var max_bullets = 8
 var is_bullet_time = false
 
 onready var bounding_rect = get_parent().get_parent().get_node("BG").get_node("Background")
+
 func _ready():
 	add_to_group("allies")
 	change_direction()
@@ -35,8 +36,8 @@ func _physics_process(delta):
 	else:
 		bullet_time_bar.value += 1
 	var leeway = 30
-	position.x = clamp(position.x, leeway, bounding_rect.margin_right-leeway)
-	position.y = clamp(position.y, leeway, bounding_rect.margin_bottom-leeway)
+	position.x = clamp(position.x, leeway, (bounding_rect.margin_right * 0.85)-leeway)
+	position.y = clamp(position.y, leeway, (bounding_rect.margin_bottom * 0.85)-leeway)
 	if Input.is_action_just_pressed("auto_shoot"):
 		auto_shoot = not auto_shoot
 	if Input.is_action_just_pressed("bullet_time"):
@@ -62,8 +63,8 @@ func shoot():
 		if bullet_recharge_timer.is_stopped():
 			bullet_recharge_timer.start()
 
-func bullet_time(is_on : bool):
-	get_tree().call_group("levels", "set_audio")
+func bullet_time(is_on : bool, speed : float = 1.0):
+	get_tree().call_group("levels", "set_audio", is_on, speed)
 	if is_on:
 		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, slowed_down_time, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
 		is_bullet_time = true
@@ -71,7 +72,17 @@ func bullet_time(is_on : bool):
 		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, 1.0, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
 		is_bullet_time = false
 	tween.start()
-	
+
+func die():
+	if visible:
+		bullet_time(false, 0.1)
+		var d = death_particle.instance()
+		objects_holder.add_child(d)
+		d.setup(global_position)
+		set_physics_process(false)
+		visible = false	
+		$Addons/Hurtbox.monitorable = false
+		
 func show_petals(n):
 #	pass
 	var petals = $Pivot/Petals

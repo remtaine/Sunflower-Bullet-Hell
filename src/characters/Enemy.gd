@@ -45,7 +45,6 @@ func in_position():
 
 func goal_position_direction():
 	var temp = (global_position.direction_to(goal_position))
-	print(temp)
 
 	return temp
 func damage(dmg = 1):

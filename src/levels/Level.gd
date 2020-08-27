@@ -24,13 +24,19 @@ func _unhandled_input(event):
 func _process(delta):
 	fps_label.text = "FPS: \n" + String(Engine.get_frames_per_second())
 	bullets_label.text = "Bullets: \n" + String($ObjectsHolder.get_child_count())
-func set_audio():
 	for sound in audio.get_children():
-		if audio.get_child(selected_audio).stream == sound.stream:
-			sound.get_node("Tween").interpolate_property(sound, "volume_db", sound.volume_db, 0.0, crossfade_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
-		else:
-			sound.get_node("Tween").interpolate_property(sound, "volume_db", sound.volume_db, -80.0, crossfade_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
+		print(sound.name + " " , sound.volume_db)
+func set_audio(turn_on : bool, speed = 1):
+	var a0 = audio.get_child(0) #ie normal
+	var a1 = audio.get_child(1) #ie bullet_time
+	if not turn_on:
+		a0.get_node("Tween").interpolate_property(a0, "volume_db", a0.volume_db, 0.0, crossfade_duration * speed,Tween.TRANS_LINEAR,Tween.EASE_IN)
+		a1.get_node("Tween").interpolate_property(a1, "volume_db", a1.volume_db, -80.0, crossfade_duration * speed,Tween.TRANS_LINEAR,Tween.EASE_IN)
+	else:
+		a0.get_node("Tween").interpolate_property(a0, "volume_db", a0.volume_db, -80.0, crossfade_duration * speed,Tween.TRANS_LINEAR,Tween.EASE_IN)
+		a1.get_node("Tween").interpolate_property(a1, "volume_db", a1.volume_db, -00.0, crossfade_duration * speed,Tween.TRANS_LINEAR,Tween.EASE_IN)
+		print("lezgo")
 	for sound in audio.get_children():
-		sound.get_node("Tween").start()	
-	selected_audio += 1
-	selected_audio = selected_audio % audio.get_child_count()
+		sound.get_node("Tween").start()
+		print("waat")
+		

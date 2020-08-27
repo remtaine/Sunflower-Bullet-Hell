@@ -20,7 +20,7 @@ angular_velocity = 20.0
 angular_velocity_random = 0.5
 linear_accel = 0.5
 linear_accel_random = 0.3
-scale_amount = 2.0
+scale_amount = 5.0
 color_ramp = SubResource( 1 )
 script = ExtResource( 1 )
 
