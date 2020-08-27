@@ -14,8 +14,11 @@ func _ready():
 	add_to_group("enemies")
 	character_type = "enemy"
 	change_direction()
-	goal_position = global_position + (Vector2.DOWN * 300) + (Vector2.LEFT * 100)
-
+	
+func setup(pos, goal_pos):
+	position = pos
+	goal_position = global_position + goal_pos
+	
 func change_direction(dir = "idle"):
 	sprite.play(dir)
 
@@ -51,6 +54,9 @@ func damage(dmg = 1):
 	if visibility.is_on_screen():
 		.damage()
 
-
+func die():
+	get_tree().call_group("frames", "update_score", 5000)
+	.die()
+	
 func _on_VisibilityNotifier2D_screen_exited():
 	position.y = -100

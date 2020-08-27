@@ -4,6 +4,7 @@ extends Node2D
 var menu_path = ""
 onready var fps_label = $HUD/Labels/FPSLabel
 onready var bullets_label = $HUD/Labels/BulletsLabel
+onready var wave_label = $HUD/Labels/WaveLabel
 
 onready var audio = $Audio
 var audios = []
@@ -24,8 +25,10 @@ func _unhandled_input(event):
 func _process(delta):
 	fps_label.text = "FPS: \n" + String(Engine.get_frames_per_second())
 	bullets_label.text = "Bullets: \n" + String($ObjectsHolder.get_child_count())
+	wave_label.text = "Wave: \n" + String($Characters.wave_number)
 	for sound in audio.get_children():
 		print(sound.name + " " , sound.volume_db)
+
 func set_audio(turn_on : bool, speed = 1):
 	var a0 = audio.get_child(0) #ie normal
 	var a1 = audio.get_child(1) #ie bullet_time

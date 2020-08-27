@@ -10,22 +10,22 @@
 animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "left",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "right",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
 "name": "up",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "left",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "right",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ) ],
@@ -52,16 +52,16 @@ frames = SubResource( 1 )
 [node name="CollisionShape2D" parent="." index="1"]
 scale = Vector2( 16.52, 18.56 )
 
-[node name="Moving" parent="States" index="1"]
-speed = 60
-
 [node name="Shooting" parent="States" index="2" instance=ExtResource( 5 )]
 
 [node name="Trail" parent="Particles" index="0"]
 visible = true
 position = Vector2( 0, -24.5407 )
+amount = 30
+lifetime = 1.5
 texture = null
-scale_amount = 2.0
+initial_velocity = 0.0
+scale_amount = 3.0
 color_ramp = SubResource( 2 )
 
 [node name="BulletSpawner" parent="Addons" index="0"]

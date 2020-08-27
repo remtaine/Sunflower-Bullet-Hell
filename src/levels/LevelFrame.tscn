@@ -37,9 +37,9 @@ position = Vector2( 200, 30 )
 
 [node name="LeftSide" type="VBoxContainer" parent="HUD"]
 margin_left = 13.5957
-margin_top = 195.615
+margin_top = 337.336
 margin_right = 194.596
-margin_bottom = 499.615
+margin_bottom = 641.336
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -134,3 +134,7 @@ margin_bottom = 347.0
 custom_fonts/font = SubResource( 3 )
 text = "Graze: 2"
 align = 1
+
+[node name="Addons" type="Node" parent="."]
+
+[node name="Tween" type="Tween" parent="Addons"]
