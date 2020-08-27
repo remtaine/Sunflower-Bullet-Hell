@@ -30,7 +30,6 @@ func set_audio():
 			sound.get_node("Tween").interpolate_property(sound, "volume_db", sound.volume_db, 0.0, crossfade_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
 		else:
 			sound.get_node("Tween").interpolate_property(sound, "volume_db", sound.volume_db, -80.0, crossfade_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
-		print("AUDIO NOW AT ", sound.volume_db)
 	for sound in audio.get_children():
 		sound.get_node("Tween").start()	
 	selected_audio += 1

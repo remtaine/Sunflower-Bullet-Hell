@@ -8,11 +8,13 @@ onready var bullet_cd_timer = $Timers/BulletCD
 onready var bullet_spawn_point = $Addons/BulletSpawner
 onready var visibility = $Addons/VisibilityNotifier2D
 onready var bullet_patterns = $Addons/BulletPatterns
+var goal_position = Vector2.ZERO
 
 func _ready():
 	add_to_group("enemies")
 	character_type = "enemy"
 	change_direction()
+	goal_position = global_position + (Vector2.DOWN * 300) + (Vector2.LEFT * 100)
 
 func change_direction(dir = "idle"):
 	sprite.play(dir)
@@ -20,7 +22,7 @@ func change_direction(dir = "idle"):
 func _physics_process(delta):
 	._physics_process(delta)
 	
-	if _state.inputs.is_shooting and bullet_cd_timer.is_stopped():
+	if _state.inputs.is_shooting and _state.state_name == "idle" and bullet_cd_timer.is_stopped():
 		bullet_patterns.shoot()
 		bullet_cd_timer.start()
 
@@ -38,8 +40,14 @@ func shoot():
 		bullet_cd_timer.start()
 
 func in_position():
-	return false
+	var temp = global_position.distance_to(goal_position) < 2
+	return temp
 
+func goal_position_direction():
+	var temp = (global_position.direction_to(goal_position))
+	print(temp)
+
+	return temp
 func damage(dmg = 1):
 	if visibility.is_on_screen():
 		.damage()

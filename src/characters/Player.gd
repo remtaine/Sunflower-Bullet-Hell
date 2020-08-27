@@ -7,10 +7,14 @@ onready var bullet_resource = preload("res://src/bullets/BulletLite.tscn")
 onready var bullet_cd_timer = $Timers/BulletCD
 onready var bullet_recharge_timer = $Timers/BulletRecharge
 onready var bullet_spawn_point = $Addons/BulletSpawner
+onready var bullet_time_bar = $HUD/Control/ChargeBar
+
+var slowed_down_time = 0.2
 var auto_shoot = false
 var time_shift_duration = 0.5
 var bullets_available = 8
 var max_bullets = 8
+var is_bullet_time = false
 
 onready var bounding_rect = get_parent().get_parent().get_node("BG").get_node("Background")
 func _ready():
@@ -23,19 +27,20 @@ func change_direction(dir = "idle"):
 
 func _physics_process(delta):
 	._physics_process(delta)
+	if is_bullet_time:
+		bullet_time_bar.value -= 2
+		if bullet_time_bar.value <= 0:
+			bullet_time_bar.value = 0
+			bullet_time(false)
+	else:
+		bullet_time_bar.value += 1
 	var leeway = 30
 	position.x = clamp(position.x, leeway, bounding_rect.margin_right-leeway)
 	position.y = clamp(position.y, leeway, bounding_rect.margin_bottom-leeway)
 	if Input.is_action_just_pressed("auto_shoot"):
 		auto_shoot = not auto_shoot
 	if Input.is_action_just_pressed("bullet_time"):
-		get_tree().call_group("levels", "set_audio")
-
-		if Engine.time_scale == 1:
-			tween.interpolate_property(Engine, "time_scale", Engine.time_scale, 0.2, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
-		else:
-			tween.interpolate_property(Engine, "time_scale", Engine.time_scale, 1.0, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
-		tween.start()
+		bullet_time(Engine.time_scale == 1 and bullet_time_bar.value > 0)
 	
 	#FOR SHOOTING
 	if (_state.inputs.is_shooting or auto_shoot) and bullet_cd_timer.is_stopped() and bullets_available > 0:
@@ -57,6 +62,16 @@ func shoot():
 		if bullet_recharge_timer.is_stopped():
 			bullet_recharge_timer.start()
 
+func bullet_time(is_on : bool):
+	get_tree().call_group("levels", "set_audio")
+	if is_on:
+		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, slowed_down_time, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
+		is_bullet_time = true
+	else:
+		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, 1.0, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
+		is_bullet_time = false
+	tween.start()
+	
 func show_petals(n):
 #	pass
 	var petals = $Pivot/Petals

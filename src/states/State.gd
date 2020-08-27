@@ -23,19 +23,18 @@ func get_raw_input() -> Dictionary:
 		"enemy":
 			inputs = {
 				is_moving = not owner.in_position(),
-				input_direction = Vector2.DOWN,
+				input_direction = owner.goal_position_direction(),
 				is_shooting = true,
 			}
-#		"bullet":
-#			inputs = {
-#				is_moving = true,
-#				input_direction = owner.direction,
-#				is_shooting = false,
-#			}
+
+			print(inputs)
 	return inputs
 	
 func interpret_inputs(input):
-	return "idle"
+	if input.is_moving:
+		return "moving"
+	else:
+		return "idle"
 
 func enter():
 	pass
