@@ -1,15 +1,135 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=2]
 [ext_resource path="res://fonts/Kenney Mini.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://sounds/music/1st Level/First Level Theme.wav" type="AudioStream" id=5]
-[ext_resource path="res://sounds/music/1st Level/First Level Theme In Bullet Time.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/music/1st Level/First Level Theme (OGG).ogg" type="AudioStream" id=5]
+[ext_resource path="res://sounds/music/1st Level/First Level Theme In Bullet Time (OGG).ogg" type="AudioStream" id=6]
 [ext_resource path="res://src/bullets/BulletPool.tscn" type="PackedScene" id=7]
 [ext_resource path="res://images/backgrounds/Sunflower_Bullet_Hell_Background_Level_1.png" type="Texture" id=8]
 [ext_resource path="res://src/spawners/EnemySpawner.gd" type="Script" id=9]
 
 [sub_resource type="DynamicFont" id=1]
+size = 64
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "appear"
+length = 4.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 189.46, 267.972 ), Vector2( 189.46, 195 ), Vector2( 189.46, 195 ), Vector2( 189.46, 132.452 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 184, 80 ), Vector2( 184, 80 ), Vector2( 184, 80 ), Vector2( 184, 80 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath("../../Characters")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ true ],
+"method": "set_process"
+} ]
+}
+tracks/5/type = "method"
+tracks/5/path = NodePath("../../Characters/Player")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ true ],
+"method": "can_shoot"
+} ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "appear fast"
+length = 0.3
+step = 1.0
+tracks/0/type = "method"
+tracks/0/path = NodePath("../../Characters")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.0700001 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ true ],
+"method": "set_process"
+} ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../../Characters/Player")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.0700001 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ true ],
+"method": "can_shoot"
+} ]
+}
+
+[sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 4 )
 
@@ -44,28 +164,48 @@ __meta__ = {
 script = ExtResource( 9 )
 
 [node name="Player" parent="Characters" instance=ExtResource( 1 )]
-position = Vector2( 254.825, 349.136 )
+position = Vector2( 290.05, 350.99 )
 z_index = 1
 
-[node name="ObjectsHolder" type="Node2D" parent="."]
+[node name="BulletPool" parent="Characters" instance=ExtResource( 7 )]
 
-[node name="BulletPool" parent="ObjectsHolder" instance=ExtResource( 7 )]
+[node name="ParticlesPool" type="Node2D" parent="Characters"]
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="Node2D" parent="."]
+z_index = 50
+
+[node name="StartLabel" type="Label" parent="HUD"]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 189.46
+margin_top = 267.972
+margin_right = 373.46
+margin_bottom = 347.972
+rect_pivot_offset = Vector2( 7.63635, 159.971 )
+custom_fonts/font = SubResource( 1 )
+text = "Start"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/StartLabel"]
+autoplay = "appear"
+anims/appear = SubResource( 2 )
+"anims/appear fast" = SubResource( 4 )
 
 [node name="Labels" type="VBoxContainer" parent="HUD"]
-margin_left = 37.5353
-margin_right = 165.535
-margin_bottom = 170.0
+margin_left = -154.847
+margin_right = -26.8469
+margin_bottom = 257.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="FPSLabel" type="Label" parent="HUD/Labels"]
-margin_right = 127.0
+margin_right = 128.0
 margin_bottom = 83.0
 rect_pivot_offset = Vector2( 7.63635, 159.971 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "FPS
 60"
 align = 1
@@ -75,10 +215,10 @@ __meta__ = {
 
 [node name="BulletsLabel" type="Label" parent="HUD/Labels"]
 margin_top = 87.0
-margin_right = 127.0
+margin_right = 128.0
 margin_bottom = 170.0
 rect_pivot_offset = Vector2( 7.63635, 159.971 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Bullets
 100"
 align = 1
@@ -88,10 +228,10 @@ __meta__ = {
 
 [node name="WaveLabel" type="Label" parent="HUD/Labels"]
 margin_top = 174.0
-margin_right = 127.0
+margin_right = 128.0
 margin_bottom = 257.0
 rect_pivot_offset = Vector2( 7.63635, 159.971 )
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "Wave #
 100"
 align = 1
@@ -103,6 +243,7 @@ __meta__ = {
 
 [node name="Normal" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 5 )
+volume_db = -10.0
 autoplay = true
 
 [node name="Tween" type="Tween" parent="Audio/Normal"]

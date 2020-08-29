@@ -1,36 +1,41 @@
 class_name BulletLite
 extends Hitbox
 
-var is_active : bool = false
-var velocity : Vector2 = Vector2.ZERO
-var direction : Vector2 = Vector2.ZERO
-export var speed = 120
+var velocity := Vector2.ZERO
+var direction := Vector2.ZERO
+var linear_accel := 0.0
+var curve_accel := Vector2.ZERO
+export var speed = 150
 onready var sprite = $Sprite
+signal deactivated(bullet)
 
 func _ready():
-	deactivate()
-	
-func setup(pos, dir, ct, spd = speed):
+	activate(false)
+	connect("deactivated",get_parent(),"return_free_bullet")
+
+func setup(pos, dir, ct, l_accel := 0.0, c_accel := Vector2.ZERO, spd := speed):
 	global_position = pos
 	direction = dir
 	character_type = ct
 	sprite.play(character_type)
 	velocity = direction * speed
-	#todo add weakref
+	linear_accel = l_accel
+	curve_accel = c_accel
 	activate()
 
 func _process(delta):
+	velocity += linear_accel * direction
+	direction += curve_accel * delta
 	position += velocity * delta
 	#TODO add movement
 
-func activate():
-	is_active = true
-	set_process(is_active)
-	
-func deactivate():
-	is_active = false
-	set_process(is_active)
-
+func activate(turn_on := true):
+	visible = turn_on
+	set_process(visible)
+	if not turn_on:
+		emit_signal("deactivated", self)
+#		queue_free()
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
+#	activate(false)

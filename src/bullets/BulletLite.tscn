@@ -20,4 +20,6 @@ scale = Vector2( 1.64, 1.64 )
 shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
+position = Vector2( 0.776402, -2.09629 )
+scale = Vector2( 1.35715, 1.45808 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

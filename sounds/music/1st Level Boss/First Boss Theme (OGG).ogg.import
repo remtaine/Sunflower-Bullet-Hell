@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/First Boss Theme (OGG).ogg-fd177847b15e9c7365edba76feba06ed.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/1st Level Boss/First Boss Theme (OGG).ogg"
+dest_files=[ "res://.import/First Boss Theme (OGG).ogg-fd177847b15e9c7365edba76feba06ed.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

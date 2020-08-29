@@ -5,16 +5,32 @@ var is_flipped : bool = false
 var _state = null
 var possible_states : Dictionary = {}
 onready var sprite = $Pivot/Sprite
-onready var objects_holder = get_parent().get_parent().get_node("ObjectsHolder")
+onready var bullets_pool = get_parent().get_node("BulletPool")
+onready var particles_pool = get_parent().get_node("ParticlesPool")
 onready var states_holder = $States
 onready var state_label = $Addons/StateLabel
 onready var stats = $Stat
 
+onready var audio_shoot = $Audio/Shoot
+onready var audio_hurt = $Audio/Hurt
+onready var audio_bullet_time = $Audio/BulletTime
+
+onready var bullet_cd_timer = $Timers/BulletCD
+onready var bullet_spawn_point = $Addons/BulletSpawner
+onready var bullet_resource = preload("res://src/bullets/BulletLite.tscn")
 onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
 export var character_type = "player"
+
 var collision = null
 var velocity : Vector2 = Vector2.ZERO
 var direction : Vector2 = Vector2.ZERO
+
+var target = null
+
+var default_shot_direction := Vector2.UP
+var move_style := 1
+var shoot_style := 1
+var shot_clock := 0.0
 
 func _ready():
 	if states_holder != null:
@@ -63,8 +79,9 @@ func damage(dmg = 1):
 		#TODO do hurt stuff
 		
 func die():
+	audio_hurt.play()
 	var d = death_particle.instance()
-	objects_holder.add_child(d)
+	particles_pool.add_child(d)
 	d.setup(global_position)
 	
 	queue_free()
@@ -74,3 +91,28 @@ func get_stat(stat_name):
 
 func update_stat(stat_name):
 	return stats.get(stat_name)
+	
+func shoot():
+	audio_shoot.play()
+	
+#	bullets_pool.shoot(character_type, bullet_spawn_point.global_position, shoot_style)
+#	get_tree().call_group("bullet_pools", "shoot", character_type, bullet_spawn_point.global_position, shoot_style)
+#	var bullet
+#	match character_type:
+#		"enemy":
+#
+#		"player":
+#			match shoot_style:
+#				1:
+#					#checks bullet pool for free bullet
+#					bullet = bullet_resource.instance()
+#					bullets_pool.add_child(bullet)
+#					#REPLACE THIS ^
+#
+#					#initializes that
+#					bullet.setup(bullet_spawn_point.global_position, default_shot_direction, character_type)
+#					#REPLACE THIS ^
+#				2:
+#					pass 
+#
+	bullet_cd_timer.start()	
