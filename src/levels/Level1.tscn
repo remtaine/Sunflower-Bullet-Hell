@@ -96,7 +96,7 @@ tracks/5/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "appear fast"
 length = 0.3
 step = 1.0
@@ -129,7 +129,7 @@ tracks/1/keys = {
 } ]
 }
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=4]
 size = 32
 font_data = ExtResource( 4 )
 
@@ -189,9 +189,9 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/StartLabel"]
-autoplay = "appear"
+autoplay = "appear fast"
 anims/appear = SubResource( 2 )
-"anims/appear fast" = SubResource( 4 )
+"anims/appear fast" = SubResource( 3 )
 
 [node name="Labels" type="VBoxContainer" parent="HUD"]
 margin_left = -154.847
@@ -205,7 +205,7 @@ __meta__ = {
 margin_right = 128.0
 margin_bottom = 83.0
 rect_pivot_offset = Vector2( 7.63635, 159.971 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "FPS
 60"
 align = 1
@@ -218,7 +218,7 @@ margin_top = 87.0
 margin_right = 128.0
 margin_bottom = 170.0
 rect_pivot_offset = Vector2( 7.63635, 159.971 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Bullets
 100"
 align = 1
@@ -231,7 +231,7 @@ margin_top = 174.0
 margin_right = 128.0
 margin_bottom = 257.0
 rect_pivot_offset = Vector2( 7.63635, 159.971 )
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 4 )
 text = "Wave #
 100"
 align = 1

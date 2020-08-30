@@ -56,6 +56,9 @@ scale = Vector2( 16.52, 18.56 )
 
 [node name="Shooting" parent="States" index="2" instance=ExtResource( 5 )]
 
+[node name="BulletCD" parent="Timers" index="0"]
+wait_time = 0.1
+
 [node name="Trail" parent="Particles" index="0"]
 visible = true
 position = Vector2( 0, -24.5407 )

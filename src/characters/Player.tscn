@@ -199,9 +199,6 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="Addons"]
 
-[node name="Hurtbox" parent="Addons" instance=ExtResource( 6 )]
-scale = Vector2( 0.12377, 0.119998 )
-
 [node name="Stem" type="Line2D" parent="Addons"]
 visible = false
 position = Vector2( 4.94081, 27.3021 )
@@ -213,6 +210,11 @@ begin_cap_mode = 2
 end_cap_mode = 2
 round_precision = 200
 antialiased = true
+
+[node name="Hurtbox" parent="Addons" instance=ExtResource( 6 )]
+position = Vector2( 3.19421, -2.83139 )
+scale = Vector2( 0.12377, 0.119998 )
+z_index = 10
 
 [node name="Bars" type="Node" parent="."]
 

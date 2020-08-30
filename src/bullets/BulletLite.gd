@@ -4,7 +4,7 @@ extends Hitbox
 var velocity := Vector2.ZERO
 var direction := Vector2.ZERO
 var linear_accel := 0.0
-var curve_accel := Vector2.ZERO
+var curve_accel := 0.0
 export var speed = 150
 onready var sprite = $Sprite
 signal deactivated(bullet)
@@ -13,7 +13,7 @@ func _ready():
 	activate(false)
 	connect("deactivated",get_parent(),"return_free_bullet")
 
-func setup(pos, dir, ct, l_accel := 0.0, c_accel := Vector2.ZERO, spd := speed):
+func setup(pos, dir, ct, l_accel := 0.0, c_accel := 0.0, spd := speed):
 	global_position = pos
 	direction = dir
 	character_type = ct
@@ -24,8 +24,8 @@ func setup(pos, dir, ct, l_accel := 0.0, c_accel := Vector2.ZERO, spd := speed):
 	activate()
 
 func _process(delta):
+	direction = direction.rotated(curve_accel/PI)
 	velocity += linear_accel * direction
-	direction += curve_accel * delta
 	position += velocity * delta
 	#TODO add movement
 
