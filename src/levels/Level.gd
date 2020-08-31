@@ -18,7 +18,7 @@ func _ready():
 	add_to_group("levels")
 	for sound in audio.get_children():
 		audios.append(sound)
-	GameInfo.level_borders = Rect2($BG/ParallaxLayer/Background.rect_position, $BG/ParallaxLayer/Background.rect_size)
+	GameInfo.level_borders = Rect2($BG/Background.rect_position, $BG/Background.rect_size)
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("reset"):

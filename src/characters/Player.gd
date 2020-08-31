@@ -14,7 +14,7 @@ var bullets_left = 8 setget set_bullets_left
 var max_bullets = 8
 var is_bullet_time = false
 
-onready var bounding_rect = get_parent().get_parent().get_node("BG").get_node("ParallaxLayer").get_node("Background")
+onready var bounding_rect = get_parent().get_parent().get_node("BG").get_node("Background")
 
 
 func _ready():
@@ -37,8 +37,8 @@ func _physics_process(delta):
 	else:
 		bullet_time_bar.value += 1
 	var leeway = 30
-	position.x = clamp(position.x, leeway, (bounding_rect.margin_right * 0.85)-leeway)
-	position.y = clamp(position.y, leeway, (bounding_rect.margin_bottom * 0.85)-leeway)
+	position.x = clamp(position.x, leeway, GameInfo.level_borders.end.x - leeway)
+	position.y = clamp(position.y, leeway, GameInfo.level_borders.end.y - leeway)
 	if Input.is_action_just_pressed("auto_shoot"):
 		auto_shoot = not auto_shoot
 	if Input.is_action_just_pressed("bullet_time"):
