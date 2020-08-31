@@ -3,7 +3,6 @@ extends State
 
 var last_direction : Vector2 = Vector2.ZERO
 
-onready var tween = $Tween
 
 func _ready():
 	state_name = "shooting"

@@ -48,7 +48,7 @@ visible = false
 position = Vector2( -0.152756, -5.04102 )
 frames = SubResource( 1 )
 
-[node name="ChargeBar" parent="Pivot" index="2"]
+[node name="ChargeBar" parent="Pivot" index="3"]
 visible = false
 
 [node name="CollisionShape2D" parent="." index="1"]
@@ -57,7 +57,7 @@ scale = Vector2( 16.52, 18.56 )
 [node name="Shooting" parent="States" index="2" instance=ExtResource( 5 )]
 
 [node name="BulletCD" parent="Timers" index="0"]
-wait_time = 0.1
+wait_time = 0.3
 
 [node name="Trail" parent="Particles" index="0"]
 visible = true
@@ -76,11 +76,11 @@ position = Vector2( 0, -11.0307 )
 margin_top = -42.2826
 margin_bottom = -22.2826
 
-[node name="Hurtbox" parent="Addons" index="3"]
-scale = Vector2( 1.68377, 1.64 )
-
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="Addons" index="4"]
 rect = Rect2( -10, 20, 20, 20 )
+
+[node name="Hurtbox" parent="Addons" index="5"]
+scale = Vector2( 1.68377, 1.64 )
 [connection signal="timeout" from="Timers/BulletCD" to="." method="_on_BulletCD_timeout"]
 [connection signal="screen_exited" from="Addons/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 

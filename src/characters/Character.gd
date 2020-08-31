@@ -5,11 +5,10 @@ var is_flipped : bool = false
 var _state = null
 var possible_states : Dictionary = {}
 onready var sprite = $Pivot/Sprite
-onready var bullets_pool = get_parent().get_node("BulletPool")
-onready var particles_pool = get_parent().get_node("ParticlesPool")
+onready var bullets_pool = get_parent().get_parent().get_node("BulletPool")
+onready var particles_pool = get_parent().get_parent().get_node("ParticlesPool")
 onready var states_holder = $States
 onready var state_label = $Addons/StateLabel
-onready var stats = $Stat
 
 onready var audio_shoot = $Audio/Shoot
 onready var audio_hurt = $Audio/Hurt
@@ -19,7 +18,7 @@ onready var bullet_cd_timer = $Timers/BulletCD
 onready var bullet_spawn_point = $Addons/BulletSpawner
 onready var bullet_resource = preload("res://src/bullets/BulletLite.tscn")
 onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
-export var character_type = "player"
+export (String, "player", "enemy") var character_type = "player"
 
 var collision = null
 var velocity : Vector2 = Vector2.ZERO
@@ -85,12 +84,6 @@ func die():
 	d.setup(global_position)
 	
 	queue_free()
-
-func get_stat(stat_name):
-	return stats.get(stat_name)
-
-func update_stat(stat_name):
-	return stats.get(stat_name)
 	
 func shoot():
 	audio_shoot.play()

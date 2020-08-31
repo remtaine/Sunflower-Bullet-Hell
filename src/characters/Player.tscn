@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://images/particles/grey_circle.png" type="Texture" id=1]
 [ext_resource path="res://src/characters/Player.gd" type="Script" id=2]
@@ -8,8 +8,7 @@
 [ext_resource path="res://src/addons/Hurtbox.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=7]
 [ext_resource path="res://images/characters/player/sunflower face.png" type="Texture" id=8]
-[ext_resource path="res://src/stats/Health.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/stats/Stats.gd" type="Script" id=10]
+[ext_resource path="res://images/HUD/white_square.png" type="Texture" id=9]
 [ext_resource path="res://images/particles/radial circle.png" type="Texture" id=11]
 [ext_resource path="res://images/characters/player/sunflower petal bullet.png" type="Texture" id=12]
 [ext_resource path="res://sounds/sfx/Player Shoot.wav" type="AudioStream" id=13]
@@ -61,7 +60,7 @@ collision_mask = 25
 script = ExtResource( 2 )
 
 [node name="Pivot" type="Position2D" parent="."]
-position = Vector2( 0, -4.32698 )
+position = Vector2( -2.79061, -2.10893 )
 
 [node name="Petals" type="Node2D" parent="Pivot"]
 z_index = 2
@@ -115,9 +114,12 @@ texture = ExtResource( 12 )
 
 [node name="Sprite" type="AnimatedSprite" parent="Pivot"]
 scale = Vector2( 0.65, 0.65 )
-z_index = 1
 frames = SubResource( 1 )
 animation = "idle"
+
+[node name="WhiteSquare" type="Sprite" parent="Pivot"]
+position = Vector2( 2.79061, 2.10893 )
+texture = ExtResource( 9 )
 
 [node name="ChargeBar" type="TextureProgress" parent="Pivot"]
 self_modulate = Color( 1, 1, 1, 0.392157 )
@@ -174,11 +176,6 @@ initial_velocity = 200.0
 scale_amount = 0.7
 color_ramp = SubResource( 3 )
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource( 10 )
-
-[node name="Health" parent="Stats" instance=ExtResource( 9 )]
-
 [node name="Addons" type="Node2D" parent="."]
 
 [node name="BulletSpawner" parent="Addons" instance=ExtResource( 7 )]
@@ -212,7 +209,7 @@ round_precision = 200
 antialiased = true
 
 [node name="Hurtbox" parent="Addons" instance=ExtResource( 6 )]
-position = Vector2( 3.19421, -2.83139 )
+position = Vector2( 0.181698, -0.782875 )
 scale = Vector2( 0.12377, 0.119998 )
 z_index = 10
 

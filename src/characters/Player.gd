@@ -14,7 +14,7 @@ var bullets_left = 8 setget set_bullets_left
 var max_bullets = 8
 var is_bullet_time = false
 
-onready var bounding_rect = get_parent().get_parent().get_node("BG").get_node("Background")
+onready var bounding_rect = get_parent().get_parent().get_node("BG").get_node("ParallaxLayer").get_node("Background")
 
 
 func _ready():

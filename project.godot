@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BulletPool",
 "language": "GDScript",
-"path": "res://src/bullets/BulletPool.gd"
+"path": "res://src/bullets/BulletPoolv2.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Character",

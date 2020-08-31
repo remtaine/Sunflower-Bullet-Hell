@@ -18,6 +18,7 @@ func _ready():
 	add_to_group("levels")
 	for sound in audio.get_children():
 		audios.append(sound)
+	GameInfo.level_borders = Rect2($BG/ParallaxLayer/Background.rect_position, $BG/ParallaxLayer/Background.rect_size)
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("reset"):
@@ -27,7 +28,7 @@ func _unhandled_input(event):
 
 func _process(delta):
 	fps_label.text = "FPS: \n" + String(Engine.get_frames_per_second())
-	var bullet_pool = $Characters/BulletPool
+	var bullet_pool = $BulletPool
 	
 	bullets_label.text = "Bullets: \n" + String(bullet_pool.get_child_count())#String(bullet_pool.get_child_count() - bullet_pool.free_bullet_pool.size())
 	wave_label.text = "Wave: \n" + String($Characters.wave_number)

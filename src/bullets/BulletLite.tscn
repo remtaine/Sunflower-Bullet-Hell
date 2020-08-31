@@ -8,6 +8,7 @@
 
 [node name="BulletLite" instance=ExtResource( 3 )]
 scale = Vector2( 0.7, 0.7 )
+z_index = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="." index="0"]

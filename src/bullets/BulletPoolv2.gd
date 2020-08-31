@@ -1,69 +1,74 @@
+class_name BulletPool
 extends Node2D
 
-# This demo is an example of controling a high number of 2D objects with logic and collision without using scene nodes.
-# This technique is a lot more efficient than using instancing and nodes, but requires more programming and is less visual
+onready var player_texture = preload("res://images/characters/player/sunflower petal bullet.png")
+onready var enemy_texture = preload("res://images/bullets/green bullet.png")
 
-# Member variables
-const BULLET_COUNT = 500
-const SPEED_MIN = 20
-const SPEED_MAX = 50
+const BULLET_SPEED = 100
 
-var bullets = []
-var shape
-var bullet_texture = preload("res://images/characters/player/sunflower petal bullet.png")
+var bullets := []
+var bullets_data := []
 
-# Inner classes
-class Bullet:
-	var pos = Vector2()
-	var speed = 1.0
-	var body = RID()
+var bullets_removed := 0
 
-
-func _draw():
-	var tofs = -bullet_texture.get_size() * 0.5
-	for b in bullets:
-		draw_texture(bullet_texture, b.pos + tofs)
-
-
-func _process(delta):
-	var width = get_viewport_rect().size.x*2.0
-	var mat = Matrix32()
-	for b in bullets:
-		b.pos.x -= b.speed*delta
-		if (b.pos.x < -30):
-			b.pos.x += width
-		mat.o = b.pos
-		
-		Physics2DServer.body_set_state(b.body, Physics2DServer.BODY_STATE_TRANSFORM, mat)
-	
-	update()
-
+var bullet_textures : Dictionary
 
 func _ready():
-	shape = Physics2DServer.shape_create(Physics2DServer.SHAPE_CIRCLE)
-	Physics2DServer.shape_set_data(shape, 8) # Radius
-	
-	for i in range(BULLET_COUNT):
-		var b = Bullet.new()
-		b.speed = rand_range(SPEED_MIN, SPEED_MAX)
-		b.body = Physics2DServer.body_create(Physics2DServer.BODY_MODE_KINEMATIC)
-		Physics2DServer.body_set_space(b.body, get_world_2d().get_space())
-		Physics2DServer.body_add_shape(b.body, shape)
-		
-		b.pos = Vector2(get_viewport_rect().size * Vector2(randf()*2.0, randf())) # Twice as long
-		b.pos.x += get_viewport_rect().size.x # Start outside
-		var mat = Matrix32()
-		mat.o = b.pos
-		Physics2DServer.body_set_state(b.body, Physics2DServer.BODY_STATE_TRANSFORM, mat)
-		
-		bullets.append(b)
-	
-	set_process(true)
+	bullet_textures = {
+	"player": player_texture,
+	"enemy": enemy_texture
+}
 
+func _physics_process(delta):
+	bullets_removed = 0
+	if bullets.size() <= 0:
+		return
+	for index in range (bullets.size()):
+		var i = index - bullets_removed
+		var bullet = bullets[i]
+		var bullet_data = bullets_data[i]
+		
+		#move
+		bullet_data["direction"] = bullet_data["direction"].rotated(bullet_data["curved_accel"]/PI)
+		bullet_data["velocity"] += bullet_data["linear_accel"] * bullet_data["direction"]
+		bullet.position += bullet_data["velocity"] * delta
+		
+		#check collision
+		for character in get_parent().get_node("Characters").get_children():
+				if bullet.position.distance_to(character.position) < 5: #ie with collisions
+					if bullet_data["character_type"] != character.character_type and character.visible:
+						free_bullet(i)
+						character.die()
 
-func _exit_tree():
-	for b in bullets:
-		Physics2DServer.free_rid(b.body)
+		#check if offscreen
+		if bullet.position.x < 0 or bullet.position.x > 570: #ie offscreen
+			free_bullet(i)
+		elif bullet.position.y < -40 or bullet.position.y > 480: #ie offscreen
+#		elif bullet.position.y < GameInfo.level_borders.position.y or bullet.position.y > 540: #ie offscreen
+			free_bullet(i)
+
+func free_bullet(i : int):
+	var bullet = bullets[i]
+	bullets.remove(i)
+	bullets_data.remove(i)
+	bullets_removed += 1
+	bullet.queue_free()
 	
-	Physics2DServer.free_rid(shape)
-	bullets.clear()
+func shoot(pos : Vector2, dir :Vector2, ct : String, l_accel := 0.0, c_accel := 0.0, spd := BULLET_SPEED, sz := 0.5):
+	var sprite = Sprite.new()
+	sprite.scale *= sz
+	sprite.texture = bullet_textures[ct]
+	sprite.position = to_local(pos)
+	print ("Position: ", pos, "vs sprite pos: ", sprite.position)
+	bullets_data.push_back({
+		"direction": dir,
+		"linear_accel": l_accel,
+		"curved_accel": c_accel,
+		"velocity": spd * dir,
+		"size": sz,
+		"character_type": ct
+	})
+	bullets.push_back(sprite)
+	sprite.visible = true
+	add_child(sprite)
+	

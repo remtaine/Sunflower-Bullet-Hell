@@ -8,7 +8,7 @@ func _ready():
 	set_process(false)
 	
 func _process(delta):
-	if get_child_count() == 3 and get_child(0).visible:
+	if get_child_count() == 1 and get_child(0).visible:
 		spawn_enemies()
 
 func spawn_enemies():
@@ -24,5 +24,5 @@ func spawn_enemies():
 		randomize()
 		var s_style = ((randi() % 3 + wave_number/2) % 12) + 1
 		var wait_multipler : float = 1.0- (floor(wave_number/3.0) * 0.1)
-		wait_multipler = max(wait_multipler, 0.25)
+		wait_multipler = max(wait_multipler, 0.05)
 		enemy.setup(Vector2(x,y), Vector2(0, randi() % 75 + 175), s_style, wait_multipler)
