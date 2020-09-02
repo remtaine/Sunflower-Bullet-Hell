@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/green bullet.png-bbab87571c442e4728259e76be429d01.stex"
+path="res://.import/Bird 3.png-a7c02ec9978bba695b353ef1fa7c99d6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/bullets/green bullet.png"
-dest_files=[ "res://.import/green bullet.png-bbab87571c442e4728259e76be429d01.stex" ]
+source_file="res://images/characters/enemies/birds/Bird 3.png"
+dest_files=[ "res://.import/Bird 3.png-a7c02ec9978bba695b353ef1fa7c99d6.stex" ]
 
 [params]
 

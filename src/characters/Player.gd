@@ -37,8 +37,9 @@ func _physics_process(delta):
 	else:
 		bullet_time_bar.value += 1
 	var leeway = 30
-	position.x = clamp(position.x, leeway, GameInfo.level_borders.end.x - leeway)
-	position.y = clamp(position.y, leeway, GameInfo.level_borders.end.y - leeway)
+#	position.x = clamp(position.x, leeway, GameInfo.level_borders.end.x - leeway)
+#	position.y = clamp(position.y, leeway, GameInfo.level_borders.end.y - leeway)
+	
 	if Input.is_action_just_pressed("auto_shoot"):
 		auto_shoot = not auto_shoot
 	if Input.is_action_just_pressed("bullet_time"):

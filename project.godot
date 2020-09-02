@@ -22,7 +22,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BulletPool",
 "language": "GDScript",
-"path": "res://src/bullets/BulletPoolv2.gd"
+"path": "res://src/bullets/BulletPool.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Character",
@@ -123,7 +123,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Bullet Hell"
-run/main_scene="res://src/levels/LevelFrame.tscn"
+run/main_scene="res://src/levels/Level1.tscn"
 config/icon="res://images/characters/player/old/playerShip1_red.png"
 
 [autoload]

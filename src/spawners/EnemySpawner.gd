@@ -17,7 +17,7 @@ func spawn_enemies():
 	var num =  1 + floor(wave_number/3)
 	randomize()
 	for i in range (num):
-		var x = randi() % 450 + 50
+		var x = 200 + randi() % 450 + 50
 		var y = randi() % 100 - 150 #-150 to -50 is like 0 to 100 - 150
 		var enemy = enemy_resource.instance()
 		add_child(enemy)

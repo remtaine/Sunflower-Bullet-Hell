@@ -1,12 +1,18 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/enemies/enemyBlue4.png" type="Texture" id=2]
 [ext_resource path="res://src/characters/Enemy.gd" type="Script" id=3]
+[ext_resource path="res://images/characters/enemies/rockets/Space Ship 2.png" type="Texture" id=4]
 [ext_resource path="res://src/states/Enemy Only/Shooting.tscn" type="PackedScene" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "left",
@@ -22,12 +28,7 @@ animations = [ {
 "name": "up",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "down",
 "speed": 5.0
@@ -46,6 +47,7 @@ visible = false
 
 [node name="Sprite" parent="Pivot" index="1"]
 position = Vector2( -0.152756, -5.04102 )
+scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
 
 [node name="ChargeBar" parent="Pivot" index="3"]
@@ -61,7 +63,8 @@ wait_time = 0.3
 
 [node name="Trail" parent="Particles" index="0"]
 visible = true
-position = Vector2( 0, -24.5407 )
+modulate = Color( 0.905882, 0.380392, 0.380392, 1 )
+position = Vector2( -1.87589, -37.5283 )
 amount = 30
 lifetime = 1.5
 texture = null
@@ -80,7 +83,11 @@ margin_bottom = -22.2826
 rect = Rect2( -10, 20, 20, 20 )
 
 [node name="Hurtbox" parent="Addons" index="5"]
-scale = Vector2( 1.68377, 1.64 )
+position = Vector2( -4.4699, 5.96195 )
+scale = Vector2( 1.40377, 2.88 )
+
+[node name="Camera2D" parent="Addons" index="6"]
+current = false
 [connection signal="timeout" from="Timers/BulletCD" to="." method="_on_BulletCD_timeout"]
 [connection signal="screen_exited" from="Addons/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 

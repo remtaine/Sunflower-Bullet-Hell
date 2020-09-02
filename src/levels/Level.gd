@@ -18,8 +18,8 @@ func _ready():
 	add_to_group("levels")
 	for sound in audio.get_children():
 		audios.append(sound)
-	GameInfo.level_borders = Rect2($BG/Background.rect_position, $BG/Background.rect_size)
-	
+#	GameInfo.level_borders = Rect2($BG/Background.rect_position, $BG/Background.rect_size)
+	print(GameInfo.level_borders)
 func _unhandled_input(event):
 	if event.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
@@ -30,8 +30,8 @@ func _process(delta):
 	fps_label.text = "FPS: \n" + String(Engine.get_frames_per_second())
 	var bullet_pool = $BulletPool
 	
-	bullets_label.text = "Bullets: \n" + String(bullet_pool.get_child_count())#String(bullet_pool.get_child_count() - bullet_pool.free_bullet_pool.size())
-	wave_label.text = "Wave: \n" + String($Characters.wave_number)
+	bullets_label.text = "BULLETS: \n" + String(bullet_pool.get_child_count())#String(bullet_pool.get_child_count() - bullet_pool.free_bullet_pool.size())
+	wave_label.text = "WAVE: \n" + String($Characters.wave_number)
 
 func set_audio(turn_on : bool, speed = 1):
 	var a0 = audio.get_child(0) #ie normal

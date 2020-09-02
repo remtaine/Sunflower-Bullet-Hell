@@ -19,6 +19,11 @@
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
 "name": "left",
 "speed": 5.0
 }, {
@@ -30,11 +35,6 @@ animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "up",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
@@ -118,7 +118,8 @@ frames = SubResource( 1 )
 animation = "idle"
 
 [node name="WhiteSquare" type="Sprite" parent="Pivot"]
-position = Vector2( 2.79061, 2.10893 )
+visible = false
+z_index = 100
 texture = ExtResource( 9 )
 
 [node name="ChargeBar" type="TextureProgress" parent="Pivot"]

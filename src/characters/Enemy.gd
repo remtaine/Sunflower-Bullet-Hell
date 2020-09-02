@@ -70,7 +70,7 @@ func _on_BulletCD_timeout():
 
 func shoot():
 	.shoot()
-#	shoot_style = 8
+#	shoot_style = 10
 	var bullet 
 	var target_direction = global_position.direction_to(target.global_position)
 	match shoot_style: #bullet.setup(pos, dir, ct, l_accel := Vector2.ZERO, c_accel := Vector2.ZERO, spd := speed)

@@ -13,7 +13,7 @@ func _ready():
 	shown_score = score
 	
 func _process(delta):
-	score_label.text = "Score: \n" + String(int(shown_score))
+	score_label.text = "SCORE: \n" + String(int(shown_score))
 
 func update_score(scr):
 	score += scr

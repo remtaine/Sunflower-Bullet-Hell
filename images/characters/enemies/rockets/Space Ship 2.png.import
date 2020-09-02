@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/laserRed08 edited1.png-0c87adb371c8d3771aa012b30f83f62d.stex"
+path="res://.import/Space Ship 2.png-fbb9c9056307e1b9ab0a5a16516f592f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/bullets/laserRed08 edited1.png"
-dest_files=[ "res://.import/laserRed08 edited1.png-0c87adb371c8d3771aa012b30f83f62d.stex" ]
+source_file="res://images/characters/enemies/rockets/Space Ship 2.png"
+dest_files=[ "res://.import/Space Ship 2.png-fbb9c9056307e1b9ab0a5a16516f592f.stex" ]
 
 [params]
 
