@@ -8,11 +8,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "idle",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "left",
@@ -26,6 +21,11 @@ animations = [ {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "up",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -73,7 +73,7 @@ scale_amount = 3.0
 color_ramp = SubResource( 2 )
 
 [node name="BulletSpawner" parent="Addons" index="0"]
-position = Vector2( 0, -11.0307 )
+position = Vector2( -4.49927, 46.41 )
 
 [node name="StateLabel" parent="Addons" index="1"]
 margin_top = -42.2826
@@ -85,9 +85,6 @@ rect = Rect2( -10, 20, 20, 20 )
 [node name="Hurtbox" parent="Addons" index="5"]
 position = Vector2( -4.4699, 5.96195 )
 scale = Vector2( 1.40377, 2.88 )
-
-[node name="Camera2D" parent="Addons" index="6"]
-current = false
 [connection signal="timeout" from="Timers/BulletCD" to="." method="_on_BulletCD_timeout"]
 [connection signal="screen_exited" from="Addons/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 

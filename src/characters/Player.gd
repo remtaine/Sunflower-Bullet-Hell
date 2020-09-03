@@ -27,8 +27,10 @@ func _ready():
 func change_direction(dir = "idle"):
 	sprite.play(dir)
 
+
 func _physics_process(delta):
 	._physics_process(delta)
+	
 	if is_bullet_time:
 		bullet_time_bar.value -= 2
 		if bullet_time_bar.value <= 0:

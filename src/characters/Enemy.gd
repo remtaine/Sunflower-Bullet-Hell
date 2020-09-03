@@ -22,6 +22,8 @@ func setup(pos : Vector2, goal_pos : Vector2, s_style := 1, shot_cd := 1.0):
 func change_direction(dir = "idle"):
 	sprite.play(dir)
 
+
+
 func _physics_process(delta):
 	._physics_process(delta)
 	
@@ -60,10 +62,6 @@ func damage(dmg = 1):
 func die():
 	get_tree().call_group("frames", "update_score", 5000)
 	.die()
-	
-func _on_VisibilityNotifier2D_screen_exited():
-	position.y = -100
-
 
 func _on_BulletCD_timeout():
 	shot_clock += SHOT_CLOCK_INCREASE
@@ -81,7 +79,7 @@ func shoot():
 				3: #linear accel
 					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, 2.0) 
 				4: #linear decel
-					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, -1.0) 
+					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, -0.3) 
 				5: #linear accel aiming
 					bullets_pool.shoot(bullet_spawn_point.global_position, target_direction, character_type, 2.0) 
 				6: #spiral right

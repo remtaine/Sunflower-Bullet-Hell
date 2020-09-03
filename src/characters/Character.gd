@@ -46,7 +46,8 @@ func _ready():
 #		hurtbox.setup()
 #		hurtbox.get_node("CollisionShape2D").disabled = false
 		
-		
+
+	
 func _physics_process(delta):
 	var input = _state.get_raw_input()
 	change_state(_state.interpret_inputs(input))

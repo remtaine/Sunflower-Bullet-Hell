@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=2]
@@ -9,7 +9,10 @@
 [ext_resource path="res://src/bullets/BulletPool.tscn" type="PackedScene" id=7]
 [ext_resource path="res://images/backgrounds/Sunflower_Bullet_Hell_Background_Level_1.png" type="Texture" id=8]
 [ext_resource path="res://src/spawners/EnemySpawner.gd" type="Script" id=9]
+[ext_resource path="res://src/levels/BG.gd" type="Script" id=10]
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://src/addons/LeftSide.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/addons/RightSide.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -139,11 +142,12 @@ font_data = ExtResource( 11 )
 script = ExtResource( 2 )
 
 [node name="BG" type="ParallaxBackground" parent="."]
+script = ExtResource( 10 )
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="BG"]
+[node name="BackgroundLayer" type="ParallaxLayer" parent="BG"]
 motion_mirroring = Vector2( 657, 825 )
 
-[node name="Background" type="TextureRect" parent="BG/ParallaxLayer"]
+[node name="Background" type="TextureRect" parent="BG/BackgroundLayer"]
 margin_left = 150.0
 margin_right = 807.0
 margin_bottom = 825.0
@@ -168,7 +172,7 @@ z_index = 1
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Frame" type="Control" parent="HUD"]
-modulate = Color( 0.345098, 0.345098, 0.345098, 1 )
+modulate = Color( 0.454902, 0.588235, 1, 1 )
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -277,6 +281,52 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LeftSide" parent="HUD" instance=ExtResource( 12 )]
+margin_left = 16.9333
+margin_top = 237.821
+margin_right = 151.933
+margin_bottom = 541.821
+
+[node name="RightSide" parent="HUD" instance=ExtResource( 13 )]
+margin_left = 800.8
+margin_top = 64.2665
+margin_right = 960.8
+margin_bottom = 411.266
+
+[node name="ScoreLabel" parent="HUD/RightSide" index="0"]
+margin_right = 160.0
+margin_bottom = 57.0
+
+[node name="EmptyLabel" parent="HUD/RightSide" index="1"]
+margin_top = 61.0
+margin_right = 160.0
+margin_bottom = 88.0
+
+[node name="LivesLabel" parent="HUD/RightSide" index="2"]
+margin_top = 92.0
+margin_right = 160.0
+margin_bottom = 119.0
+
+[node name="SpecialLabel" parent="HUD/RightSide" index="3"]
+margin_top = 123.0
+margin_right = 160.0
+margin_bottom = 150.0
+
+[node name="EmptyLabel2" parent="HUD/RightSide" index="4"]
+margin_top = 154.0
+margin_right = 160.0
+margin_bottom = 181.0
+
+[node name="PowerLabel" parent="HUD/RightSide" index="5"]
+margin_top = 185.0
+margin_right = 160.0
+margin_bottom = 212.0
+
+[node name="GrazeLabel" parent="HUD/RightSide" index="6"]
+margin_top = 216.0
+margin_right = 160.0
+margin_bottom = 243.0
+
 [node name="Audio" type="Node" parent="."]
 
 [node name="Normal" type="AudioStreamPlayer" parent="Audio"]
@@ -294,3 +344,5 @@ autoplay = true
 [node name="Tween" type="Tween" parent="Audio/BulletTime"]
 
 [node name="Addons" type="Node2D" parent="."]
+
+[editable path="HUD/RightSide"]
