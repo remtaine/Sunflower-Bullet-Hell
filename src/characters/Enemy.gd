@@ -5,13 +5,21 @@ const SHOT_CLOCK_INCREASE = 0.2
 onready var visibility = $Addons/VisibilityNotifier2D
 var goal_position = Vector2.ZERO
 
+enum MOVE_STYLES {
+	IDLE = 0,
+	LEFT = 1,
+}
+
+var move_style = MOVE_STYLES.IDLE
+var shot_clock := 0.0
+
 
 func _ready():
 	target = GameInfo.current_player
 	add_to_group("enemies")
-	character_type = "enemy"
 	change_direction()
 	default_shot_direction = Vector2.DOWN
+	hp = 3
 	
 func setup(pos : Vector2, goal_pos : Vector2, s_style := 1, shot_cd := 1.0):
 	position = pos
@@ -26,11 +34,6 @@ func change_direction(dir = "idle"):
 
 func _physics_process(delta):
 	._physics_process(delta)
-	
-	if _state.inputs.is_shooting and _state.state_name == "idle" and bullet_cd_timer.is_stopped():
-		shoot()
-#		bullet_patterns.shoot()
-		bullet_cd_timer.start()
 
 #func shoot():
 #	#checks bullet pool for free bullet
@@ -76,9 +79,9 @@ func shoot():
 					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type)# l_accel := 0.0, c_accel := 0.0, spd := BULLET_SPEED, sz := 20)
 				2: #linear lockon
 					bullets_pool.shoot(bullet_spawn_point.global_position, target_direction, character_type) 
-				3: #linear accel
+				3,4: #linear accel
 					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, 2.0) 
-				4: #linear decel
+				-4: #linear decel
 					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, -0.3) 
 				5: #linear accel aiming
 					bullets_pool.shoot(bullet_spawn_point.global_position, target_direction, character_type, 2.0) 

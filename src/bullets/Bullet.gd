@@ -1,4 +1,4 @@
-class_name BulletLite
+class_name Bullet
 extends Hitbox
 
 var velocity := Vector2.ZERO

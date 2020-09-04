@@ -19,7 +19,6 @@ func _ready():
 	for sound in audio.get_children():
 		audios.append(sound)
 #	GameInfo.level_borders = Rect2($BG/Background.rect_position, $BG/Background.rect_size)
-	print(GameInfo.level_borders)
 func _unhandled_input(event):
 	if event.is_action_pressed("reset"):
 		get_tree().reload_current_scene()

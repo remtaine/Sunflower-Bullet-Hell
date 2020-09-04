@@ -5,7 +5,7 @@ onready var player_texture = preload("res://images/characters/player/sunflower p
 onready var enemy_texture = preload("res://images/bullets/enemy bullets/Projectile 1.png")
 
 const BULLET_SPEED = 100
-const COLLISION_DISTANCE = 0#10
+const COLLISION_DISTANCE = 10
 var bullets := []
 var bullets_data := []
 
@@ -36,14 +36,14 @@ func _physics_process(delta):
 		#check collision
 		for character in get_parent().get_node("Characters").get_children():
 				if bullet.position.distance_to(character.position) < COLLISION_DISTANCE: #ie with collisions
-					if bullet_data["character_type"] != character.character_type and character.visible:
+					if bullet_data["character_type"] != character.character_type and character.visible and not character.invulnerable:
 						free_bullet(i)
-						character.die()
+						character.damage()
 
 		#check if offscreen
-		if bullet.position.x < 125 or bullet.position.x > 825: #ie offscreen
+		if bullet.position.x < GameInfo.LEVEL_BORDER_LEFT or bullet.position.x > GameInfo.LEVEL_BORDER_RIGHT: #ie offscreen
 			free_bullet(i)
-		elif bullet.position.y < -25 or bullet.position.y > 500: #ie offscreen
+		elif bullet.position.y < -25 or bullet.position.y > GameInfo.LEVEL_BORDER_DOWN: #ie offscreen
 #		elif bullet.position.y < GameInfo.level_borders.position.y or bullet.position.y > 540: #ie offscreen
 			free_bullet(i)
 

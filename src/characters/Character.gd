@@ -16,8 +16,10 @@ onready var audio_bullet_time = $Audio/BulletTime
 
 onready var bullet_cd_timer = $Timers/BulletCD
 onready var bullet_spawn_point = $Addons/BulletSpawner
-onready var bullet_resource = preload("res://src/bullets/BulletLite.tscn")
+onready var bullet_resource = preload("res://src/bullets/Bullet.tscn")
 onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
+
+onready var hurt_anim = $Animations/Hurt
 export (String, "player", "enemy") var character_type = "player"
 
 var collision = null
@@ -27,9 +29,9 @@ var direction : Vector2 = Vector2.ZERO
 var target = null
 
 var default_shot_direction := Vector2.UP
-var move_style := 1
 var shoot_style := 1
-var shot_clock := 0.0
+var hp := 1
+var invulnerable = false setget set_invulnerability
 
 func _ready():
 	if states_holder != null:
@@ -45,8 +47,6 @@ func _ready():
 #		var hurtbox = $Addons.get_node("Hurtbox")
 #		hurtbox.setup()
 #		hurtbox.get_node("CollisionShape2D").disabled = false
-		
-
 	
 func _physics_process(delta):
 	var input = _state.get_raw_input()
@@ -71,13 +71,18 @@ func exit_state():
 func change_direction(dir):
 	pass
 
-func damage(dmg = 1):
-#	if stats.update("health", dmg):
-	die()
-#	else:
-#		pass
+func damage(dmg := 1) -> void:
+	hp -= 1
+	hp = max(0, hp)
+	if hp == 0:
+		die()
+	else:
+		audio_hurt.play()
+		hurt_anim.play("hurt")
+		if character_type == "player":
+			invulnerable = true
 		#TODO do hurt stuff
-		
+
 func die():
 	audio_hurt.play()
 	var d = death_particle.instance()
@@ -110,3 +115,6 @@ func shoot():
 #					pass 
 #
 	bullet_cd_timer.start()	
+
+func set_invulnerability(v := true):
+	invulnerable = v

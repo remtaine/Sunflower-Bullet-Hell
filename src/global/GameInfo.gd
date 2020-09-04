@@ -1,4 +1,8 @@
 extends Node
 
 var current_player = null
-var level_borders : Rect2
+
+const LEVEL_BORDER_LEFT = 125
+const LEVEL_BORDER_RIGHT = 825
+const LEVEL_BORDER_UP = 0
+const LEVEL_BORDER_DOWN = 500

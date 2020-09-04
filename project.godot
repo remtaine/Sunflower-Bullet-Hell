@@ -14,10 +14,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/characters/Bird.gd"
 }, {
-"base": "Hitbox",
-"class": "BulletLite",
+"base": "Reference",
+"class": "Bullet",
 "language": "GDScript",
-"path": "res://src/bullets/BulletLite.gd"
+"path": "res://src/bullets/Bullet.gd"
 }, {
 "base": "Node2D",
 "class": "BulletPatterns",
@@ -106,7 +106,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Bird": "",
-"BulletLite": "",
+"Bullet": "",
 "BulletPatterns": "",
 "BulletPool": "",
 "Character": "",

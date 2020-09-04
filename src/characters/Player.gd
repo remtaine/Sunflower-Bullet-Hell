@@ -23,6 +23,7 @@ func _ready():
 	change_direction()
 	Engine.time_scale = 1.0
 	bullet_time_bar.visible = is_bullet_time
+	hp = 3
 
 func change_direction(dir = "idle"):
 	sprite.play(dir)

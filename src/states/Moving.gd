@@ -4,8 +4,6 @@ extends State
 export var speed : int = 320
 var last_direction : Vector2 = Vector2.ZERO
 
-onready var tween = $Tween
-
 func _ready():
 	state_name = "moving"
 
