@@ -20,7 +20,7 @@ onready var bullet_resource = preload("res://src/bullets/Bullet.tscn")
 onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
 
 onready var hurt_anim = $Animations/Hurt
-export (String, "player", "enemy") var character_type = "player"
+export (String, "player", "enemy", "bird") var character_type = "player"
 
 var collision = null
 var velocity : Vector2 = Vector2.ZERO
@@ -30,7 +30,7 @@ var target = null
 
 var default_shot_direction := Vector2.UP
 var shoot_style := 1
-var hp := 1
+var hp := 3
 var invulnerable = false setget set_invulnerability
 
 func _ready():
@@ -68,12 +68,12 @@ func enter_state():
 func exit_state():
 	_state.exit()
 
-func change_direction(dir):
+func change_direction(_dir):
 	pass
 
 func damage(dmg := 1) -> void:
-	hp -= 1
-	hp = max(0, hp)
+	hp -= dmg
+	hp = max(0, int(hp))
 	if hp == 0:
 		die()
 	else:

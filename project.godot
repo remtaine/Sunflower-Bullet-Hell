@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/characters/Bird.gd"
 }, {
-"base": "Reference",
+"base": "Hitbox",
 "class": "Bullet",
 "language": "GDScript",
 "path": "res://src/bullets/Bullet.gd"

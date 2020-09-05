@@ -52,7 +52,7 @@ colors = PoolColorArray( 0.768627, 0.886275, 0.54902, 1, 0.768627, 0.886275, 0.5
 [sub_resource type="DynamicFont" id=4]
 font_data = ExtResource( 5 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "hurt"
 length = 0.4
 tracks/0/type = "value"
@@ -94,8 +94,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "setup"
+[sub_resource type="Animation" id=6]
 length = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:position")
@@ -314,8 +313,8 @@ volume_db = 10.0
 [node name="Animations" type="Node" parent="."]
 
 [node name="Hurt" type="AnimationPlayer" parent="Animations"]
-anims/hurt = SubResource( 6 )
-anims/setup = SubResource( 5 )
+anims/hurt = SubResource( 5 )
+anims/setup = SubResource( 6 )
 [connection signal="timeout" from="Timers/BulletRecharge" to="." method="_on_BulletRecharge_timeout"]
 
 [editable path="Addons/Hurtbox"]

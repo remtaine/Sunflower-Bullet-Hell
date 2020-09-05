@@ -19,7 +19,6 @@ func _ready():
 	add_to_group("enemies")
 	change_direction()
 	default_shot_direction = Vector2.DOWN
-	hp = 3
 	
 func setup(pos : Vector2, goal_pos : Vector2, s_style := 1, shot_cd := 1.0):
 	position = pos
@@ -29,8 +28,6 @@ func setup(pos : Vector2, goal_pos : Vector2, s_style := 1, shot_cd := 1.0):
 	
 func change_direction(dir = "idle"):
 	sprite.play(dir)
-
-
 
 func _physics_process(delta):
 	._physics_process(delta)
@@ -75,15 +72,15 @@ func shoot():
 	var bullet 
 	var target_direction = global_position.direction_to(target.global_position)
 	match shoot_style: #bullet.setup(pos, dir, ct, l_accel := Vector2.ZERO, c_accel := Vector2.ZERO, spd := speed)
-				1: #boring shoot
+				0: #boring shoot
 					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type)# l_accel := 0.0, c_accel := 0.0, spd := BULLET_SPEED, sz := 20)
-				2: #linear lockon
+				1,2: #linear lockon
 					bullets_pool.shoot(bullet_spawn_point.global_position, target_direction, character_type) 
-				3,4: #linear accel
+				-3: #linear accel
 					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, 2.0) 
-				-4: #linear decel
-					bullets_pool.shoot(bullet_spawn_point.global_position, default_shot_direction, character_type, -0.3) 
-				5: #linear accel aiming
+				4: #linear decel aiming
+					bullets_pool.shoot(bullet_spawn_point.global_position, target_direction, character_type, -0.1) 
+				3,5: #linear accel aiming
 					bullets_pool.shoot(bullet_spawn_point.global_position, target_direction, character_type, 2.0) 
 				6: #spiral right
 					bullets_pool.shoot(bullet_spawn_point.global_position, Vector2.RIGHT.rotated(shot_clock), character_type) 

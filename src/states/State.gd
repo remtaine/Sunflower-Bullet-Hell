@@ -23,7 +23,7 @@ func get_raw_input() -> Dictionary:
 				input_direction = get_input_direction(),
 				is_shooting = Input.is_action_pressed("shoot"),
 			}
-		"enemy":
+		"enemy", "bird":
 			inputs = {
 				is_moving = not owner.in_position(),
 				input_direction = owner.goal_position_direction(),
@@ -38,7 +38,7 @@ func interpret_inputs(input):
 				return "moving"
 			else:
 				return "idle"
-		"enemy":
+		"enemy", "bird":
 			if input.is_moving:
 				return "moving"
 			else:

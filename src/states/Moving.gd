@@ -23,7 +23,7 @@ func run(input):
 				owner.change_direction("right")
 				tween.interpolate_property(owner, "rotation_degrees", owner.rotation_degrees, 10, lean_duration, Tween.TRANS_LINEAR,Tween.EASE_IN)
 				tween.start()
-		"enemy":
+		"enemy", "bird":
 			if owner.velocity.x > 0:
 				owner.is_flipped = false
 				owner.change_direction("left")

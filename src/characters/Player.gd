@@ -23,7 +23,6 @@ func _ready():
 	change_direction()
 	Engine.time_scale = 1.0
 	bullet_time_bar.visible = is_bullet_time
-	hp = 3
 
 func change_direction(dir = "idle"):
 	sprite.play(dir)
@@ -39,9 +38,9 @@ func _physics_process(delta):
 			bullet_time(false)
 	else:
 		bullet_time_bar.value += 1
-	var leeway = 30
-#	position.x = clamp(position.x, leeway, GameInfo.level_borders.end.x - leeway)
-#	position.y = clamp(position.y, leeway, GameInfo.level_borders.end.y - leeway)
+	var leeway = 50
+	position.x = clamp(position.x, GameInfo.LEVEL_BORDER_LEFT + leeway, GameInfo.LEVEL_BORDER_RIGHT - leeway)
+	position.y = clamp(position.y, GameInfo.LEVEL_BORDER_UP + leeway, GameInfo.LEVEL_BORDER_DOWN - leeway)
 	
 	if Input.is_action_just_pressed("auto_shoot"):
 		auto_shoot = not auto_shoot

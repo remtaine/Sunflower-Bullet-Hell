@@ -3,6 +3,7 @@ extends Node2D
 
 onready var player_texture = preload("res://images/characters/player/sunflower petal bullet.png")
 onready var enemy_texture = preload("res://images/bullets/enemy bullets/Projectile 1.png")
+onready var bird_texture = preload("res://images/bullets/enemy bullets/Projectile 2.png")
 
 const BULLET_SPEED = 100
 const COLLISION_DISTANCE = 10
@@ -16,7 +17,8 @@ var bullet_textures : Dictionary
 func _ready():
 	bullet_textures = {
 	"player": player_texture,
-	"enemy": enemy_texture
+	"enemy": enemy_texture,
+	"bird": bird_texture
 }
 
 func _physics_process(delta):

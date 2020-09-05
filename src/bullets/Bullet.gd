@@ -14,6 +14,7 @@ func _ready():
 	connect("deactivated",get_parent(),"return_free_bullet")
 
 func setup(pos, dir, ct, l_accel := 0.0, c_accel := 0.0, spd := speed):
+	spd = speed
 	global_position = pos
 	direction = dir
 	character_type = ct

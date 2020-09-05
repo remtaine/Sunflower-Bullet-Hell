@@ -12,9 +12,9 @@ func _on_Hitbox_area_entered(area):
 #	if area is Hurtbox:
 	if not area is Hurtbox:
 		return
-	if character_type == "enemy" and area.owner_type == "player":
+	if character_type != area.owner_type:
 		area.owner.damage()
 		queue_free()
-	elif character_type == "player" and area.owner_type == "enemy":
-		area.owner.damage()
-		queue_free()
+#	elif character_type == "player" and area.owner_type == "enemy":
+#		area.owner.damage()
+#		queue_free()

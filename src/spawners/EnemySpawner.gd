@@ -30,13 +30,14 @@ func spawn_enemies():
 				var wait_multipler : float = 1.0- (floor(wave_number/3.0) * 0.1)
 				wait_multipler = max(wait_multipler, 0.05)
 				enemy.setup(Vector2(x,y), Vector2(0, randi() % 75 + 175), s_style, wait_multipler)
-			4:
+			4: #BIRD
 				var x = 20 + randi() % 100
 				var y = 80 + randi() % 50#-150 to -50 is like 0 to 100 - 150
 				var enemy = bird_resource.instance()
 				add_child(enemy)
 				randomize()
-				var s_style = 1
+				var s_style = 0
 				var wait_multipler : float = 1.0 - (floor(wave_number/3.0) * 0.1)
 				wait_multipler = max(wait_multipler, 0.05)
-				enemy.setup(Vector2(x,y), Vector2(100, 0), s_style, wait_multipler)
+				enemy.setup(Vector2(x,y), Vector2(10, 0), s_style, wait_multipler)
+		yield(get_tree().create_timer(0.3), "timeout")	

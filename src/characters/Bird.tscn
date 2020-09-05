@@ -34,6 +34,7 @@ animations = [ {
 
 [node name="Bird" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
+character_type = "bird"
 
 [node name="Sprite" parent="Pivot" index="1"]
 frames = SubResource( 1 )
