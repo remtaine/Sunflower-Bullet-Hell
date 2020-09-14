@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/characters/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://src/addons/LeftSide.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/addons/RightSide.tscn" type="PackedScene" id=13]
+[ext_resource path="res://images/backgrounds/Frame_Graphics_Sprite_V1.png" type="Texture" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -145,7 +146,7 @@ script = ExtResource( 2 )
 script = ExtResource( 10 )
 
 [node name="BackgroundLayer" type="ParallaxLayer" parent="BG"]
-motion_mirroring = Vector2( 657, 825 )
+motion_mirroring = Vector2( 0, 825 )
 
 [node name="Background" type="TextureRect" parent="BG/BackgroundLayer"]
 margin_left = 150.0
@@ -172,7 +173,6 @@ z_index = 1
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Frame" type="Control" parent="HUD"]
-modulate = Color( 0.454902, 0.588235, 1, 1 )
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -180,7 +180,7 @@ __meta__ = {
 }
 
 [node name="FrameLeft" type="Sprite" parent="HUD/Frame"]
-texture = ExtResource( 8 )
+texture = ExtResource( 14 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 160, 540 )
@@ -196,21 +196,21 @@ __meta__ = {
 
 [node name="FrameBottomLeft" type="Sprite" parent="HUD/Frame/FrameBottom"]
 position = Vector2( -807, 398.328 )
-texture = ExtResource( 8 )
+texture = ExtResource( 14 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 650, 140 )
 
 [node name="FrameBottomRight" type="Sprite" parent="HUD/Frame/FrameBottom"]
 position = Vector2( -157.093, 398.328 )
-texture = ExtResource( 8 )
+texture = ExtResource( 14 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 650, 140 )
 
 [node name="FrameRight" type="Sprite" parent="HUD/Frame"]
 position = Vector2( 801, 0 )
-texture = ExtResource( 8 )
+texture = ExtResource( 14 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 160, 540 )
