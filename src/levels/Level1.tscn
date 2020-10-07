@@ -12,10 +12,10 @@
 size = 32
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 24
 font_data = ExtResource( 6 )
 
@@ -45,9 +45,11 @@ z_as_relative = false
 [node name="Characters" type="Node2D" parent="."]
 
 [node name="Player" parent="Characters" instance=ExtResource( 4 )]
+material = null
 position = Vector2( 480, 420 )
 
 [node name="Enemy" parent="Characters" instance=ExtResource( 5 )]
+material = null
 position = Vector2( 480, 60 )
 
 [node name="Frames" type="Node2D" parent="."]
@@ -127,7 +129,7 @@ margin_left = 10.0
 margin_top = 308.685
 margin_right = 180.0
 margin_bottom = 393.685
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "WASD/ARROW KEYS
 TO MOVE
@@ -143,7 +145,7 @@ margin_left = 10.0
 margin_top = 421.852
 margin_right = 180.0
 margin_bottom = 498.852
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "VERSION:
 0.1.2"

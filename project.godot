@@ -9,13 +9,49 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Character",
+"language": "GDScript",
+"path": "res://src/chars/Character.gd"
+}, {
+"base": "Character",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://src/chars/Enemy.gd"
+}, {
+"base": "Node2D",
+"class": "EnemyStatesHandler",
+"language": "GDScript",
+"path": "res://src/states/handlers/EnemyStatesHandler.gd"
+}, {
+"base": "State",
+"class": "Idle",
+"language": "GDScript",
+"path": "res://src/states/Idle.gd"
+}, {
 "base": "Node2D",
 "class": "Level",
 "language": "GDScript",
 "path": "res://src/levels/Level.gd"
+}, {
+"base": "State",
+"class": "Moving",
+"language": "GDScript",
+"path": "res://src/states/Moving.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://src/states/State.gd"
 } ]
 _global_script_class_icons={
-"Level": ""
+"Character": "",
+"Enemy": "",
+"EnemyStatesHandler": "",
+"Idle": "",
+"Level": "",
+"Moving": "",
+"State": ""
 }
 
 [application]

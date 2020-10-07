@@ -1,9 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
+[ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Sprite.png" type="Texture" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Player" instance=ExtResource( 1 )]
+use_parent_material = true
+
+[node name="Sprite" parent="SpritePivot" index="0"]
+frames = SubResource( 1 )
 
 [node name="HitboxSprite" type="Sprite" parent="SpritePivot" index="1"]
 position = Vector2( -17.7694, 10.1776 )
@@ -13,4 +26,9 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( -17.8988, 10.269 )
 
-[node name="States" type="Node2D" parent="." index="4"]
+[node name="BulletSpawner" parent="Addons" index="0"]
+shot_count = 1
+arc_width = 0.0
+
+[node name="ShotCooldown" parent="Timers" index="0"]
+wait_time = 0.3
