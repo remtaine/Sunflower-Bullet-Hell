@@ -5,7 +5,7 @@ var menu_path = ""
 onready var bullet_server = $BulletServer
 
 func _ready():
-	pass
+	bullet_server.connect("collision_detected",self,"handle_collision")
 
 func _unhandled_input(event):
 	if event.is_action_pressed("reset"):
@@ -20,3 +20,6 @@ func update_labels():
 	$UI/UIControl/Labels/FPS.text = "FPS: " + String(Engine.get_frames_per_second())
 	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_bullet_count())
 	
+func handle_collision(bullet, colliders):
+	for collider in colliders:
+		collider.damage()

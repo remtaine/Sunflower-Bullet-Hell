@@ -1,7 +1,5 @@
 class_name EnemyStatesHandler
-extends Node2D
-
-var inputs : Dictionary
+extends StatesHandler
 
 func get_raw_input() -> Dictionary:
 	inputs = {
@@ -11,7 +9,7 @@ func get_raw_input() -> Dictionary:
 	}
 	return inputs
 
-func interpret_inputs(input):
+func interpret_inputs(input) -> String:
 	if input.is_moving:
 		return "moving"
 	else:

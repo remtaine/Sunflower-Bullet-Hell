@@ -21,12 +21,10 @@ speed = 60.0
 damage = 1.0
 texture = ExtResource( 3 )
 collision_shape = SubResource( 2 )
-linear_acceleration = 10.0
 h_wave_type = 101
 h_wave_amplitude = 2.8026e-45
 h_wave_frequency = 0.0
 face_direction = true
-rotation = -4.65661e-10
 scale = Vector2( 0.3, 0.3 )
 custom_data = {
 
@@ -59,4 +57,4 @@ bullet_type = SubResource( 3 )
 scatter_range = 0.0
 
 [node name="ShotCooldown" parent="Timers" index="0"]
-wait_time = 0.3
+wait_time = 0.5

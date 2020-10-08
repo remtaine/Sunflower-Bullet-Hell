@@ -12,15 +12,16 @@ var inputs = {
 	
 func get_raw_input() -> Dictionary:
 	if states_handler.has_method("get_raw_input"):
-		return states_handler.get_raw_input()
-	inputs = {
-		is_moving = Input.is_action_pressed("move_down") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up"),
-		input_direction = get_input_direction(),
-		is_shooting = Input.is_action_pressed("shoot"),
-	}
+		inputs = states_handler.get_raw_input()
+	else:
+		inputs = {
+			is_moving = Input.is_action_pressed("move_down") or Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up"),
+			input_direction = get_input_direction(),
+			is_shooting = Input.is_action_pressed("shoot"),
+		}
 	return inputs
 
-func interpret_inputs(input):
+func interpret_inputs(input) -> String:
 	if states_handler.has_method("interpret_inputs"):
 		return states_handler.interpret_inputs(input)
 	else:

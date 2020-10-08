@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/chars/Enemy.gd"
 }, {
-"base": "Node2D",
+"base": "StatesHandler",
 "class": "EnemyStatesHandler",
 "language": "GDScript",
 "path": "res://src/states/handlers/EnemyStatesHandler.gd"
@@ -43,6 +43,11 @@ _global_script_classes=[ {
 "class": "State",
 "language": "GDScript",
 "path": "res://src/states/State.gd"
+}, {
+"base": "Node",
+"class": "StatesHandler",
+"language": "GDScript",
+"path": "res://src/states/handlers/StatesHandler.gd"
 } ]
 _global_script_class_icons={
 "Character": "",
@@ -51,7 +56,8 @@ _global_script_class_icons={
 "Idle": "",
 "Level": "",
 "Moving": "",
-"State": ""
+"State": "",
+"StatesHandler": ""
 }
 
 [application]
