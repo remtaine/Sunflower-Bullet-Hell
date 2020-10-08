@@ -39,5 +39,5 @@ func exit():
 func get_input_direction() -> Vector2:
 	return Vector2(float(Input.is_action_pressed("move_right")) - float(Input.is_action_pressed("move_left")), float(Input.is_action_pressed("move_down")) - float(Input.is_action_pressed("move_up")))
 
-func run(input):
+func run(_input):
 	pass

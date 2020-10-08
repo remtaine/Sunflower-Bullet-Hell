@@ -6,5 +6,5 @@ var inputs : Dictionary
 func get_raw_input():
 	pass
 
-func interpret_inputs(input):
+func interpret_inputs(_input):
 	pass

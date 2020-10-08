@@ -17,13 +17,17 @@ animations = [ {
 [sub_resource type="RectangleShape2D" id=2]
 
 [sub_resource type="BulletType" id=3]
-speed = 60.0
+speed = 50.0
 damage = 1.0
 texture = ExtResource( 3 )
 collision_shape = SubResource( 2 )
-h_wave_type = 101
+collision_mask = 2
+linear_acceleration = 20.0
+curve_rate = 5.0
+h_wave_type = 0
 h_wave_amplitude = 2.8026e-45
 h_wave_frequency = 0.0
+v_wave_type = 32709
 face_direction = true
 scale = Vector2( 0.3, 0.3 )
 custom_data = {
@@ -32,6 +36,8 @@ custom_data = {
 
 [node name="Enemy" instance=ExtResource( 2 )]
 use_parent_material = true
+collision_layer = 8
+collision_mask = 6
 script = ExtResource( 5 )
 
 [node name="Sprite" parent="SpritePivot" index="0"]
@@ -48,13 +54,11 @@ script = ExtResource( 4 )
 [node name="Moving" parent="States" index="1"]
 speed = 200
 
-[node name="BulletSpawner" parent="Addons" index="0"]
-shot_count = 3
+[node name="BulletSpawner" parent="Addons/BulletSpawners" index="0"]
+shot_count = 5
 radius = 75.0
-arc_width = 0.785398
 arc_rotation = 1.5708
 bullet_type = SubResource( 3 )
-scatter_range = 0.0
 
 [node name="ShotCooldown" parent="Timers" index="0"]
-wait_time = 0.5
+wait_time = 0.3

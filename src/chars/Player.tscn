@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
 [ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Sprite.png" type="Texture" id=3]
+[ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Petal_Bullet_Sprite.png" type="Texture" id=4]
+[ext_resource path="res://src/chars/Player.gd" type="Script" id=5]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -12,8 +14,32 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="StreamTexture" id=3]
+load_path = "res://.import/Sunflower Petal Bullet.png-382b2717e0a688ce561dc85ce88d8b30.stex"
+
+[sub_resource type="BulletType" id=4]
+speed = 50.0
+damage = 1.0
+texture = SubResource( 3 )
+collision_shape = SubResource( 2 )
+collision_mask = 8
+h_wave_type = 1380275315
+h_wave_amplitude = 2.8026e-45
+h_wave_frequency = 0.0
+v_wave_type = 32709
+face_direction = true
+scale = Vector2( 0.7, 0.7 )
+custom_data = {
+
+}
+
 [node name="Player" instance=ExtResource( 1 )]
 use_parent_material = true
+collision_layer = 2
+collision_mask = 24
+script = ExtResource( 5 )
 
 [node name="Sprite" parent="SpritePivot" index="0"]
 frames = SubResource( 1 )
@@ -23,12 +49,77 @@ position = Vector2( -17.7694, 10.1776 )
 scale = Vector2( 0.1, 0.1 )
 texture = ExtResource( 2 )
 
+[node name="Petals" type="Node2D" parent="SpritePivot" index="2"]
+
+[node name="Petal1" type="Sprite" parent="SpritePivot/Petals" index="0"]
+position = Vector2( 24.6278, -40.2358 )
+rotation = 0.523599
+texture = ExtResource( 4 )
+
+[node name="Petal2" type="Sprite" parent="SpritePivot/Petals" index="1"]
+position = Vector2( 40.6604, -22.7782 )
+rotation = 1.0472
+texture = ExtResource( 4 )
+
+[node name="Petal3" type="Sprite" parent="SpritePivot/Petals" index="2"]
+position = Vector2( 44.4013, -0.867031 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+
+[node name="Petal4" type="Sprite" parent="SpritePivot/Petals" index="3"]
+position = Vector2( 36.385, 22.4692 )
+rotation = 2.0944
+texture = ExtResource( 4 )
+
+[node name="Petal5" type="Sprite" parent="SpritePivot/Petals" index="4"]
+position = Vector2( 21.2432, 38.5018 )
+rotation = 2.61799
+texture = ExtResource( 4 )
+
+[node name="Petal6" type="Sprite" parent="SpritePivot/Petals" index="5"]
+position = Vector2( 1.29156, 45.0929 )
+rotation = 3.14159
+texture = ExtResource( 4 )
+
+[node name="Petal7" type="Sprite" parent="SpritePivot/Petals" index="6"]
+position = Vector2( -21.154, 38.3236 )
+rotation = 3.66519
+texture = ExtResource( 4 )
+
+[node name="Petal8" type="Sprite" parent="SpritePivot/Petals" index="7"]
+position = Vector2( -38.4335, 23.0037 )
+rotation = 4.18879
+texture = ExtResource( 4 )
+
+[node name="Petal9" type="Sprite" parent="SpritePivot/Petals" index="8"]
+position = Vector2( -43.5996, 0.201801 )
+rotation = 4.71239
+texture = ExtResource( 4 )
+
+[node name="Petal10" type="Sprite" parent="SpritePivot/Petals" index="9"]
+position = Vector2( -36.474, -24.2033 )
+rotation = 5.23599
+texture = ExtResource( 4 )
+
+[node name="Petal11" type="Sprite" parent="SpritePivot/Petals" index="10"]
+position = Vector2( -18.8382, -40.7703 )
+rotation = 5.75959
+texture = ExtResource( 4 )
+
+[node name="Petal12" type="Sprite" parent="SpritePivot/Petals" index="11"]
+position = Vector2( 1.11342, -45.7582 )
+texture = ExtResource( 4 )
+
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2( -17.8988, 10.269 )
+scale = Vector2( 2.52, 2.8 )
 
-[node name="BulletSpawner" parent="Addons" index="0"]
-shot_count = 1
-arc_width = 0.0
+[node name="Moving" parent="States" index="1"]
+lean_on_move = true
+
+[node name="BulletSpawner" parent="Addons/BulletSpawners" index="0"]
+shot_count = 3
+bullet_type = SubResource( 4 )
 
 [node name="ShotCooldown" parent="Timers" index="0"]
-wait_time = 0.3
+wait_time = 0.4

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://images/frames/Frame_Graphics_Sprite_V1.png" type="Texture" id=1]
+[ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
+[ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/chars/Player.tscn" type="PackedScene" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 96
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 21
+font_data = ExtResource( 3 )
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1400, 0 )
+script = ExtResource( 2 )
+scroll_velocity_x = 20
+scroll_velocity_y = 0
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+margin_right = 1400.0
+margin_bottom = 700.0
+texture = ExtResource( 1 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Characters" type="Node2D" parent="."]
+
+[node name="Player" parent="Characters" instance=ExtResource( 5 )]
+position = Vector2( 480, 420 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="UIControl" type="Control" parent="UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Labels" type="Control" parent="UI/UIControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="UI/UIControl/Labels"]
+margin_top = 48.0
+margin_right = 960.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SUNFLOWER
+BULLET HELL"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" parent="UI/UIControl/Labels" instance=ExtResource( 4 )]
+margin_top = 300.75
+margin_right = 920.0
+margin_bottom = 314.75
+text = "PRESS J/Z TO START"
+align = 1
+
+[node name="Credits" type="Label" parent="UI/UIControl/Labels"]
+margin_left = 10.0
+margin_top = 322.624
+margin_right = 960.0
+margin_bottom = 539.624
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "PROGRAMMING BY EFIGI || GRAPHICS AND MUSIC BY SEXUALIZED_GOAT"
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Version" type="Label" parent="UI/UIControl/Labels"]
+margin_top = 322.624
+margin_right = 950.0
+margin_bottom = 539.624
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "v0.1.2"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

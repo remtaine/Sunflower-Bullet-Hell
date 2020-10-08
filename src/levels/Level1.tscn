@@ -4,7 +4,7 @@
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
 [ext_resource path="res://images/frames/Frame_Graphics_Sprite_V1.png" type="Texture" id=3]
 [ext_resource path="res://src/chars/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/chars/Enemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/chars/SidewaysBird.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=7]
 
@@ -21,12 +21,6 @@ font_data = ExtResource( 6 )
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 7 )
-
-[node name="BulletServer" type="BulletServer" parent="."]
-max_lifetime = 136.0
-play_area_mode = 1
-play_area_rect = Rect2( 165, -10, 620, 520 )
-play_area_allow_incoming = true
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -48,9 +42,16 @@ z_as_relative = false
 material = null
 position = Vector2( 480, 420 )
 
-[node name="Enemy" parent="Characters" instance=ExtResource( 5 )]
-material = null
-position = Vector2( 480, 60 )
+[node name="SidewaysBird" parent="Characters" instance=ExtResource( 5 )]
+position = Vector2( 258.267, 62.3738 )
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="BulletServer" type="BulletServer" parent="."]
+max_lifetime = 136.0
+play_area_mode = 1
+play_area_rect = Rect2( 165, -10, 620, 520 )
+play_area_allow_incoming = true
 
 [node name="Frames" type="Node2D" parent="."]
 
