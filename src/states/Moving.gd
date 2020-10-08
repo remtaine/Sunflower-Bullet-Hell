@@ -1,11 +1,10 @@
 class_name Moving
 extends State
 
-export var speed : int = 160
 var last_direction : Vector2 = Vector2.ZERO
 export (bool) var lean_on_move = false
 export (int) var lean_angle = 10
-export (float) var lean_duration = 0.3
+export (float) var lean_duration = 0.5
 onready var tween = $Tween
 
 func _ready():
@@ -14,7 +13,7 @@ func _ready():
 
 func run(input):
 	owner.direction = input.input_direction.normalized()
-	owner.velocity = owner.direction * speed
+	owner.velocity = owner.direction * owner.speed
 #	host.move_and_slide(velocity)
 #	tween.interpolate_property(host,"position", host.position, host.position + velocity, 0.2, Tween.TRANS_LINEAR,Tween.EASE_IN)
 #	tween.start()

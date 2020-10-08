@@ -40,18 +40,19 @@ z_as_relative = false
 
 [node name="Player" parent="Characters" instance=ExtResource( 4 )]
 material = null
-position = Vector2( 480, 420 )
+position = Vector2( 480, 410 )
 
 [node name="SidewaysBird" parent="Characters" instance=ExtResource( 5 )]
-position = Vector2( 258.267, 62.3738 )
+position = Vector2( 856.627, 62.3738 )
 
 [node name="Objects" type="Node2D" parent="."]
 
 [node name="BulletServer" type="BulletServer" parent="."]
 max_lifetime = 136.0
+pop_on_collide = false
 play_area_mode = 1
 play_area_rect = Rect2( 165, -10, 620, 520 )
-play_area_allow_incoming = true
+play_area_allow_incoming = false
 
 [node name="Frames" type="Node2D" parent="."]
 
@@ -99,9 +100,9 @@ __meta__ = {
 
 [node name="BulletCount" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 10.0
-margin_top = 85.8577
+margin_top = 104.94
 margin_right = 180.0
-margin_bottom = 122.858
+margin_bottom = 181.94
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "BULLETS:
@@ -171,9 +172,9 @@ __meta__ = {
 
 [node name="Lives" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 780.505
-margin_top = 160.423
+margin_top = 213.58
 margin_right = 950.505
-margin_bottom = 237.423
+margin_bottom = 290.58
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "LIVES:
@@ -183,7 +184,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Time" type="Label" parent="UI/UIControl/Labels"]
+margin_left = 780.505
+margin_top = 149.447
+margin_right = 950.505
+margin_bottom = 226.447
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "TIME: 0:23"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Spec" type="Label" parent="UI/UIControl/Labels"]
+visible = false
 margin_left = 780.505
 margin_top = 250.804
 margin_right = 950.505
@@ -199,9 +214,9 @@ __meta__ = {
 
 [node name="Power" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 780.505
-margin_top = 352.484
+margin_top = 329.313
 margin_right = 950.505
-margin_bottom = 429.484
+margin_bottom = 406.313
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "POWER: 1"
@@ -212,9 +227,9 @@ __meta__ = {
 
 [node name="Graze" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 780.505
-margin_top = 385.247
+margin_top = 367.528
 margin_right = 950.505
-margin_bottom = 462.247
+margin_bottom = 444.528
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "GRAZE: 0"
@@ -222,3 +237,14 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Theme" type="AudioStreamPlayer" parent="Audio"]
+
+[node name="BulletTheme" type="AudioStreamPlayer" parent="Audio"]
+volume_db = -80.0
+
+[node name="Addons" type="Node2D" parent="."]
+
+[node name="Tween" type="Tween" parent="Addons"]

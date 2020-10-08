@@ -6,8 +6,11 @@ var possible_states := {}
 
 var velocity := Vector2.ZERO
 var direction := Vector2.ZERO
-export (int) var hp := 100
+var is_immune = false
 
+export (int) var hp := 3
+export (int) var speed : int = 160
+var normal_speed := speed
 #sprites
 onready var sprite_pivot = $SpritePivot
 onready var sprite = $SpritePivot/Sprite
@@ -33,6 +36,7 @@ onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
 
 #outside
 onready var objects_holder = get_parent().get_parent().get_node("Objects")
+onready var level = get_parent().get_parent()
 
 func _ready():
 	for bullet_spawner in bullet_spawners.get_children():
@@ -51,23 +55,24 @@ func _physics_process(_delta):
 	_state.run(input)
 
 func damage(dmg := 1):
-	hp -= dmg
-	hp = int(max(0, hp))
-	if hp == 0:
-		die()
-	else:
-		get_hurt()
+	if !is_immune:
+		hp -= dmg
+		hp = int(max(0, hp))
+		if hp == 0:
+			die()
+		else:
+			get_hurt(dmg)
 
 func die():
 	#TODO add death particles
+	is_immune = true
 	var new_death_particle = death_particle.instance()
 	new_death_particle.position = position
 	objects_holder.add_child(new_death_particle)
 	queue_free()
 	
-func get_hurt():
+func get_hurt(_dmg := 1):
 	anim.play("hurt")
-	pass
 
 func change_state(state_name, repeat = false):
 	var new_state = possible_states[state_name]

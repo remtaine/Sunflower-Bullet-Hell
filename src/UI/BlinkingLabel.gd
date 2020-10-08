@@ -12,4 +12,4 @@ func _input(event):
 	if event.is_action_pressed("shoot"):
 		anim.playback_speed = 10
 		yield(get_tree().create_timer(scene_change_delay), "timeout")
-		get_tree().change_scene(next_scene)
+		var _scene_change_status = get_tree().change_scene(next_scene)

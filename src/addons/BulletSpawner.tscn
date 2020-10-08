@@ -1,26 +1,26 @@
 [gd_scene load_steps=5 format=2]
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="StreamTexture" id=5]
+[sub_resource type="StreamTexture" id=2]
 load_path = "res://.import/Sunflower Petal Bullet.png-382b2717e0a688ce561dc85ce88d8b30.stex"
 
-[sub_resource type="BulletType" id=6]
+[sub_resource type="BulletType" id=3]
 speed = 50.0
 damage = 1.0
-texture = SubResource( 5 )
-collision_shape = SubResource( 4 )
+texture = SubResource( 2 )
+collision_shape = SubResource( 1 )
+h_wave_type = 108
 h_wave_amplitude = 2.8026e-45
 h_wave_frequency = 0.0
 v_wave_type = 32709
 face_direction = true
-rotation = 0.0
 scale = Vector2( 0.5, 0.5 )
 custom_data = {
 
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 resource_name = "Attack1"
 
 [node name="BulletSpawner" type="BulletSpawner"]
@@ -28,8 +28,8 @@ shot_count = 10
 radius = 50.0
 arc_width = 1.5708
 arc_rotation = -1.5708
-bullet_type = SubResource( 6 )
+bullet_type = SubResource( 3 )
 scatter_range = 0.261799
 
 [node name="BulletAnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Attack1 = SubResource( 7 )
+anims/Attack1 = SubResource( 4 )
