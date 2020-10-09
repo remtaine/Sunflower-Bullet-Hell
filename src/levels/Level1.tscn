@@ -1,12 +1,14 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://images/backgrounds/Sunflower_Bullet_Hell_Background_Level_1.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
-[ext_resource path="res://images/frames/Frame_Graphics_Sprite_V1.png" type="Texture" id=3]
+[ext_resource path="res://images/frames/Frame1.png" type="Texture" id=3]
 [ext_resource path="res://src/chars/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/chars/SidewaysBird.tscn" type="PackedScene" id=5]
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=7]
+[ext_resource path="res://sounds/music/level1/Sunny Side Up (OGG).ogg" type="AudioStream" id=9]
+[ext_resource path="res://sounds/music/level1/Moony Side Up (OGG).ogg" type="AudioStream" id=10]
+[ext_resource path="res://src/procgen/EnemySpawner.gd" type="Script" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -17,6 +19,10 @@ font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 24
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
 font_data = ExtResource( 6 )
 
 [node name="Level1" type="Node2D"]
@@ -42,17 +48,17 @@ z_as_relative = false
 material = null
 position = Vector2( 480, 410 )
 
-[node name="SidewaysBird" parent="Characters" instance=ExtResource( 5 )]
-position = Vector2( 856.627, 62.3738 )
-
-[node name="Objects" type="Node2D" parent="."]
-
 [node name="BulletServer" type="BulletServer" parent="."]
 max_lifetime = 136.0
 pop_on_collide = false
 play_area_mode = 1
 play_area_rect = Rect2( 165, -10, 620, 520 )
-play_area_allow_incoming = false
+play_area_allow_incoming = true
+
+[node name="Enemies" type="Node2D" parent="."]
+script = ExtResource( 11 )
+
+[node name="Objects" type="Node2D" parent="."]
 
 [node name="Frames" type="Node2D" parent="."]
 
@@ -150,7 +156,7 @@ margin_bottom = 498.852
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "VERSION:
-0.1.2"
+0.1.3"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -238,13 +244,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Debug" type="Label" parent="UI/UIControl/Labels"]
+margin_left = 780.505
+margin_top = 419.016
+margin_right = 950.0
+margin_bottom = 506.016
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 0
+text = "DEBUG:
+R TO RESET
+M FOR MENU"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="Theme" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 9 )
+volume_db = -2.0
+autoplay = true
 
 [node name="BulletTheme" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 10 )
 volume_db = -80.0
+autoplay = true
 
 [node name="Addons" type="Node2D" parent="."]
 
 [node name="Tween" type="Tween" parent="Addons"]
+
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="Wave" type="Timer" parent="Timers"]
+wait_time = 10.0
+one_shot = true
+[connection signal="timeout" from="Timers/Wave" to="Enemies" method="_on_Wave_timeout"]

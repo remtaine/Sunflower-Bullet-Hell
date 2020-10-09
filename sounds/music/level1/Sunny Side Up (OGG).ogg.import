@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sunny Side Up (OGG).ogg-d8fde799a2169ca10099f4f3f344f685.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/level1/Sunny Side Up (OGG).ogg"
+dest_files=[ "res://.import/Sunny Side Up (OGG).ogg-d8fde799a2169ca10099f4f3f344f685.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

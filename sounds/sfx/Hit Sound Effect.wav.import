@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Hit Sound Effect.wav-77caf84e8eef264e9b27754683bc7e1f.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/Hit Sound Effect.wav"
+dest_files=[ "res://.import/Hit Sound Effect.wav-77caf84e8eef264e9b27754683bc7e1f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

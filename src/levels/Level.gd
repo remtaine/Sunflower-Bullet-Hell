@@ -11,6 +11,11 @@ var time_start := 0
 var time_now := 0
 var time_elapsed := 0
 
+var wave_displayed := 0
+
+onready var normal_theme = $Audio/Theme
+onready var bullet_theme = $Audio/BulletTheme
+
 onready var bullet_server = $BulletServer
 onready var tween = $Addons/Tween
 
@@ -40,10 +45,11 @@ func update_labels():
 	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_bullet_count())
 	$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(score_displayed)
 	$UI/UIControl/Labels/Lives.text = "LIVES: \n" + lives_to_string()
-	$UI/UIControl/Labels/Time.text = "TIME: " + get_time_string()
-
+	$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
+	$UI/UIControl/Labels/Wave.text = "WAVE: \n" + String(wave_displayed)
+	
 func get_time_string() -> String:
-	var mins = int(floor(time_elapsed/60))
+	var mins = int(floor(time_elapsed/60.0))
 	var secs = time_elapsed % 60
 	var additional_zero := ""
 	if secs < 10:
@@ -53,7 +59,10 @@ func get_time_string() -> String:
 func handle_collision(bullet, colliders):
 	bullet.pop()
 	for collider in colliders:
-		collider.damage()
+		collider.damage(bullet.get_type().get_damage())
+
+func update_wave():
+	wave_displayed += 1
 
 func update_player_lives(new_hp):
 	lives_displayed = new_hp

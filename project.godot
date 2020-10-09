@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/UI/BlinkingLabel.gd"
 }, {
+"base": "BulletSpawner",
+"class": "BulletSpawn",
+"language": "GDScript",
+"path": "res://src/addons/BulletSpawner.gd"
+}, {
 "base": "TextureProgress",
 "class": "BulletTimeBar",
 "language": "GDScript",
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://src/chars/Enemy.gd"
+}, {
+"base": "Node2D",
+"class": "EnemySpawner",
+"language": "GDScript",
+"path": "res://src/procgen/EnemySpawner.gd"
 }, {
 "base": "StatesHandler",
 "class": "EnemyStatesHandler",
@@ -49,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/levels/Level.gd"
 }, {
+"base": "Node2D",
+"class": "MainMenu",
+"language": "GDScript",
+"path": "res://src/menus/MainMenu.gd"
+}, {
 "base": "State",
 "class": "Moving",
 "language": "GDScript",
@@ -59,10 +74,40 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/particles/Particle.gd"
 }, {
+"base": "Node2D",
+"class": "Petals",
+"language": "GDScript",
+"path": "res://src/addons/Petals.gd"
+}, {
 "base": "Character",
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/chars/Player.gd"
+}, {
+"base": "Enemy",
+"class": "SidewaysBird",
+"language": "GDScript",
+"path": "res://src/chars/SidewaysBird.gd"
+}, {
+"base": "EnemyStatesHandler",
+"class": "SidewaysBirdStatesHandler",
+"language": "GDScript",
+"path": "res://src/states/handlers/SidewaysBirdStatesHandler.gd"
+}, {
+"base": "State",
+"class": "StandShoot",
+"language": "GDScript",
+"path": "res://src/states/StandShoot.gd"
+}, {
+"base": "Enemy",
+"class": "StandardBird",
+"language": "GDScript",
+"path": "res://src/chars/StandardBird.gd"
+}, {
+"base": "EnemyStatesHandler",
+"class": "StandardBirdStatesHandler",
+"language": "GDScript",
+"path": "res://src/states/handlers/StandardBirdStatesHandler.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -77,15 +122,24 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Background": "",
 "BlinkingLabel": "",
+"BulletSpawn": "",
 "BulletTimeBar": "",
 "Character": "",
 "Enemy": "",
+"EnemySpawner": "",
 "EnemyStatesHandler": "",
 "Idle": "",
 "Level": "",
+"MainMenu": "",
 "Moving": "",
 "Particle": "",
+"Petals": "",
 "Player": "",
+"SidewaysBird": "",
+"SidewaysBirdStatesHandler": "",
+"StandShoot": "",
+"StandardBird": "",
+"StandardBirdStatesHandler": "",
 "State": "",
 "StatesHandler": ""
 }
@@ -107,31 +161,38 @@ window/size/height=540
 move_up={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
  ]
 }
 move_down={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
  ]
 }
 move_left={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
  ]
 }
 move_right={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
  ]
 }
 shoot={
 "deadzone": 0.49,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":74,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
  ]
 }
 bullet_time={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":75,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
  ]
 }
 reset={

@@ -4,7 +4,7 @@ extends StatesHandler
 func get_raw_input() -> Dictionary:
 	inputs = {
 		is_moving = true,
-		input_direction = Vector2.RIGHT,
+		input_direction = Vector2.ZERO,
 		is_shooting = true,
 	}
 	return inputs

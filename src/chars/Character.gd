@@ -10,7 +10,7 @@ var is_immune = false
 
 export (int) var hp := 3
 export (int) var speed : int = 160
-var normal_speed := speed
+onready var normal_speed = speed
 #sprites
 onready var sprite_pivot = $SpritePivot
 onready var sprite = $SpritePivot/Sprite
@@ -19,7 +19,7 @@ onready var sprite = $SpritePivot/Sprite
 onready var states_holder = $States
 
 #addons
-onready var bullet_spawners = $Addons/BulletSpawners
+onready var bullet_spawners = $BulletSpawners
 onready var anim = $Addons/AnimationPlayer
 onready var tween = $Addons/Tween
 
@@ -56,6 +56,7 @@ func _physics_process(_delta):
 
 func damage(dmg := 1):
 	if !is_immune:
+		play_audio("hurt")
 		hp -= dmg
 		hp = int(max(0, hp))
 		if hp == 0:
@@ -82,6 +83,7 @@ func change_state(state_name, repeat = false):
 		_state.enter()
 
 func shoot():
+	play_audio("shoot")
 	for bullet_spawner in bullet_spawners.get_children():
 		bullet_spawner.fire()
 	#TODO add sfx
@@ -89,3 +91,12 @@ func shoot():
 func _on_Timer_timeout():
 	shoot()
 	shot_cooldown_timer.start()
+
+func play_audio(action : String):
+	match action:
+		"shoot":
+			$Audio/Shoot.play()
+		"move":
+			$Audio/Move.play()
+		"hurt":
+			$Audio/Hurt.play()

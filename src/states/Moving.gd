@@ -9,7 +9,6 @@ onready var tween = $Tween
 
 func _ready():
 	state_name = "moving"
-	owner = get_parent().get_parent()
 
 func run(input):
 	owner.direction = input.input_direction.normalized()
@@ -18,6 +17,7 @@ func run(input):
 #	tween.interpolate_property(host,"position", host.position, host.position + velocity, 0.2, Tween.TRANS_LINEAR,Tween.EASE_IN)
 #	tween.start()
 	owner.velocity = owner.move_and_slide(owner.velocity)
+
 	if lean_on_move:
 		if get_input_direction().x == Vector2.RIGHT.x:
 			tween_rotation_degrees(lean_angle)

@@ -4,6 +4,9 @@ extends Node
 export var state_name = "State"
 onready var states_handler = get_parent()
 
+func _ready():
+	owner = get_parent().get_parent()
+	
 var inputs = {
 		is_moving = false,
 		input_direction = Vector2.ZERO,

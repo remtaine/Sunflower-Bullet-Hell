@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Frame_Graphics_Sprite_V1.png-cedd909782cbf2fec7471e19aab75f2e.stex"
+path="res://.import/Bird Projectile.png-f2d169f4cc5a3f0b4ef4d7512871be9d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/frames/Frame_Graphics_Sprite_V1.png"
-dest_files=[ "res://.import/Frame_Graphics_Sprite_V1.png-cedd909782cbf2fec7471e19aab75f2e.stex" ]
+source_file="res://images/characters/birds/Bird Projectile.png"
+dest_files=[ "res://.import/Bird Projectile.png-f2d169f4cc5a3f0b4ef4d7512871be9d.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bird 2.png-be04a39ce2dc0f520e54b98b5b451f47.stex"
+path="res://.import/Sunflower Petal Bullet orange.png-eb37c45fbb0f4922f6d97ec2918cea84.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/birds/Bird 2.png"
-dest_files=[ "res://.import/Bird 2.png-be04a39ce2dc0f520e54b98b5b451f47.stex" ]
+source_file="res://images/characters/sunflower/Sunflower Petal Bullet orange.png"
+dest_files=[ "res://.import/Sunflower Petal Bullet orange.png-eb37c45fbb0f4922f6d97ec2918cea84.stex" ]
 
 [params]
 

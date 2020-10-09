@@ -10,6 +10,8 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("shoot"):
-		anim.playback_speed = 10
-		yield(get_tree().create_timer(scene_change_delay), "timeout")
-		var _scene_change_status = get_tree().change_scene(next_scene)
+		if anim.playback_speed != 10:
+			$Sound.play()
+			anim.playback_speed = 10
+			yield(get_tree().create_timer(scene_change_delay), "timeout")
+			var _scene_change_status = get_tree().change_scene(next_scene)

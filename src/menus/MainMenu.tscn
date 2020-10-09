@@ -1,14 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://images/frames/Frame_Graphics_Sprite_V1.png" type="Texture" id=1]
+[ext_resource path="res://images/frames/Frame1.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/chars/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://images/characters/birds/Bird 3.png" type="Texture" id=6]
-[ext_resource path="res://images/characters/birds/Bird 1.png" type="Texture" id=7]
-[ext_resource path="res://images/characters/birds/Bird 2.png" type="Texture" id=8]
-[ext_resource path="res://images/characters/birds/Bird 4.png" type="Texture" id=9]
+[ext_resource path="res://images/characters/birds/Bird Side.png" type="Texture" id=6]
+[ext_resource path="res://images/characters/birds/Bird Goose Boss.png" type="Texture" id=7]
+[ext_resource path="res://images/characters/birds/Bird Down.png" type="Texture" id=8]
+[ext_resource path="res://images/characters/birds/Bird Steady.png" type="Texture" id=9]
+[ext_resource path="res://sounds/music/mainmenu/First Level Theme In Bullet Time (OGG).ogg" type="AudioStream" id=10]
+[ext_resource path="res://sounds/music/mainmenu/First Level Theme (OGG).ogg" type="AudioStream" id=11]
+[ext_resource path="res://src/menus/MainMenu.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 96
@@ -18,7 +21,11 @@ font_data = ExtResource( 3 )
 size = 21
 font_data = ExtResource( 3 )
 
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 3 )
+
 [node name="MainMenu" type="Node2D"]
+script = ExtResource( 12 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -63,6 +70,18 @@ texture = ExtResource( 7 )
 
 [node name="Player" parent="Characters" instance=ExtResource( 5 )]
 position = Vector2( 480, 410 )
+
+[node name="ShotCooldown" parent="Characters/Player/Timers" index="0"]
+autostart = false
+
+[node name="Shoot" parent="Characters/Player/Audio" index="0"]
+stream = null
+
+[node name="Hurt" parent="Characters/Player/Audio" index="2"]
+volume_db = 0.0
+
+[node name="ShootSpec" parent="Characters/Player/Audio" index="4"]
+stream = null
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -141,11 +160,11 @@ __meta__ = {
 }
 
 [node name="Credits" type="Label" parent="UI/UIControl/Labels"]
-margin_left = 10.0
+margin_left = 5.0
 margin_top = 322.624
 margin_right = 960.0
 margin_bottom = 539.624
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "PROGRAMMING BY EFIGI / GRAPHICS AND MUSIC BY SEXUALIZED_GOAT"
 valign = 2
@@ -155,13 +174,27 @@ __meta__ = {
 
 [node name="Version" type="Label" parent="UI/UIControl/Labels"]
 margin_top = 322.624
-margin_right = 950.0
+margin_right = 955.0
 margin_bottom = 539.624
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "v0.1.2"
+text = "V0.1.3"
 align = 2
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Theme" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 11 )
+volume_db = -5.0
+autoplay = true
+
+[node name="BulletTheme" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 10 )
+volume_db = -80.0
+autoplay = true
+
+[editable path="Characters/Player"]

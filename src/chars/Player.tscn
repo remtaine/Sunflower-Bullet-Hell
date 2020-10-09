@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
@@ -7,6 +7,12 @@
 [ext_resource path="res://src/chars/Player.gd" type="Script" id=5]
 [ext_resource path="res://images/UI/radial circle.png" type="Texture" id=6]
 [ext_resource path="res://src/addons/BulletTimeBar.gd" type="Script" id=7]
+[ext_resource path="res://sounds/sfx/Return From Bullet Time Sound Effect.wav" type="AudioStream" id=8]
+[ext_resource path="res://images/characters/sunflower/Sunflower Petal Bullet.png" type="Texture" id=9]
+[ext_resource path="res://sounds/sfx/Shoot Sound Effect 2.wav" type="AudioStream" id=10]
+[ext_resource path="res://images/characters/sunflower/Sunflower Petal Bullet orange.png" type="Texture" id=11]
+[ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/addons/Petals.gd" type="Script" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -18,41 +24,67 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=2]
 
-[sub_resource type="StreamTexture" id=3]
-load_path = "res://.import/Sunflower Petal Bullet.png-382b2717e0a688ce561dc85ce88d8b30.stex"
-
-[sub_resource type="BulletType" id=4]
-speed = 120.0
+[sub_resource type="BulletType" id=3]
+speed = 160.0
 damage = 1.0
-texture = SubResource( 3 )
+texture = ExtResource( 11 )
 collision_shape = SubResource( 2 )
 collision_mask = 8
-h_wave_type = 1380275315
+h_wave_type = 108
 h_wave_amplitude = 2.8026e-45
-h_wave_frequency = 0.0
+h_wave_frequency = -10499.0
 v_wave_type = 32709
 face_direction = true
-rotation = 2.60925e+11
+rotation = 4.59093e-41
+scale = Vector2( 0.6, 0.6 )
+custom_data = {
+
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+
+[sub_resource type="BulletType" id=5]
+speed = 180.0
+damage = 1.0
+texture = ExtResource( 9 )
+collision_shape = SubResource( 4 )
+collision_mask = 8
+linear_acceleration = 10.0
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+h_wave_frequency = 1.78151e-09
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
 scale = Vector2( 0.7, 0.7 )
 custom_data = {
 
 }
 
-[node name="Player" instance=ExtResource( 1 )]
+[sub_resource type="CircleShape2D" id=6]
+radius = 4.08839
+
+[node name="Player" groups=[
+"allies",
+] instance=ExtResource( 1 )]
 use_parent_material = true
 collision_layer = 2
 collision_mask = 24
 script = ExtResource( 5 )
 
+[node name="SpritePivot" parent="." index="0"]
+scale = Vector2( 0.9, 0.9 )
+
 [node name="Sprite" parent="SpritePivot" index="0"]
 frames = SubResource( 1 )
 
 [node name="HitboxSprite" type="Sprite" parent="SpritePivot" index="1"]
-position = Vector2( -17.7694, 10.1776 )
-scale = Vector2( 0.1, 0.1 )
+position = Vector2( -19.8759, 10.0667 )
+scale = Vector2( 0.13326, 0.13326 )
 texture = ExtResource( 2 )
 
 [node name="Petals" type="Node2D" parent="SpritePivot" index="2"]
+script = ExtResource( 13 )
 
 [node name="Petal1" type="Sprite" parent="SpritePivot/Petals" index="0"]
 position = Vector2( 24.6278, -40.2358 )
@@ -113,9 +145,27 @@ texture = ExtResource( 4 )
 position = Vector2( 1.11342, -45.7582 )
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" parent="." index="1"]
-position = Vector2( -17.8988, 10.269 )
-scale = Vector2( 2.52, 2.8 )
+[node name="BulletSpawner" parent="BulletSpawners" index="0"]
+shot_count = 1
+radius = 60.0
+arc_width = 0.523599
+bullet_type = SubResource( 3 )
+aim_mode = 1
+aim_angle = -1.5708
+
+[node name="SpecBulletSpawners" type="Node2D" parent="." index="2"]
+
+[node name="BulletSpawnerSpec" parent="SpecBulletSpawners" index="0" instance=ExtResource( 12 )]
+shot_count = 3
+arc_width = 0.523599
+arc_offset = 0.0
+bullet_type = SubResource( 5 )
+aim_mode = 1
+aim_angle = -1.5708
+
+[node name="CollisionShape2D" parent="." index="3"]
+position = Vector2( -17.6951, 8.75808 )
+shape = SubResource( 6 )
 
 [node name="Moving" parent="States" index="1"]
 lean_on_move = true
@@ -142,9 +192,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BulletSpawner" parent="Addons/BulletSpawners" index="0"]
-shot_count = 3
-radius = 70.0
-arc_width = 0.261799
-bullet_type = SubResource( 4 )
+[node name="ShotCooldown" parent="Timers" index="0"]
+wait_time = 0.3
+
+[node name="SpecCooldown" type="Timer" parent="Timers" index="1"]
+wait_time = 0.2
+one_shot = true
+
+[node name="PetalCooldown" type="Timer" parent="Timers" index="2"]
+wait_time = 0.5
+one_shot = true
+
+[node name="BulletTime" type="AudioStreamPlayer" parent="Audio" index="3"]
+stream = ExtResource( 8 )
+volume_db = 10.0
+
+[node name="ShootSpec" type="AudioStreamPlayer" parent="Audio" index="4"]
+stream = ExtResource( 10 )
+volume_db = 4.0
+pitch_scale = 0.8
 [connection signal="animation_finished" from="Addons/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Timers/PetalCooldown" to="SpritePivot/Petals" method="_on_PetalCooldown_timeout"]

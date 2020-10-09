@@ -9,11 +9,9 @@ signal enemy_died
 
 func _ready():
 	var _succesful_connection = connect("enemy_died",level,"update_score")
-
-func _physics_process(_delta):
-	if position.x > ENEMY_BORDER_END.x:
-		position.x = ENEMY_BORDER_START.x
-
+	
+	
 func die():
 	emit_signal("enemy_died", points_on_death)
 	.die()
+	

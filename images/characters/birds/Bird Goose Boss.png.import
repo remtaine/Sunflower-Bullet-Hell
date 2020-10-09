@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bird 1.png-9804078c715f0cca4117ec10229cf41f.stex"
+path="res://.import/Bird Goose Boss.png-73015b35563c9f17842d4e4a8afc6149.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/birds/Bird 1.png"
-dest_files=[ "res://.import/Bird 1.png-9804078c715f0cca4117ec10229cf41f.stex" ]
+source_file="res://images/characters/birds/Bird Goose Boss.png"
+dest_files=[ "res://.import/Bird Goose Boss.png-73015b35563c9f17842d4e4a8afc6149.stex" ]
 
 [params]
 

@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/particles/Particle.gd" type="Script" id=1]
+[ext_resource path="res://sounds/sfx/Hit Sound Effect.wav" type="AudioStream" id=2]
 
-[sub_resource type="Curve" id=2]
+[sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.532154 ), 0.0, 0.0, 0, 0, Vector2( 0.348052, 0.622244 ), 1.13392, 4.26889, 0, 0, Vector2( 0.493506, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.748052, 0.469091 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.599407, 0.872404 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+colors = PoolColorArray( 0, 0.305882, 0.411765, 1, 0, 0.305882, 0.411765, 1, 0, 0.6, 0.811765, 0 )
 
 [node name="DeathParticle" type="CPUParticles2D"]
 emitting = false
@@ -22,11 +23,16 @@ initial_velocity = 150.0
 initial_velocity_random = 0.5
 scale_amount = 4.0
 scale_amount_random = 0.1
-scale_amount_curve = SubResource( 2 )
-color_ramp = SubResource( 1 )
+scale_amount_curve = SubResource( 1 )
+color_ramp = SubResource( 2 )
 script = ExtResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 autostart = true
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 10.0
+pitch_scale = 1.05
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
