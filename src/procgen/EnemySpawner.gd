@@ -6,6 +6,7 @@ var wave_number := 0
 onready var standard_bird_resource = preload("res://src/chars/StandardBird.tscn")
 onready var sideways_bird_resource = preload("res://src/chars/SidewaysBird.tscn")
 onready var level = get_parent()
+onready var player_holder = get_parent().get_node("Characters")
 onready var wave_timer = get_parent().get_node("Timers/Wave")
 
 var ready_to_summon = true
@@ -16,10 +17,12 @@ func _ready():
 	#set_process(false) TODO add wave clear after
 	
 func _process(_delta):
-	if get_child_count() == 0 and ready_to_summon:
+	if get_child_count() == 0 and ready_to_summon:# and player_holder.get_child_count() == 1:
 		create_new_wave()
 
 func create_new_wave():
+	if player_holder.get_child_count() != 1:
+		return
 	ready_to_summon = false
 	emit_signal("wave_cleared")
 	yield(get_tree().create_timer(1.0), "timeout")
