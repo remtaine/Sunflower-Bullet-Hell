@@ -43,7 +43,7 @@ func update_score(additional_points):
 func update_labels():
 	$UI/UIControl/Labels/FPS.text = "FPS: " + String(Engine.get_frames_per_second())
 	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_bullet_count())
-	$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(score_displayed)
+	$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score_displayed)))
 	$UI/UIControl/Labels/Lives.text = "LIVES: \n" + lives_to_string()
 	$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
 	$UI/UIControl/Labels/Wave.text = "WAVE: \n" + String(wave_displayed)
