@@ -34,10 +34,11 @@ func _input(event):
 	
 
 func shoot():
-	play_audio("shoot")
+#	play_audio("shoot")
 	for bullet_spawner in bullet_spawners.get_children():
-		bullet_spawner.fire()
-
+#		bullet_spawner.fire()
+		pass
+		
 func shoot_spec():
 	play_audio("shoot_spec")	
 	for bullet_spawner in spec_bullet_spawners.get_children():
@@ -52,9 +53,11 @@ func get_hurt(_dmg := 1):
 
 func die():
 	emit_signal("player_hurt", hp)
+	if bullet_time_bar.visible:
+		bullet_time(true)
 	.die()
 	
-func bullet_time():
+func bullet_time(asap := false):
 	var slowed_time := 0.3
 	var time_shift_duration:= 0.2
 	var theme_shift_duration = 0.3
@@ -62,10 +65,15 @@ func bullet_time():
 	is_bullet_time = !is_bullet_time
 	
 	play_audio("bullet_time")
-	if is_bullet_time:
-		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, slowed_time, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)		
-		tween.interpolate_property(self, "speed", speed, normal_speed*2, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)		
-		tween.interpolate_property(level.normal_theme, "volume_db", level.normal_theme.volume_db,-80, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	if asap:
+		Engine.time_scale = 1.0
+		level.normal_theme.volume_db = normal_volume
+		level.bullet_theme.volume_db = -80
+		
+	elif is_bullet_time:
+		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, slowed_time, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
+		tween.interpolate_property(self, "speed", speed, normal_speed * 2, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
+		tween.interpolate_property(level.normal_theme, "volume_db", level.normal_theme.volume_db, -80, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		tween.interpolate_property(level.bullet_theme, "volume_db", level.bullet_theme.volume_db, normal_volume, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		#TODO add audio change as well!
 	else:
