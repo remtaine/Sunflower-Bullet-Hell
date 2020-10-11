@@ -12,7 +12,7 @@ func setup(pos, goal_pos, s_style):
 func set_shoot_style(s_style):
 	shoot_style = s_style
 
-func _process(delta):
+func _process(_delta):
 	pass
 #	if position.distance_to(goal_position) <= 3 and shot_cooldown_timer.is_stopped():
 #		shot_cooldown_timer.start()

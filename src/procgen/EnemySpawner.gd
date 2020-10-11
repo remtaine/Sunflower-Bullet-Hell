@@ -13,7 +13,7 @@ var ready_to_summon = true
 signal wave_cleared
 
 func _ready():
-	connect("wave_cleared", level, "update_wave")
+	var _connect_status = connect("wave_cleared", level, "update_wave")
 	#set_process(false) TODO add wave clear after
 	
 func _process(_delta):

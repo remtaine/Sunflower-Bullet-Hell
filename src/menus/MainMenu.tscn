@@ -197,4 +197,6 @@ stream = ExtResource( 10 )
 volume_db = -80.0
 autoplay = true
 
+[node name="Objects" type="Node2D" parent="."]
+
 [editable path="Characters/Player"]

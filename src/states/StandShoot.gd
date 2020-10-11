@@ -4,7 +4,7 @@ extends State
 func _ready():
 	state_name = "standshoot"
 
-func run(input):
+func run(_input):
 	pass
 	
 func enter():
