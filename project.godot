@@ -155,6 +155,8 @@ config/icon="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Spri
 
 window/size/width=960
 window/size/height=540
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [input]
 
