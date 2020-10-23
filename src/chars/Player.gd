@@ -10,10 +10,16 @@ onready var bullet_time_bar = $Addons/Bars/BulletTimeBar
 onready var spec_cd_timer = $Timers/SpecCooldown
 onready var petals = $SpritePivot/Petals
 onready var spec_bullet_spawners = $SpecBulletSpawners
+onready var hitbox_sprite = $SpritePivot/HitboxSprite
+
 signal player_hurt
 
+func _init():
+	GameInfo.current_player = self
+	
 func _ready():
 	#lets reset!
+	
 	Engine.time_scale = 1
 	bullet_time_bar.value = 10000
 	hp = 3
@@ -34,10 +40,10 @@ func _input(event):
 	
 
 func shoot():
-#	play_audio("shoot")
-	for bullet_spawner in bullet_spawners.get_children():
+##	play_audio("shoot")
+#	for bullet_spawner in bullet_spawners.get_children():
 #		bullet_spawner.fire()
-		pass
+	pass
 		
 func shoot_spec():
 	play_audio("shoot_spec")	

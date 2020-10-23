@@ -14,4 +14,9 @@ func _ready():
 func die():
 	emit_signal("enemy_died", points_on_death)
 	.die()
-	
+
+func shoot():
+	if (GameInfo.current_player):
+		play_audio("shoot")
+		for bullet_spawner in bullet_spawners.get_children():
+			bullet_spawner.fire()

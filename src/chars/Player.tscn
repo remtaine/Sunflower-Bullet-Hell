@@ -9,8 +9,7 @@
 [ext_resource path="res://src/addons/BulletTimeBar.gd" type="Script" id=7]
 [ext_resource path="res://sounds/sfx/Return From Bullet Time Sound Effect.wav" type="AudioStream" id=8]
 [ext_resource path="res://images/characters/sunflower/Sunflower Petal Bullet.png" type="Texture" id=9]
-[ext_resource path="res://sounds/sfx/Shoot Sound Effect 2.wav" type="AudioStream" id=10]
-[ext_resource path="res://images/characters/sunflower/Sunflower Petal Bullet orange.png" type="Texture" id=11]
+[ext_resource path="res://src/addons/FlowerStem.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/addons/Petals.gd" type="Script" id=13]
 
@@ -24,10 +23,15 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=2]
 
-[sub_resource type="BulletType" id=3]
+[sub_resource type="AnimatedTexture" id=3]
+pause = true
+oneshot = true
+frame_0/texture = ExtResource( 4 )
+
+[sub_resource type="BulletType" id=4]
 speed = 160.0
 damage = 1.0
-texture = ExtResource( 11 )
+texture = SubResource( 3 )
 collision_shape = SubResource( 2 )
 collision_mask = 8
 h_wave_type = 108
@@ -41,13 +45,14 @@ custom_data = {
 
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 
-[sub_resource type="BulletType" id=5]
-speed = 180.0
+[sub_resource type="BulletType" id=6]
+speed = 210.0
 damage = 1.0
 texture = ExtResource( 9 )
-collision_shape = SubResource( 4 )
+modulate = Color( 1.1, 1.1, 1.1, 1 )
+collision_shape = SubResource( 5 )
 collision_mask = 8
 linear_acceleration = 10.0
 h_wave_type = 108
@@ -60,7 +65,7 @@ custom_data = {
 
 }
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=7]
 radius = 4.08839
 
 [node name="Player" groups=[
@@ -70,6 +75,7 @@ use_parent_material = true
 collision_layer = 2
 collision_mask = 24
 script = ExtResource( 5 )
+speed = 240
 
 [node name="SpritePivot" parent="." index="0"]
 scale = Vector2( 0.9, 0.9 )
@@ -148,26 +154,27 @@ texture = ExtResource( 4 )
 shot_count = 1
 radius = 60.0
 arc_width = 0.523599
-bullet_type = SubResource( 3 )
+bullet_type = SubResource( 4 )
 aim_mode = 1
 aim_angle = -1.5708
 
 [node name="SpecBulletSpawners" type="Node2D" parent="." index="2"]
 
 [node name="BulletSpawnerSpec" parent="SpecBulletSpawners" index="0" instance=ExtResource( 12 )]
+position = Vector2( 0.424164, -17.7892 )
 shot_count = 1
-arc_width = 0.523599
-arc_offset = 0.0
-bullet_type = SubResource( 5 )
+arc_width = 0.785398
+bullet_type = SubResource( 6 )
 aim_mode = 1
 aim_angle = -1.5708
 
 [node name="CollisionShape2D" parent="." index="3"]
 position = Vector2( -17.6951, 8.75808 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="Moving" parent="States" index="1"]
 lean_on_move = true
+lean_angle = 20
 
 [node name="Bars" type="Node2D" parent="Addons" index="2"]
 z_index = 10
@@ -191,15 +198,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="FlowerStem" parent="Addons" index="3" instance=ExtResource( 10 )]
+
 [node name="ShotCooldown" parent="Timers" index="0"]
 wait_time = 0.3
 
 [node name="SpecCooldown" type="Timer" parent="Timers" index="1"]
-wait_time = 0.2
+wait_time = 0.15
 one_shot = true
 
 [node name="PetalCooldown" type="Timer" parent="Timers" index="2"]
-wait_time = 0.3
+wait_time = 0.175
 one_shot = true
 
 [node name="Shoot" parent="Audio" index="0"]
@@ -210,8 +219,9 @@ stream = ExtResource( 8 )
 volume_db = 10.0
 
 [node name="ShootSpec" type="AudioStreamPlayer" parent="Audio" index="4"]
-stream = ExtResource( 10 )
 volume_db = 4.0
 pitch_scale = 0.8
 [connection signal="animation_finished" from="Addons/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timers/PetalCooldown" to="SpritePivot/Petals" method="_on_PetalCooldown_timeout"]
+
+[editable path="SpecBulletSpawners/BulletSpawnerSpec"]

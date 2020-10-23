@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/shaders/CRT.shader" type="Shader" id=1]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 1 )
+shader_param/screen_size = Vector2( 960, 540 )
+shader_param/show_curvature = true
+shader_param/curvature_x_amount = 6.0
+shader_param/curvature_y_amount = 4.0
+shader_param/corner_color = Color( 0, 0, 0, 1 )
+shader_param/show_vignette = true
+shader_param/vignette_opacity = 0.2
+shader_param/show_horizontal_scan_lines = true
+shader_param/horizontal_scan_lines_amount = 90.0
+shader_param/horizontal_scan_lines_opacity = 0.1
+shader_param/show_vertical_scan_lines = true
+shader_param/vertical_scan_lines_amount = 10.0
+shader_param/vertical_scan_lines_opacity = 0.1
+shader_param/boost = 1.3
+shader_param/aberration_amount = 1.5
+
+[node name="CRT" type="ColorRect"]
+material = SubResource( 1 )
+margin_right = 960.0
+margin_bottom = 540.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

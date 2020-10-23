@@ -6,7 +6,7 @@ var possible_states := {}
 
 var velocity := Vector2.ZERO
 var direction := Vector2.ZERO
-var is_immune = false
+export var is_immune = false
 
 export (int) var hp := 3
 export (int) var speed : int = 160
@@ -86,6 +86,7 @@ func shoot():
 	play_audio("shoot")
 	for bullet_spawner in bullet_spawners.get_children():
 		bullet_spawner.fire()
+		shot_cooldown_timer.start()
 	#TODO add sfx
 	
 func _on_Timer_timeout():

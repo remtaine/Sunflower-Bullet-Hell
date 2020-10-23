@@ -29,7 +29,7 @@ func create_new_wave():
 		return
 	ready_to_summon = false
 	emit_signal("wave_cleared")
-	yield(get_tree().create_timer(1.0), "timeout")
+	yield(get_tree().create_timer(1.5), "timeout")
 	spawn_enemies()
 	wave_timer.start()
 	
@@ -48,6 +48,7 @@ func create_enemies(num: int):
 	for _i in range (num):
 		var enemy
 		spawn_tries = 0
+		randomize()
 		match (randi() % 5):
 			0,1,2,3:
 
@@ -60,7 +61,13 @@ func create_enemies(num: int):
 					y = randi() % 100 - 150 #-150 to -50 is like 0 to 100 - 150
 					spawn_tries += 1
 				enemy_pos.append(Vector2(x,y))
-				var shoot_style = ((randi() % 3 + wave_number/2) % 12) + 1
+				
+				var shoot_style
+				randomize()
+				if wave_number < 11:
+					shoot_style = (randi() % wave_number) + 1
+				else:
+					shoot_style = (randi() % 11) + 1
 				enemy.setup(Vector2(x, y), Vector2(x, y + 200), shoot_style)
 				print("ENEMY AT ", Vector2(x, y), " WITH GOAL OF ", Vector2(x, y + 250))
 

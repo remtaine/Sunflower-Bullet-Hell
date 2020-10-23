@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/addons/Trail.gd" type="Script" id=1]
+[ext_resource path="res://images/characters/sunflower/stem_chunk_v7.png" type="Texture" id=2]
+
+[node name="FlowerStem" type="Position2D"]
+position = Vector2( 0, -13.1807 )
+
+[node name="FlowerStemTrail" type="Line2D" parent="."]
+show_behind_parent = true
+z_index = -1
+z_as_relative = false
+width = 15.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 2 )
+texture_mode = 1
+script = ExtResource( 1 )
+is_emitting = true
+lifetime = 5.0
+max_points = 250
+target_path = NodePath("../../FlowerStem")

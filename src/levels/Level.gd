@@ -22,6 +22,7 @@ onready var tween = $Addons/Tween
 func _ready():
 	time_start = OS.get_unix_time()
 	bullet_server.connect("collision_detected",self,"handle_collision")
+#	$Cutscenes/AnimatedSprite.play()
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("reset"):
@@ -45,8 +46,9 @@ func update_labels():
 	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_bullet_count())
 	$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score_displayed)))
 	$UI/UIControl/Labels/Lives.text = "LIVES: \n" + lives_to_string()
-	$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
-	$UI/UIControl/Labels/Wave.text = "WAVE: \n" + String(wave_displayed)
+	if (GameInfo.current_player):
+		$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
+		$UI/UIControl/Labels/Wave.text = "WAVE: \n" + String(wave_displayed)
 	
 func get_time_string() -> String:
 	var mins = int(floor(time_elapsed/60.0))
@@ -56,16 +58,21 @@ func get_time_string() -> String:
 		additional_zero = "0"
 	return String(mins) + ":" + additional_zero + String(secs)
 	
-func handle_collision(bullet, colliders):
-	bullet.pop()
+func handle_collision(bullet, colliders): #HANDLES BULLET COLLISION!
 	for collider in colliders:
-		collider.damage(bullet.get_type().get_damage())
-
+		if !collider.is_immune:
+			bullet.pop()
+			collider.damage(bullet.get_type().get_damage())
+	#TODO check if collider is player
+	#if so destroy all bullets
+	#and respawn player!
 func update_wave():
 	wave_displayed += 1
 
 func update_player_lives(new_hp):
 	lives_displayed = new_hp
+	if lives_displayed == 0:
+		bullet_server.clear_bullets()
 
 func lives_to_string() -> String:
 	var lives = ""

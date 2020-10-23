@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://images/frames/Frame1.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://sounds/music/mainmenu/First Level Theme In Bullet Time (OGG).ogg" type="AudioStream" id=10]
 [ext_resource path="res://sounds/music/mainmenu/First Level Theme (OGG).ogg" type="AudioStream" id=11]
 [ext_resource path="res://src/menus/MainMenu.gd" type="Script" id=12]
+[ext_resource path="res://src/shaders/CRT.tscn" type="PackedScene" id=13]
 
 [sub_resource type="DynamicFont" id=1]
 size = 96
@@ -74,14 +75,8 @@ position = Vector2( 480, 410 )
 [node name="ShotCooldown" parent="Characters/Player/Timers" index="0"]
 autostart = false
 
-[node name="Shoot" parent="Characters/Player/Audio" index="0"]
-stream = null
-
 [node name="Hurt" parent="Characters/Player/Audio" index="2"]
 volume_db = 0.0
-
-[node name="ShootSpec" parent="Characters/Player/Audio" index="4"]
-stream = null
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -173,17 +168,20 @@ __meta__ = {
 }
 
 [node name="Version" type="Label" parent="UI/UIControl/Labels"]
-margin_top = 322.624
+margin_left = 720.0
+margin_top = 495.0
 margin_right = 955.0
 margin_bottom = 539.624
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "V0.1.4"
+text = "V0.1.5"
 align = 2
 valign = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CRT" parent="UI/UIControl" instance=ExtResource( 13 )]
 
 [node name="Audio" type="Node2D" parent="."]
 

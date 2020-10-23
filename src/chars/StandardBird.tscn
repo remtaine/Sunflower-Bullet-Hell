@@ -35,7 +35,7 @@ custom_data = {
 
 [node name="StandardBird" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-hp = 10
+hp = 5
 speed = 300
 
 [node name="Sprite" parent="SpritePivot" index="0"]
@@ -43,11 +43,8 @@ scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
 
 [node name="BulletSpawner" parent="BulletSpawners" index="0"]
-shot_count = 6
-radius = 60.0
+shot_count = 1
 arc_width = 6.28319
-arc_rotation = 0.785398
-arc_offset = 0.0
 bullet_type = SubResource( 3 )
 
 [node name="States" parent="." index="3"]
@@ -55,5 +52,5 @@ script = ExtResource( 4 )
 
 [node name="StandShoot" parent="States" index="2" instance=ExtResource( 5 )]
 
-[node name="ShotCooldown" parent="Timers" index="0"]
-wait_time = 0.2
+[node name="Shoot" parent="Audio" index="0"]
+volume_db = -8.0
