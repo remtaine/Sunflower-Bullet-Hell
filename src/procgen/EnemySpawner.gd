@@ -19,7 +19,8 @@ func _ready():
 #	thread = Thread.new()	
 	var _connect_status = connect("wave_cleared", level, "update_wave")
 	#set_process(false) TODO add wave clear after
-	
+	set_process(false)
+
 func _process(_delta):
 	if get_child_count() == 0 and ready_to_summon:# and player_holder.get_child_count() == 1:
 		create_new_wave()
@@ -69,7 +70,6 @@ func create_enemies(num: int):
 				else:
 					shoot_style = (randi() % 11) + 1
 				enemy.setup(Vector2(x, y), Vector2(x, y + 200), shoot_style)
-				print("ENEMY AT ", Vector2(x, y), " WITH GOAL OF ", Vector2(x, y + 250))
 
 			4: #BIRD
 				enemy = sideways_bird_resource.instance()
@@ -104,7 +104,10 @@ func overlapping_previous_enemies(x : float,y : float, dist := 100):
 	return false
 	
 func _on_Wave_timeout():
-	create_new_wave()
+	if ready_to_summon:
+		create_new_wave()
+	else:
+		wave_timer.start()
 #
 #func _exit_tree():
 #	thread.wait_to_finish(j)

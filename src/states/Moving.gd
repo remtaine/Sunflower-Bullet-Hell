@@ -5,7 +5,6 @@ var last_direction : Vector2 = Vector2.ZERO
 export (bool) var lean_on_move = false
 export (int) var lean_angle = 10
 export (float) var lean_duration = 0.5
-onready var tween = $Tween
 
 func _ready():
 	state_name = "moving"

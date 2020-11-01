@@ -1,8 +1,8 @@
 class_name Player
 extends Character
 
-const GAME_BORDER_START = Vector2(220, 40)
-const GAME_BORDER_END = Vector2(740, 450)
+#const GAME_BORDER_START = Vector2(220, 40)
+#const GAME_BORDER_END = Vector2(740, 450)
 
 var is_bullet_time := false
 
@@ -26,8 +26,8 @@ func _ready():
 	var _succesful_connection = connect("player_hurt", level, "update_player_lives")
 
 func _physics_process(_delta):
-	position.x = clamp(position.x, GAME_BORDER_START.x, GAME_BORDER_END.x)
-	position.y = clamp(position.y, GAME_BORDER_START.y, GAME_BORDER_END.y)
+	position.x = clamp(position.x, GameInfo.GAME_BORDER_START.x, GameInfo.GAME_BORDER_END.x)
+	position.y = clamp(position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
 
 	if Input.is_action_pressed("shoot") and petals.petals_visible > 0:
 		if spec_cd_timer.is_stopped():
@@ -58,6 +58,7 @@ func get_hurt(_dmg := 1):
 	.get_hurt()
 
 func die():
+	GameInfo.current_player = null
 	emit_signal("player_hurt", hp)
 	if bullet_time_bar.visible:
 		bullet_time(true)

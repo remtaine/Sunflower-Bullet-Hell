@@ -24,14 +24,16 @@ var _points_creation_time := []
 var _last_point := Vector2.ZERO
 var _clock := 0.0
 var _offset := 0.0
+var leaves := []
 
+onready var leaf_timer = $LeafTimer
 onready var target: Node2D = get_node_or_null(target_path)
 
 
 func _ready() -> void:
 	if not target:
 		target = get_parent() as Node2D
-	
+		
 	if Engine.editor_hint:
 		set_process(false)
 		return
@@ -41,8 +43,7 @@ func _ready() -> void:
 	clear_points()
 	position = Vector2.ZERO
 	_last_point = to_local(target.global_position) + calculate_offset()
-
-
+	
 func _get_configuration_warning() -> String:
 	var warning := "Missing Target node: assign a Node that extends Node2D in the Target Path or make the Trail a child of a parent that extends Node2D"
 	if target:
@@ -61,10 +62,7 @@ func _process(delta: float) -> void:
 		return
 
 	# Adding new points if necessary.
-	var desired_point := to_local(target.global_position)
-#	var distance: float = _last_point.distance_to(desired_point)
-#	if distance > resolution:
-	add_timed_point(desired_point, _clock)
+	add_desired_point(target.global_position)
 
 #	#add outline	
 #	var poly = self
@@ -72,6 +70,11 @@ func _process(delta: float) -> void:
 #		draw_line(poly[i-1] , poly[i], Color.black , 3)
 #	draw_line(poly[poly.size() - 1] , poly[0], Color.black , 3)
 
+func add_desired_point(target_pos):
+	var desired_point := to_local(target_pos)
+#	var distance: float = _last_point.distance_to(desired_point)
+#	if distance > resolution:
+	add_timed_point(desired_point, _clock)
 
 # Creates a new point and stores its creation time.
 func add_timed_point(point: Vector2, time: float) -> void:
@@ -118,3 +121,20 @@ func set_emitting(emitting: bool) -> void:
 		clear_points()
 		_points_creation_time.clear()
 		_last_point = to_local(target.global_position) + calculate_offset()
+
+func add_leaf(_pos := to_local(target.global_position)):
+	pass
+	#create instance of leaf
+	#setup to that pos
+	#add to leaves array
+
+func move_leaves():
+	for leaf in leaves:
+		pass
+		#move leaves using trail speed
+
+func _on_LeafTimer_timeout():
+	add_leaf()
+	randomize()
+	leaf_timer.wait_time = float((randi() % 15)/10) + 5.0
+	leaf_timer.start()

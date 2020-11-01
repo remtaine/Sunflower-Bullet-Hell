@@ -4,7 +4,7 @@ extends Enemy
 export var goal_position : Vector2
 var shoot_style := 0
 onready var bullet_spawner = $BulletSpawners/BulletSpawner
-var default_accel = 100
+var default_accel = 50
 var aimed = false
 
 func setup(pos, goal_pos, s_style):
@@ -58,7 +58,7 @@ func set_shoot_style(s_style):
 			bullet_spawner.anim.play_backwards("AttackRotation")
 			shot_cooldown_timer.wait_time = 0.1
 			bullet_spawner.get_bullet_type().set_linear_acceleration(-default_accel)
-			bullet_spawner.get_bullet_type().set_rotation_degrees(180)
+#			bullet_spawner.get_bullet_type().set_rotation_degrees(180)
 		11: #random aimed
 			aimed = true
 			bullet_spawner.set_aim_mode(3)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://images/backgrounds/Sunflower_Bullet_Hell_Background_Level_1 v2.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
@@ -7,25 +7,64 @@
 [ext_resource path="res://images/backgrounds/Sunflower Bullet Hell Side Bar.png" type="Texture" id=5]
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://src/levels/Level.gd" type="Script" id=7]
-[ext_resource path="res://src/shaders/CRT.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/UI/LevelStart.gd" type="Script" id=8]
 [ext_resource path="res://sounds/music/level1/Sunny Side Up (OGG).ogg" type="AudioStream" id=9]
 [ext_resource path="res://sounds/music/level1/Moony Side Up (OGG).ogg" type="AudioStream" id=10]
 [ext_resource path="res://src/procgen/EnemySpawner.gd" type="Script" id=11]
+[ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/menus/LoseMenu.gd" type="Script" id=13]
 [ext_resource path="res://images/backgrounds/Sunflower Bullet Hell L1BG.png" type="Texture" id=122]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 6 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "ScrollRight"
+length = 4.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.4, 2.6, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -687.357, 210 ), Vector2( 10, 210 ), Vector2( 10, 210 ), Vector2( 688.232, 210 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="DynamicFont" id=3]
 size = 32
 font_data = ExtResource( 6 )
 
-[sub_resource type="DynamicFont" id=7]
-font_data = ExtResource( 6 )
-
 [sub_resource type="DynamicFont" id=4]
-size = 24
 font_data = ExtResource( 6 )
 
 [sub_resource type="DynamicFont" id=5]
+size = 24
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=6]
 size = 18
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 80
 font_data = ExtResource( 6 )
 
 [node name="Level1" type="Node2D"]
@@ -36,6 +75,8 @@ script = ExtResource( 7 )
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2( 600, 2119 )
 script = ExtResource( 2 )
+scroll_velocity_y = 2
+use_delta = false
 
 [node name="BlueBackground" type="Sprite" parent="ParallaxBackground/ParallaxLayer1"]
 visible = false
@@ -77,6 +118,23 @@ margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="LevelStart" type="Label" parent="UI/UIControl"]
+margin_left = -687.357
+margin_top = 210.0
+margin_right = 272.643
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 1 )
+text = "LEVEL 1"
+align = 1
+valign = 1
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/UIControl/LevelStart"]
+anims/ScrollRight = SubResource( 2 )
 
 [node name="Frames" type="Control" parent="UI/UIControl"]
 margin_left = 15.7648
@@ -163,7 +221,7 @@ margin_left = 2.78041
 margin_top = 26.5276
 margin_right = 172.781
 margin_bottom = 63.5276
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "FPS: 60"
 align = 1
@@ -176,7 +234,7 @@ margin_left = 2.78041
 margin_top = 83.8466
 margin_right = 172.781
 margin_bottom = 160.847
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "BULLETS:
 456"
@@ -190,7 +248,7 @@ margin_left = 2.78041
 margin_top = 173.47
 margin_right = 172.781
 margin_bottom = 250.47
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "WAVE:
 01"
@@ -204,7 +262,7 @@ margin_left = -0.910168
 margin_top = 274.763
 margin_right = 188.09
 margin_bottom = 403.763
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "WASD/ARROW KEYS
 TO MOVE
@@ -222,7 +280,7 @@ margin_left = 1.90151
 margin_top = 431.868
 margin_right = 171.902
 margin_bottom = 508.868
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "VERSION:
 0.1.5"
@@ -236,7 +294,7 @@ margin_left = 790.611
 margin_top = 32.7583
 margin_right = 960.611
 margin_bottom = 109.758
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "SCORE:
 45645666"
@@ -250,7 +308,7 @@ margin_left = 790.611
 margin_top = 213.58
 margin_right = 960.611
 margin_bottom = 290.58
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "LIVES:
 OOO"
@@ -264,7 +322,7 @@ margin_left = 790.611
 margin_top = 149.447
 margin_right = 960.611
 margin_bottom = 226.447
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "TIME: 0:23"
 align = 1
@@ -278,7 +336,7 @@ margin_left = 780.505
 margin_top = 250.804
 margin_right = 950.505
 margin_bottom = 327.804
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "SPEC:
 ****"
@@ -292,7 +350,7 @@ margin_left = 790.611
 margin_top = 329.313
 margin_right = 960.611
 margin_bottom = 406.313
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "POWER: 1"
 align = 1
@@ -305,7 +363,7 @@ margin_left = 790.611
 margin_top = 367.528
 margin_right = 960.611
 margin_bottom = 444.528
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "GRAZE: 0"
 align = 1
@@ -314,11 +372,12 @@ __meta__ = {
 }
 
 [node name="Debug" type="Label" parent="UI/UIControl/Labels"]
+visible = false
 margin_left = 790.611
 margin_top = 419.016
 margin_right = 960.106
 margin_bottom = 506.016
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_constants/line_spacing = 0
 text = "DEBUG:
@@ -329,7 +388,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CRT" parent="UI/UIControl" instance=ExtResource( 8 )]
+[node name="ConditionMenus" type="Control" parent="UI/UIControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoseMenu" type="Node2D" parent="UI/UIControl/ConditionMenus"]
+visible = false
+script = ExtResource( 13 )
+
+[node name="ColorRect" type="ColorRect" parent="UI/UIControl/ConditionMenus/LoseMenu"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 185.0
+margin_right = 782.0
+margin_bottom = 555.0
+rect_scale = Vector2( 1, 0.88 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoseLabel" type="Label" parent="UI/UIControl/ConditionMenus/LoseMenu"]
+margin_top = 129.252
+margin_right = 960.0
+margin_bottom = 219.252
+custom_fonts/font = SubResource( 7 )
+text = "YOU LOSE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLabel" parent="UI/UIControl/ConditionMenus/LoseMenu" instance=ExtResource( 12 )]
+margin_top = 272.424
+margin_right = 960.0
+margin_bottom = 326.424
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "CLICK R TO RESTART"
+align = 1
+valign = 1
+is_on = false
+action = "reset"
+
+[node name="MenuLabel" parent="UI/UIControl/ConditionMenus/LoseMenu" instance=ExtResource( 12 )]
+margin_top = 319.154
+margin_right = 960.0
+margin_bottom = 373.154
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "CLICK M FOR MENU"
+align = 1
+valign = 1
+next_scene = "res://src/menus/MainMenu.tscn"
+is_on = false
+action = "menu"
 
 [node name="Audio" type="Node2D" parent="."]
 
@@ -352,4 +466,7 @@ autoplay = true
 [node name="Wave" type="Timer" parent="Timers"]
 wait_time = 10.0
 one_shot = true
+[connection signal="animation_finished" from="UI/UIControl/LevelStart/AnimationPlayer" to="UI/UIControl/LevelStart" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timers/Wave" to="Enemies" method="_on_Wave_timeout"]
+
+[editable path="Characters/Player"]

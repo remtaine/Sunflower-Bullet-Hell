@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stem_chunk_v5.png-aef293a0bd233d058007f3a671e2428b.stex"
+path="res://.import/stem_chunk_v9.png-5c5c6dca4cba8721ddf75742bdf16506.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/characters/sunflower/stem_chunk_v5.png"
-dest_files=[ "res://.import/stem_chunk_v5.png-aef293a0bd233d058007f3a671e2428b.stex" ]
+source_file="res://images/characters/sunflower/stem_chunk_v9.png"
+dest_files=[ "res://.import/stem_chunk_v9.png-5c5c6dca4cba8721ddf75742bdf16506.stex" ]
 
 [params]
 

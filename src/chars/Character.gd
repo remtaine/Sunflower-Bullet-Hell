@@ -22,6 +22,7 @@ onready var states_holder = $States
 onready var bullet_spawners = $BulletSpawners
 onready var anim = $Addons/AnimationPlayer
 onready var tween = $Addons/Tween
+onready var state_label = $Addons/StateLabel
 
 #timers
 onready var shot_cooldown_timer = $Timers/ShotCooldown
@@ -38,21 +39,32 @@ onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
 onready var objects_holder = get_parent().get_parent().get_node("Objects")
 onready var level = get_parent().get_parent()
 
+enum TEAMS {
+	ALLIES,
+	ENEMIES,	
+}
+export (TEAMS) var team
+
 func _ready():
 	for bullet_spawner in bullet_spawners.get_children():
 		bullet_spawner.bullet_type.rotation = 0
 		
 	if states_holder != null:
 		for child in states_holder.get_children():
-			possible_states[child.state_name] = child
-			if _state == null:
-				_state = child
-	print(_state.state_name)
+			if child is State and not child.disabled:
+				possible_states[child.state_name] = child
+				if _state == null:
+					_state = child
+					_state.enter()
 
 func _physics_process(_delta):
 	var input = _state.get_raw_input()
-	change_state(_state.interpret_inputs(input))
+	if not _state.is_manually_exited:
+		change_state(_state.interpret_inputs(input))
 	_state.run(input)
+	
+	if state_label.visible:
+		state_label.text = _state.state_name
 
 func damage(dmg := 1):
 	if !is_immune:
