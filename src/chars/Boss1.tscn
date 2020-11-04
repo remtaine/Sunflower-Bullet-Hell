@@ -1,0 +1,202 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://src/chars/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/characters/birds/Bird Goose Boss.png" type="Texture" id=2]
+[ext_resource path="res://src/addons/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/UI/white_square_pixel.png" type="Texture" id=4]
+[ext_resource path="res://src/chars/Boss1.gd" type="Script" id=5]
+[ext_resource path="res://src/bullets/Boss1Bullet.tres" type="BulletType" id=6]
+[ext_resource path="res://src/states/handlers/Boss1StatesHandler.gd" type="Script" id=7]
+[ext_resource path="res://images/characters/boss1/Bird 1.png" type="Texture" id=8]
+[ext_resource path="res://src/states/Boss/ChangePhase.gd" type="Script" id=9]
+[ext_resource path="res://src/states/Boss/GetInPosition.gd" type="Script" id=10]
+[ext_resource path="res://src/states/Boss/Boss1Moving.gd" type="Script" id=11]
+[ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=12]
+[ext_resource path="res://src/states/Boss/Tackling.gd" type="Script" id=13]
+[ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=14]
+[ext_resource path="res://images/characters/birds/Bird Projectile.png" type="Texture" id=15]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 7.10289, 23.285 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 8.38739, 7.28873 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 6.53855, 7.35595 )
+
+[sub_resource type="RectangleShape2D" id=5]
+
+[sub_resource type="BulletType" id=6]
+speed = 80.0
+damage = 1.0
+texture = ExtResource( 15 )
+modulate = Color( 0.992157, 0.376471, 0.254902, 1 )
+collision_shape = SubResource( 5 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}
+
+[sub_resource type="DynamicFont" id=7]
+size = 32
+font_data = ExtResource( 12 )
+
+[node name="Boss1" instance=ExtResource( 1 )]
+script = ExtResource( 5 )
+points_on_death = 50000
+
+[node name="Sprite" parent="SpritePivot" index="0"]
+position = Vector2( -6.91797, -4.32445 )
+scale = Vector2( 0.4, 0.4 )
+frames = SubResource( 1 )
+
+[node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
+scale = Vector2( 7.92, 7.92 )
+
+[node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox" index="0"]
+position = Vector2( -0.955237, 0.680101 )
+scale = Vector2( 0.323232, 0.328283 )
+shape = SubResource( 2 )
+
+[node name="Hitbox2" parent="SpritePivot/Hitboxes" index="1" instance=ExtResource( 3 )]
+position = Vector2( -57.2095, -35.2058 )
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox2" index="0"]
+position = Vector2( 20.697, 11.4218 )
+scale = Vector2( 2.68, 2.68 )
+shape = SubResource( 3 )
+
+[node name="Hitbox3" parent="SpritePivot/Hitboxes" index="2" instance=ExtResource( 3 )]
+position = Vector2( 67.5065, -18.1298 )
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox3" index="0"]
+position = Vector2( -34.4068, -6.68095 )
+scale = Vector2( 3.63072, 3.63072 )
+shape = SubResource( 4 )
+
+[node name="BulletSpawner" parent="BulletSpawners" index="0"]
+position = Vector2( -7.56548, 0 )
+shot_count = 3
+radius = 80.0
+arc_width = 1.0472
+bullet_type = ExtResource( 6 )
+aim_mode = 3
+aim_angle = 1.5708
+aim_angle_degrees = 90.0002
+scatter_mode = 1
+
+[node name="BulletSpawn" parent="BulletSpawners" index="1" instance=ExtResource( 14 )]
+position = Vector2( -7.56548, 0 )
+interval_frames = 20
+shot_count = 2
+radius = 70.0
+arc_width = 0.523599
+arc_rotation = 1.5708
+bullet_type = SubResource( 6 )
+aim_mode = 3
+aim_target_position = Vector2( 0, 200 )
+
+[node name="States" parent="." index="3"]
+script = ExtResource( 7 )
+
+[node name="Moving" parent="States" index="1"]
+script = ExtResource( 11 )
+
+[node name="Tackling" type="Node2D" parent="States" index="2"]
+script = ExtResource( 13 )
+is_manually_exited = true
+
+[node name="ChangePhase" type="Node2D" parent="States" index="3"]
+script = ExtResource( 9 )
+is_manually_exited = true
+
+[node name="GetInPosition" type="Node2D" parent="States" index="4"]
+script = ExtResource( 10 )
+is_manually_exited = true
+phase_positions = PoolVector2Array( 490, 125, 490, 125, 490, 220, 490, 125, 490, 125 )
+
+[node name="IdleAnimation" parent="Addons" index="3"]
+autoplay = ""
+
+[node name="Marker" parent="Addons/Node" index="0"]
+self_modulate = Color( 0.937255, 0.862745, 0.819608, 1 )
+
+[node name="UI" type="CanvasLayer" parent="." index="5"]
+layer = 2
+
+[node name="UIControl" type="Control" parent="UI" index="0"]
+margin_top = 479.647
+margin_right = 40.0
+margin_bottom = 519.647
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HealthBar" type="TextureProgress" parent="UI/UIControl" index="0"]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 277.228
+margin_top = 27.5
+margin_right = 278.228
+margin_bottom = 28.5
+rect_scale = Vector2( 420, 15 )
+max_value = 20.0
+value = 20.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 4 )
+tint_under = Color( 1, 0, 0, 1 )
+tint_progress = Color( 0, 1, 0.0156863, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Duck" type="Sprite" parent="UI/UIControl/HealthBar" index="0"]
+position = Vector2( -0.00976562, 0.363586 )
+scale = Vector2( 0.000352583, 0.00881458 )
+texture = ExtResource( 8 )
+
+[node name="Lines" type="Node2D" parent="UI/UIControl/HealthBar" index="1"]
+modulate = Color( 0.239216, 0.215686, 0.239216, 1 )
+
+[node name="Line" type="Sprite" parent="UI/UIControl/HealthBar/Lines" index="0"]
+position = Vector2( 1, 1.5 )
+scale = Vector2( 0.01, 2 )
+texture = ExtResource( 4 )
+
+[node name="HealthMultiplier" type="Label" parent="UI/UIControl" index="1"]
+margin_left = 703.225
+margin_top = 20.8416
+margin_right = 743.225
+margin_bottom = 57.8416
+custom_fonts/font = SubResource( 7 )
+text = "X4"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShotCooldown" parent="Timers" index="0"]
+one_shot = false
+
+[editable path="SpritePivot/Hitboxes/Hitbox"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox2"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox3"]

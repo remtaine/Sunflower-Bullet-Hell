@@ -1,30 +1,34 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/particles/Particle.gd" type="Script" id=1]
 [ext_resource path="res://sounds/sfx/Hit Sound Effect.wav" type="AudioStream" id=2]
+[ext_resource path="res://images/UI/radial circle.png" type="Texture" id=3]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.532154 ), 0.0, 0.0, 0, 0, Vector2( 0.348052, 0.622244 ), 1.13392, 4.26889, 0, 0, Vector2( 0.493506, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.748052, 0.469091 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.599407, 0.872404 )
-colors = PoolColorArray( 0, 0.305882, 0.411765, 1, 0, 0.305882, 0.411765, 1, 0, 0.6, 0.811765, 0 )
+offsets = PoolRealArray( 0.529801, 0.857616 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.392157 )
 
 [node name="DeathParticle" type="CPUParticles2D"]
 emitting = false
-amount = 30
+amount = 20
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 local_coords = false
+draw_order = 1
+texture = ExtResource( 3 )
 spread = 180.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 150.0
-initial_velocity_random = 0.5
-scale_amount = 4.0
+gravity = Vector2( 0, 200 )
+initial_velocity = 200.0
+initial_velocity_random = 0.6
+scale_amount = 0.25
 scale_amount_random = 0.1
 scale_amount_curve = SubResource( 1 )
 color_ramp = SubResource( 2 )
+hue_variation_random = 1.0
 script = ExtResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]

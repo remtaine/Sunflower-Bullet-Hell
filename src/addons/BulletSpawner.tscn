@@ -3,13 +3,13 @@
 [ext_resource path="res://src/addons/BulletSpawner.gd" type="Script" id=1]
 [ext_resource path="res://images/characters/birds/Bird Projectile.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=5]
 
-[sub_resource type="BulletType" id=2]
+[sub_resource type="BulletType" id=6]
 speed = 50.0
 damage = 1.0
 texture = ExtResource( 2 )
-collision_shape = SubResource( 1 )
+collision_shape = SubResource( 5 )
 collision_mask = 2
 h_wave_type = 108
 h_wave_amplitude = 2.8026e-45
@@ -21,7 +21,7 @@ custom_data = {
 
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=7]
 resource_name = "AttackOffset"
 loop = true
 tracks/0/type = "value"
@@ -37,8 +37,7 @@ tracks/0/keys = {
 "values": [ -1.0, 1.0, 0.0 ]
 }
 
-[sub_resource type="Animation" id=5]
-resource_name = "AttackRotation"
+[sub_resource type="Animation" id=8]
 length = 2.0
 loop = true
 step = 0.5
@@ -55,7 +54,7 @@ tracks/0/keys = {
 "values": [ -90.0, 90.0, 270.0 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=9]
 resource_name = "setup"
 length = 0.001
 tracks/0/type = "value"
@@ -75,13 +74,12 @@ tracks/0/keys = {
 shot_count = 10
 radius = 50.0
 arc_width = 1.5708
-arc_rotation = -1.5708
-bullet_type = SubResource( 2 )
+bullet_type = SubResource( 6 )
 scatter_range = 0.261799
 script = ExtResource( 1 )
 
 [node name="BulletAnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "setup"
-anims/AttackOffset = SubResource( 3 )
-anims/AttackRotation = SubResource( 5 )
-anims/setup = SubResource( 4 )
+anims/AttackOffset = SubResource( 7 )
+anims/AttackRotation = SubResource( 8 )
+anims/setup = SubResource( 9 )

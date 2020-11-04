@@ -2,10 +2,11 @@ class_name StandShoot
 extends State
 
 func _ready():
-	state_name = "standshoot"
+	pass
 
 func run(_input):
 	pass
 	
 func enter():
-	owner.shot_cooldown_timer.start()
+	for bs in owner.bullet_spawners.get_children():
+		bs.set_autofire(true)

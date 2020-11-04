@@ -19,6 +19,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/UI/BlinkingLabel.gd"
 }, {
+"base": "Enemy",
+"class": "Boss1",
+"language": "GDScript",
+"path": "res://src/chars/Boss1.gd"
+}, {
+"base": "State",
+"class": "Boss1Moving",
+"language": "GDScript",
+"path": "res://src/states/Boss/Boss1Moving.gd"
+}, {
+"base": "EnemyStatesHandler",
+"class": "Boss1StatesHandler",
+"language": "GDScript",
+"path": "res://src/states/handlers/Boss1StatesHandler.gd"
+}, {
 "base": "BulletSpawner",
 "class": "BulletSpawn",
 "language": "GDScript",
@@ -28,6 +43,11 @@ _global_script_classes=[ {
 "class": "BulletTimeBar",
 "language": "GDScript",
 "path": "res://src/addons/BulletTimeBar.gd"
+}, {
+"base": "State",
+"class": "ChangePhase",
+"language": "GDScript",
+"path": "res://src/states/Boss/ChangePhase.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Character",
@@ -48,6 +68,11 @@ _global_script_classes=[ {
 "class": "EnemyStatesHandler",
 "language": "GDScript",
 "path": "res://src/states/handlers/EnemyStatesHandler.gd"
+}, {
+"base": "State",
+"class": "GetInPosition",
+"language": "GDScript",
+"path": "res://src/states/Boss/GetInPosition.gd"
 }, {
 "base": "Area2D",
 "class": "Hitbox",
@@ -99,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/states/Player/PlayerRespawn.gd"
 }, {
+"base": "Node2D",
+"class": "Screenshake",
+"language": "GDScript",
+"path": "res://src/addons/Screenshake.gd"
+}, {
 "base": "Enemy",
 "class": "SidewaysBird",
 "language": "GDScript",
@@ -134,20 +164,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/states/handlers/StatesHandler.gd"
 }, {
+"base": "State",
+"class": "Tacking",
+"language": "GDScript",
+"path": "res://src/states/Boss/Tackling.gd"
+}, {
 "base": "Line2D",
 "class": "Trail2D",
 "language": "GDScript",
 "path": "res://src/addons/Trail.gd"
+}, {
+"base": "TextureButton",
+"class": "URLButton",
+"language": "GDScript",
+"path": "res://src/menus/URLButton.gd"
 } ]
 _global_script_class_icons={
 "Background": "",
 "BlinkingLabel": "",
+"Boss1": "",
+"Boss1Moving": "",
+"Boss1StatesHandler": "",
 "BulletSpawn": "",
 "BulletTimeBar": "",
+"ChangePhase": "",
 "Character": "",
 "Enemy": "",
 "EnemySpawner": "",
 "EnemyStatesHandler": "",
+"GetInPosition": "",
 "Hitbox": "",
 "Idle": "",
 "Level": "",
@@ -158,6 +203,7 @@ _global_script_class_icons={
 "Petals": "",
 "Player": "",
 "PlayerRespawn": "",
+"Screenshake": "",
 "SidewaysBird": "",
 "SidewaysBirdStatesHandler": "",
 "StandShoot": "",
@@ -165,7 +211,9 @@ _global_script_class_icons={
 "StandardBirdStatesHandler": "",
 "State": "",
 "StatesHandler": "",
-"Trail2D": ""
+"Tacking": "",
+"Trail2D": "",
+"URLButton": ""
 }
 
 [application]
@@ -178,6 +226,10 @@ config/icon="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Spri
 [autoload]
 
 GameInfo="*res://src/global/GameInfo.gd"
+
+[debug]
+
+settings/fps/force_fps=60
 
 [display]
 

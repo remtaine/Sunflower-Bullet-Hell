@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://images/backgrounds/Sunflower_Bullet_Hell_Background_Level_1 v2.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
@@ -13,6 +13,10 @@
 [ext_resource path="res://src/procgen/EnemySpawner.gd" type="Script" id=11]
 [ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/menus/LoseMenu.gd" type="Script" id=13]
+[ext_resource path="res://images/backgrounds/clouds/cloud5.png" type="Texture" id=15]
+[ext_resource path="res://images/backgrounds/clouds/cloud1.png" type="Texture" id=17]
+[ext_resource path="res://images/backgrounds/clouds/cloud6.png" type="Texture" id=18]
+[ext_resource path="res://src/addons/Screenshake.tscn" type="PackedScene" id=19]
 [ext_resource path="res://images/backgrounds/Sunflower Bullet Hell L1BG.png" type="Texture" id=122]
 
 [sub_resource type="DynamicFont" id=1]
@@ -20,7 +24,6 @@ size = 80
 font_data = ExtResource( 6 )
 
 [sub_resource type="Animation" id=2]
-resource_name = "ScrollRight"
 length = 4.0
 step = 0.2
 tracks/0/type = "value"
@@ -75,8 +78,7 @@ script = ExtResource( 7 )
 [node name="ParallaxLayer1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_mirroring = Vector2( 600, 2119 )
 script = ExtResource( 2 )
-scroll_velocity_y = 2
-use_delta = false
+scroll_velocity_y = 120
 
 [node name="BlueBackground" type="Sprite" parent="ParallaxBackground/ParallaxLayer1"]
 visible = false
@@ -89,8 +91,25 @@ texture = ExtResource( 122 )
 centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
-z_index = 4096
-z_as_relative = false
+motion_mirroring = Vector2( 0, 1800 )
+script = ExtResource( 2 )
+scroll_velocity_y = 120
+
+[node name="cloud1" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 634.32, 384.505 )
+texture = ExtResource( 17 )
+
+[node name="cloud5" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 553.212, -832.449 )
+texture = ExtResource( 15 )
+
+[node name="cloud6" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 409.183, -310.146 )
+texture = ExtResource( 18 )
+
+[node name="cloud7" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 409.183, -310.146 )
+texture = ExtResource( 18 )
 
 [node name="Characters" type="Node2D" parent="."]
 
@@ -176,22 +195,23 @@ __meta__ = {
 }
 
 [node name="Sunflower Bullet Hell Side Bar" type="Sprite" parent="UI/UIControl/Frames/Bottom"]
-position = Vector2( 43.5449, 324.863 )
+position = Vector2( 43.5449, 266.088 )
 rotation = 3.14159
-scale = Vector2( 0.15, 1 )
+scale = Vector2( 0.15, 0.6 )
 texture = ExtResource( 5 )
 
 [node name="Left" type="Control" parent="UI/UIControl/Frames"]
+margin_top = 51.0741
 margin_right = 40.0
-margin_bottom = 40.0
+margin_bottom = 91.0741
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Sunflower Bullet Hell Side Bar" type="Sprite" parent="UI/UIControl/Frames/Left"]
-position = Vector2( 79.7994, 292.649 )
+position = Vector2( 79.7994, 278.056 )
 rotation = 3.14159
-scale = Vector2( 0.135, 1 )
+scale = Vector2( 0.135, 0.7 )
 texture = ExtResource( 5 )
 
 [node name="Right" type="Control" parent="UI/UIControl/Frames"]
@@ -204,9 +224,9 @@ __meta__ = {
 }
 
 [node name="Sunflower Bullet Hell Side Bar" type="Sprite" parent="UI/UIControl/Frames/Right"]
-position = Vector2( 69.146, 295.362 )
+position = Vector2( 69.144, 365.198 )
 rotation = 3.14159
-scale = Vector2( 0.135, 1 )
+scale = Vector2( 0.135, 0.7 )
 texture = ExtResource( 5 )
 
 [node name="Labels" type="Control" parent="UI/UIControl"]
@@ -359,13 +379,14 @@ __meta__ = {
 }
 
 [node name="Graze" type="Label" parent="UI/UIControl/Labels"]
-margin_left = 790.611
-margin_top = 367.528
-margin_right = 960.611
-margin_bottom = 444.528
+margin_left = 799.192
+margin_top = 389.697
+margin_right = 969.192
+margin_bottom = 466.697
 custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "GRAZE: 0"
+text = "GRAZE: 
+0"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -445,6 +466,10 @@ next_scene = "res://src/menus/MainMenu.tscn"
 is_on = false
 action = "menu"
 
+[node name="TextureProgress" type="TextureProgress" parent="UI/UIControl"]
+margin_right = 40.0
+margin_bottom = 40.0
+
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="Theme" type="AudioStreamPlayer" parent="Audio"]
@@ -460,6 +485,12 @@ autoplay = true
 [node name="Addons" type="Node2D" parent="."]
 
 [node name="Tween" type="Tween" parent="Addons"]
+
+[node name="Camera2D" type="Camera2D" parent="Addons"]
+position = Vector2( 480, 270 )
+current = true
+
+[node name="Screenshake" parent="Addons/Camera2D" instance=ExtResource( 19 )]
 
 [node name="Timers" type="Node2D" parent="."]
 

@@ -12,6 +12,6 @@ func get_raw_input() -> Dictionary:
 
 func interpret_inputs(input) -> String:
 	if input.is_moving:
-		return "moving"
+		return "Moving"
 	else:
-		return "standshoot"
+		return "StandShoot"

@@ -9,7 +9,7 @@ func enter():
 	
 func _on_tween_completed(_object, key):
 	if owner._state == self and key == ":global_position":
-		owner.change_state("idle")
+		owner.change_state("Idle")
 
 func exit():
 	GameInfo.current_level.level_start_label_anim.play("ScrollRight")

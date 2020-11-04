@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://images/frames/Frame1.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
@@ -12,24 +12,22 @@
 [ext_resource path="res://sounds/music/mainmenu/First Level Theme In Bullet Time (OGG).ogg" type="AudioStream" id=10]
 [ext_resource path="res://sounds/music/mainmenu/First Level Theme (OGG).ogg" type="AudioStream" id=11]
 [ext_resource path="res://src/menus/MainMenu.gd" type="Script" id=12]
-[ext_resource path="res://src/menus/URLText.gd" type="Script" id=14]
+[ext_resource path="res://src/menus/URLButton.tscn" type="PackedScene" id=13]
+[ext_resource path="res://fonts/custom fonts/MainMenuFont.tres" type="DynamicFont" id=14]
+[ext_resource path="res://images/font awesome/globe.svg" type="Texture" id=15]
+[ext_resource path="res://images/font awesome/itch-io.svg" type="Texture" id=16]
+[ext_resource path="res://images/font awesome/twitter-square.svg" type="Texture" id=17]
+[ext_resource path="res://images/font awesome/github-square.svg" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 size = 96
 font_data = ExtResource( 3 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 24
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=3]
 size = 21
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=4]
-font_data = ExtResource( 3 )
-
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 3 )
 
 [node name="MainMenu" type="Node2D"]
@@ -120,40 +118,18 @@ __meta__ = {
 }
 
 [node name="Start" parent="UI/UIControl/Labels" instance=ExtResource( 4 )]
-margin_top = 289.644
+margin_top = 307.512
 margin_right = 920.0
-margin_bottom = 303.644
+margin_bottom = 321.512
 text = "PRESS J/Z TO START"
 align = 1
 
-[node name="GoToInstructions" parent="UI/UIControl/Labels" instance=ExtResource( 4 )]
-margin_top = 383.438
-margin_right = 515.0
-margin_bottom = 454.438
-custom_fonts/font = SubResource( 2 )
-text = "PRESS K/X
-FOR INSTRUCTIONS"
-align = 1
-action = "bullet_time"
-
-[node name="GoToCredits" parent="UI/UIControl/Labels" instance=ExtResource( 4 )]
-margin_left = 407.065
-margin_top = 383.438
-margin_right = 922.065
-margin_bottom = 454.438
-custom_fonts/font = SubResource( 2 )
-text = "PRESS L/C
-FOR CREDITS"
-align = 1
-action = "move_slow"
-
 [node name="Instructions1" type="Label" parent="UI/UIControl/Labels"]
-visible = false
 margin_left = 200.0
 margin_top = 307.479
 margin_right = 950.0
 margin_bottom = 524.479
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "WASD/ARROW
 KEYS TO MOVE"
@@ -163,14 +139,14 @@ __meta__ = {
 }
 
 [node name="Instructions2" type="Label" parent="UI/UIControl/Labels"]
-visible = false
 margin_top = 307.479
 margin_right = 760.0
 margin_bottom = 524.479
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "J/Z TO SHOOT
-K/X TO SLOW"
+K/X TO HOCKET
+L/C TO SLOW"
 align = 2
 valign = 1
 __meta__ = {
@@ -178,11 +154,10 @@ __meta__ = {
 }
 
 [node name="Instructions3" type="Label" parent="UI/UIControl/Labels"]
-visible = false
-margin_top = 373.356
+margin_top = 170.312
 margin_right = 950.0
-margin_bottom = 590.357
-custom_fonts/font = SubResource( 3 )
+margin_bottom = 387.313
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "YOUR MOLE IS YOUR WEAKSPOT!"
 align = 1
@@ -191,28 +166,79 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Credits" type="RichTextLabel" parent="UI/UIControl/Labels"]
-margin_left = 9.56334
-margin_top = 510.652
-margin_right = 949.563
-margin_bottom = 540.652
+[node name="CreditsRemtaine" type="Label" parent="UI/UIControl/Labels"]
+margin_left = 15.6064
+margin_top = 486.833
+margin_right = 955.606
+margin_bottom = 505.833
 mouse_filter = 1
-custom_fonts/normal_font = SubResource( 4 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_enabled = true
-bbcode_text = "PROGRAMMING BY [url=https://efigi.github.io/][b]EFIGI[/b][/url] / GRAPHICS AND MUSIC BY SEXUALIZED_GOAT"
-text = "PROGRAMMING BY EFIGI / GRAPHICS AND MUSIC BY SEXUALIZED_GOAT"
-scroll_active = false
-script = ExtResource( 14 )
+custom_fonts/font = ExtResource( 14 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+text = "PROGRAMMING BY REMTAINE:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Github" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
+margin_top = -7.75586
+margin_bottom = 504.244
+texture_normal = ExtResource( 18 )
+
+[node name="Twitter" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
+margin_left = 287.091
+margin_top = -7.75586
+margin_right = 735.091
+margin_bottom = 504.244
+texture_normal = ExtResource( 17 )
+url_path = "https://twitter.com/remtaine"
+
+[node name="Itch" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
+margin_left = 317.125
+margin_top = -8.03955
+margin_right = 829.125
+margin_bottom = 503.961
+texture_normal = ExtResource( 16 )
+url_path = "https://remtaine.itch.io/"
+
+[node name="Blog" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
+margin_left = 350.62
+margin_top = -7.75586
+margin_right = 846.62
+margin_bottom = 504.244
+texture_normal = ExtResource( 15 )
+url_path = "https://www.remtaine.com/"
+
+[node name="CreditsSexualizedGoat" type="Label" parent="UI/UIControl/Labels"]
+margin_left = 10.0
+margin_top = 514.184
+margin_right = 950.0
+margin_bottom = 533.184
+mouse_filter = 1
+custom_fonts/font = ExtResource( 14 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 7
+text = " GRAPHICS AND MUSIC BY SEXUALIZED_GOAT:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blog" parent="UI/UIControl/Labels/CreditsSexualizedGoat" instance=ExtResource( 13 )]
+margin_left = 397.623
+margin_top = -9.43799
+margin_right = 893.623
+margin_bottom = 502.562
+texture_normal = ExtResource( 15 )
+url_path = "https://linktr.ee/overdubs"
 
 [node name="Version" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 720.0
 margin_top = 495.0
 margin_right = 955.0
 margin_bottom = 539.624
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "V0.1.5"
+text = "V0.1.6"
 align = 2
 valign = 2
 __meta__ = {
@@ -232,6 +258,5 @@ volume_db = -80.0
 autoplay = true
 
 [node name="Objects" type="Node2D" parent="."]
-[connection signal="meta_clicked" from="UI/UIControl/Labels/Credits" to="UI/UIControl/Labels/Credits" method="_on_Credits_meta_clicked"]
 
 [editable path="Characters/Player"]

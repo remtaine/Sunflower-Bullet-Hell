@@ -40,9 +40,9 @@ func interpret_inputs(input) -> String:
 		return states_handler.interpret_inputs(input)
 	else:
 		if input.is_moving:
-			return "moving"
+			return "Moving"
 		else:
-			return "idle"
+			return "Idle"
 
 func enter():
 	pass
@@ -56,5 +56,5 @@ func get_input_direction() -> Vector2:
 func run(_input):
 	pass
 
-func _on_tween_completed(object, key):
+func _on_tween_completed(_object, _key):
 	pass

@@ -7,8 +7,8 @@ export (int) var lean_angle = 10
 export (float) var lean_duration = 0.5
 
 func _ready():
-	state_name = "moving"
-
+	pass
+	
 func run(input):
 	owner.direction = input.input_direction.normalized()
 	var mult = 1

@@ -22,7 +22,6 @@ func _ready():
 	
 	Engine.time_scale = 1
 	bullet_time_bar.value = 10000
-	hp = 3
 	var _succesful_connection = connect("player_hurt", level, "update_player_lives")
 
 func _physics_process(_delta):
@@ -56,6 +55,10 @@ func get_hurt(_dmg := 1):
 	set_collision_layer(0)
 	emit_signal("player_hurt", hp)
 	.get_hurt()
+
+func damage(dmg :=1):
+	GameInfo.current_level.screenshake()
+	.damage(dmg)
 
 func die():
 	GameInfo.current_player = null

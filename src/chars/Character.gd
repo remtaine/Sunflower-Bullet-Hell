@@ -6,7 +6,7 @@ var possible_states := {}
 
 var velocity := Vector2.ZERO
 var direction := Vector2.ZERO
-export var is_immune = false
+export var is_immune = false setget set_immunity
 
 export (int) var hp := 3
 export (int) var speed : int = 160
@@ -25,6 +25,7 @@ onready var tween = $Addons/Tween
 onready var state_label = $Addons/StateLabel
 
 #timers
+onready var timers = $Timers
 onready var shot_cooldown_timer = $Timers/ShotCooldown
 
 #audio
@@ -44,6 +45,12 @@ enum TEAMS {
 	ENEMIES,	
 }
 export (TEAMS) var team
+
+var SOUNDS = {
+	SHOOT = "shoot",
+	MOVE = "move",
+	HURT = "hurt"
+}
 
 func _ready():
 	for bullet_spawner in bullet_spawners.get_children():
@@ -100,7 +107,14 @@ func shoot():
 		bullet_spawner.fire()
 		shot_cooldown_timer.start()
 	#TODO add sfx
-	
+
+func set_immunity(val : bool):
+	is_immune = val
+	if val:
+		modulate = Color(modulate.r, modulate.g,modulate.b, 0.5)
+	else:
+		modulate = Color(modulate.r, modulate.g,modulate.b, 1.0)
+		
 func _on_Timer_timeout():
 	shoot()
 	shot_cooldown_timer.start()

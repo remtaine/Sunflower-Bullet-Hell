@@ -13,7 +13,8 @@ func setup(pos, d):
 
 func _ready():
 	speed *= 2.5
-	shot_cooldown_timer.start()
+	for bs in bullet_spawners.get_children():
+		bs.set_autofire(true)
 	
 func _physics_process(_delta):
 	if dir.x > 0 and position.x > ENEMY_BORDER_END.x:

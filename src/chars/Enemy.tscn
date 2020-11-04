@@ -1,17 +1,37 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://images/characters/birds/Bird Steady.png" type="Texture" id=1]
+[ext_resource path="res://images/UI/grey_sliderUp.png" type="Texture" id=1]
 [ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/addons/FollowTarget.gd" type="Script" id=3]
 [ext_resource path="res://src/states/handlers/EnemyStatesHandler.gd" type="Script" id=4]
 [ext_resource path="res://src/chars/Enemy.gd" type="Script" id=5]
 
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
+"frames": [  ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="Animation" id=2]
+resource_name = "idle"
+length = 1.6
+loop = true
+step = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8, 1.2, 1.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ Vector2( 1, 1 ), Vector2( 0.95, 1.05 ), Vector2( 1, 1 ), Vector2( 1.05, 0.95 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Enemy" instance=ExtResource( 2 )]
 use_parent_material = true
@@ -21,7 +41,6 @@ script = ExtResource( 5 )
 team = 1
 
 [node name="Sprite" parent="SpritePivot" index="0"]
-scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 1 )
 
 [node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
@@ -37,6 +56,19 @@ scale = Vector2( 11.8, 13.08 )
 
 [node name="States" parent="." index="3"]
 script = ExtResource( 4 )
+
+[node name="IdleAnimation" type="AnimationPlayer" parent="Addons" index="3"]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+
+[node name="Node" type="CanvasLayer" parent="Addons" index="4"]
+layer = 3
+
+[node name="Marker" type="Sprite" parent="Addons/Node" index="0"]
+position = Vector2( 0, 488.316 )
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+follow_y = false
 
 [node name="ShotCooldown" parent="Timers" index="0"]
 wait_time = 0.3

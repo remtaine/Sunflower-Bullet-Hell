@@ -9,6 +9,10 @@ onready var level = get_parent()
 onready var player_holder = get_parent().get_node("Characters")
 onready var wave_timer = get_parent().get_node("Timers/Wave")
 
+export (String) var boss_path = "res://src/chars/Boss1.tscn"
+var boss_resource
+export (int) var waves_before_boss = 10
+
 var spawn_tries := 0
 var enemy_pos := []
 var thread
@@ -17,20 +21,30 @@ signal wave_cleared
 
 func _ready():
 #	thread = Thread.new()	
+	boss_resource = load(boss_path)
 	var _connect_status = connect("wave_cleared", level, "update_wave")
 	#set_process(false) TODO add wave clear after
 	set_process(false)
 
 func _process(_delta):
 	if get_child_count() == 0 and ready_to_summon:# and player_holder.get_child_count() == 1:
-		create_new_wave()
+		if wave_number < waves_before_boss:
+			create_new_wave()
+		else:
+			summon_boss()
 
+func summon_boss():
+	var boss = boss_resource.instance()
+	boss.global_position = Vector2(490,125)
+	add_child(boss)
+	
 func create_new_wave():
 	if player_holder.get_child_count() != 1:
 		return
 	ready_to_summon = false
 	emit_signal("wave_cleared")
 	yield(get_tree().create_timer(1.5), "timeout")
+	
 	spawn_enemies()
 	wave_timer.start()
 	
@@ -104,6 +118,9 @@ func overlapping_previous_enemies(x : float,y : float, dist := 100):
 	return false
 	
 func _on_Wave_timeout():
+	if wave_number >= waves_before_boss:
+		return
+		
 	if ready_to_summon:
 		create_new_wave()
 	else:

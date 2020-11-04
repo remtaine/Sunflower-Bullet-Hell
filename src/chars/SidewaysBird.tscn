@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/chars/Enemy.tscn" type="PackedScene" id=1]
-[ext_resource path="res://images/characters/birds/Bird Side.png" type="Texture" id=2]
+[ext_resource path="res://images/characters/birds/Bird Down.png" type="Texture" id=2]
 [ext_resource path="res://images/characters/birds/Bird Projectile.png" type="Texture" id=3]
 [ext_resource path="res://src/chars/SidewaysBird.gd" type="Script" id=4]
 [ext_resource path="res://src/states/handlers/SidewaysBirdStatesHandler.gd" type="Script" id=5]
@@ -21,6 +21,7 @@ animations = [ {
 speed = 150.0
 damage = 1.0
 texture = ExtResource( 3 )
+modulate = Color( 0.909804, 0.384314, 0.380392, 1 )
 collision_shape = SubResource( 2 )
 collision_mask = 2
 collision_detect_bodies = false
@@ -40,15 +41,16 @@ script = ExtResource( 4 )
 dir = Vector2( -1, 0 )
 
 [node name="Sprite" parent="SpritePivot" index="0"]
+rotation = -0.190966
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox" index="0"]
-position = Vector2( -1.33691, 0 )
-scale = Vector2( 2.2, 2.2 )
+position = Vector2( -3.45707e-06, 0.13369 )
+scale = Vector2( 2.84, 2.2 )
 
 [node name="BeakHitbox2" parent="SpritePivot/Hitboxes" index="1" instance=ExtResource( 6 )]
-position = Vector2( 30.4816, 0.13369 )
+position = Vector2( 33.9576, 2.00536 )
 scale = Vector2( 0.639996, 0.639996 )
 
 [node name="CollisionShape2D" parent="SpritePivot/Hitboxes/BeakHitbox2" index="0"]
@@ -75,6 +77,9 @@ margin_top = 13.7061
 margin_right = 62.0
 margin_bottom = 59.7061
 rect_min_size = Vector2( 0, 0 )
+
+[node name="Marker" parent="Addons/Node" index="0"]
+self_modulate = Color( 0.909804, 0.384314, 0.384314, 1 )
 
 [node name="ShotCooldown" parent="Timers" index="0"]
 wait_time = 0.2

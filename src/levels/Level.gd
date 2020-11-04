@@ -3,6 +3,9 @@ extends Node2D
 
 var menu_path = "res://src/menus/MainMenu.tscn"
 
+var graze_count := 0
+var grazed_bullets := []
+
 var score := 0
 var score_displayed := 0
 var lives_displayed = 3
@@ -18,11 +21,14 @@ onready var bullet_theme = $Audio/BulletTheme
 
 onready var bullet_server = $BulletServer
 onready var tween = $Addons/Tween
+onready var object_holder = $Objects
 
 onready var lose_menu = $UI/UIControl/ConditionMenus/LoseMenu
 
 onready var enemy_spawner = $Enemies
 onready var level_start_label_anim = $UI/UIControl/LevelStart/AnimationPlayer
+
+onready var bullet_hit_particle = preload("res://src/particles/BulletHitParticle.tscn")
 
 func _ready():
 	GameInfo.current_level = self
@@ -31,11 +37,11 @@ func _ready():
 	lose_menu.activate(false)
 #	$Cutscenes/AnimatedSprite.play()
 	
-func _unhandled_input(_event):
-#	if event.is_action_pressed("reset"):
-#		var _scene = get_tree().reload_current_scene()
-#	elif event.is_action_pressed("menu"):
-#		var _scene = get_tree().change_scene(menu_path)
+func _unhandled_input(event):
+	if event.is_action_pressed("reset"):
+		var _scene = get_tree().reload_current_scene()
+	elif event.is_action_pressed("menu"):
+		var _scene = get_tree().change_scene(menu_path)
 	pass
 	
 func _process(_delta):
@@ -45,7 +51,7 @@ func _process(_delta):
 	
 func update_score(additional_points):
 	score += additional_points
-	var calculated_time :float = float(score - score_displayed)/5000.0
+	var calculated_time :float = min(float(score - score_displayed)/5000.0, 2.5)
 	tween.interpolate_property(self, "score_displayed", score_displayed, score, calculated_time, Tween.TRANS_LINEAR, Tween.EASE_IN)		
 	tween.start()
 
@@ -57,6 +63,7 @@ func update_labels():
 		$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score_displayed)))
 		$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
 		$UI/UIControl/Labels/Wave.text = "WAVE: \n" + String(wave_displayed)
+		$UI/UIControl/Labels/Graze.text = "GRAZE: \n" + String(graze_count)
 	
 func get_time_string() -> String:
 	var mins = int(floor(time_elapsed/60.0))
@@ -67,9 +74,18 @@ func get_time_string() -> String:
 	return String(mins) + ":" + additional_zero + String(secs)
 	
 func handle_collision(bullet, colliders): #HANDLES BULLET COLLISION!
+
 	for collider in colliders:
+		if collider.get_name() == "Graze":
+			if not bullet.get_ci_rid() in grazed_bullets:
+				grazed_bullets.append(bullet.get_ci_rid())
+				graze_count += 1
+			continue
 		var entity = collider.owner
 		if !entity.is_immune:
+			var particle = bullet_hit_particle.instance()
+			particle.global_position = bullet.get_position()
+			object_holder.add_child(particle)
 			bullet.pop()
 			entity.damage(bullet.get_type().get_damage())# * collider.damage_multiplier)
 	#TODO check if collider is player
@@ -85,8 +101,12 @@ func update_player_lives(new_hp):
 		bullet_server.clear_bullets()
 		$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score)))
 		lose_menu.activate()
+		
 func lives_to_string() -> String:
 	var lives = ""
 	for _i in range (lives_displayed):
 		lives += "O"
 	return lives
+
+func screenshake():
+	$Addons/Camera2D/Screenshake.start()
