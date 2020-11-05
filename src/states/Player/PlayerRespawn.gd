@@ -12,4 +12,5 @@ func _on_tween_completed(_object, key):
 		owner.change_state("Idle")
 
 func exit():
-	GameInfo.current_level.level_start_label_anim.play("ScrollRight")
+	if (GameInfo.current_level):
+		GameInfo.current_level.level_start_label_anim.play("ScrollRight")

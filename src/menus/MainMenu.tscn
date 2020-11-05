@@ -72,22 +72,13 @@ position = Vector2( 2946.66, 416.168 )
 rotation = -0.414162
 texture = ExtResource( 7 )
 
+[node name="BulletServer" type="BulletServer" parent="."]
+max_lifetime = 1.42932e-43
+
 [node name="Characters" type="Node2D" parent="."]
 
 [node name="Player" parent="Characters" instance=ExtResource( 5 )]
 position = Vector2( 480, 410 )
-
-[node name="Sprite" parent="Characters/Player/SpritePivot" index="0"]
-position = Vector2( 0, 0 )
-
-[node name="Respawn" parent="Characters/Player/States" index="0"]
-disabled = true
-
-[node name="FlowerStem" parent="Characters/Player/Addons" index="3"]
-is_on = false
-
-[node name="Hurt" parent="Characters/Player/Audio" index="2"]
-volume_db = 0.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 
