@@ -82,6 +82,9 @@ play_area_allow_incoming = true
 [node name="Player" parent="Characters" instance=ExtResource( 5 )]
 position = Vector2( 480, 410 )
 
+[node name="Hurt" parent="Characters/Player/Audio" index="2"]
+volume_db = 10.0
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="UIControl" type="Control" parent="UI"]

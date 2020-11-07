@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SBH Enemy Kill Sound Effect.wav-fc7166674d1ea824c905b26560980136.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/11-08/SBH Enemy Kill Sound Effect.wav"
+dest_files=[ "res://.import/SBH Enemy Kill Sound Effect.wav-fc7166674d1ea824c905b26560980136.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -110,4 +110,4 @@ __meta__ = {
 
 [node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
-volume_db = 10.0
+volume_db = 20.0

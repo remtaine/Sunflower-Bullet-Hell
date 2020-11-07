@@ -9,6 +9,8 @@ func run(_input):
 	pass
 
 func enter():
+	for bullet_pos in GameInfo.current_level.bullet_server.get_live_bullet_positions():
+		GameInfo.current_level.spawn_coins(1, bullet_pos)
 	GameInfo.current_level.bullet_server.clear_bullets()
 	var m = owner.sprite.modulate
 	owner.sprite.modulate = Color(m.r,m.g - color_change * owner.phase, m.b - color_change * owner.phase)
@@ -26,7 +28,7 @@ func enter():
 	owner.change_state("GetInPosition")
 	
 func exit():
-	pass
+	GameInfo.current_level.spawn_coins(owner.coin_count, owner.global_position)
 
 #what to put in change phase?
 #health_bar.value and current_phase_hp filledup again

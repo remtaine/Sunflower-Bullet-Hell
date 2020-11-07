@@ -59,7 +59,7 @@ func update_score(additional_points):
 
 func update_labels():
 	$UI/UIControl/Labels/FPS.text = "FPS: " + String(Engine.get_frames_per_second())
-	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_bullet_count())	
+	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_live_bullet_count())
 	$UI/UIControl/Labels/Lives.text = "LIVES: \n" + lives_to_string()
 	if (GameInfo.current_player):
 		$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score_displayed)))
@@ -79,30 +79,37 @@ func handle_collision(bullet, colliders): #HANDLES BULLET COLLISION!
 
 	for collider in colliders:
 		if collider.get_name() == "Graze":
-			if not bullet.get_ci_rid() in grazed_bullets:
+			if not bullet.get_ci_rid() in grazed_bullets and $Characters/Player.visible:
 				grazed_bullets.append(bullet.get_ci_rid())
 				graze_count += 1
 			continue
 		var entity = collider.owner
+
 		if !entity.is_immune:
-			var particle = bullet_hit_particle.instance()
-			particle.global_position = bullet.get_position()
-			particle_holder.add_child(particle)
+			create_bullet_particle(bullet.get_position())
 			bullet.pop()
 			entity.damage(bullet.get_type().get_damage())# * collider.damage_multiplier)
+			
 	#TODO check if collider is player
 	#if so destroy all bullets
 	#and respawn player!
-
+func create_bullet_particle(pos : Vector2):
+	var particle = bullet_hit_particle.instance()
+	particle.position = pos
+	particle_holder.add_child(particle)
+	
 func update_wave():
 	wave_displayed += 1
 
 func update_player_lives(new_hp):
 	lives_displayed = new_hp
+	
 	if lives_displayed <= 0: #ie lose
-		bullet_server.clear_bullets()
 		$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score)))
 		lose_menu.activate()
+		bullet_server.clear_bullets()
+	else:
+		clear_live_bullets()
 		
 func lives_to_string() -> String:
 	var lives = ""
@@ -110,6 +117,11 @@ func lives_to_string() -> String:
 		lives += "O"
 	return lives
 
+func clear_live_bullets():
+	for bullet_pos in bullet_server.get_live_bullet_positions():
+		create_bullet_particle(bullet_pos)
+	bullet_server.clear_bullets()
+	
 func screenshake():
 	$Addons/Camera2D/Screenshake.start()
 

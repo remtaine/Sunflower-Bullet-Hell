@@ -42,8 +42,8 @@ onready var particle_holder = get_parent().get_parent().get_node("Particles")
 onready var level = get_parent().get_parent()
 
 enum TEAMS {
-	ALLIES,
-	ENEMIES,	
+	ALLIES = 0,
+	ENEMIES = 1,	
 }
 export (TEAMS) var team
 

@@ -29,6 +29,6 @@ func damage(dmg := 1):
 				change_state("ChangePhase")
 
 func die():
-	GameInfo.current_level.bullet_server.clear_bullets()
+	GameInfo.current_level.clear_live_bullets()
 	.die()
 #TODO change death

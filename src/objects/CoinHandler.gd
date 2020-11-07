@@ -20,7 +20,7 @@ func _physics_process(delta: float) -> void:
 	for coin in get_children():
 		coin.rotation_degrees += 3
 #		print(get_child_count())
-		if player:
+		if player.visible:
 			var dist = coin.global_position.distance_to(player.global_position)
 			if dist < DISTANCES.PICKUP:
 				emit_signal("coin_picked_up",coin_score * coin.scale.x)

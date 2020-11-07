@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/particles/Particle.gd" type="Script" id=1]
-[ext_resource path="res://sounds/sfx/Hit Sound Effect.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/sfx/11-08/SBH Enemy Kill Sound Effect.wav" type="AudioStream" id=2]
 [ext_resource path="res://images/objects/Circle Sprite.png" type="Texture" id=3]
 
 [sub_resource type="Curve" id=1]
@@ -37,6 +37,5 @@ autostart = true
 
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-volume_db = 10.0
 pitch_scale = 1.05
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -19,7 +19,7 @@ func _init():
 	
 func _ready():
 	#lets reset!
-	
+	death_particle = preload("res://src/particles/PlayerDeathParticle.tscn")
 	Engine.time_scale = 1
 	bullet_time_bar.value = 10000
 	var _succesful_connection = connect("player_hurt", level, "update_player_lives")
@@ -61,11 +61,18 @@ func damage(dmg :=1):
 	.damage(dmg)
 
 func die():
-	GameInfo.current_player = null
+#	GameInfo.current_player = null
 	emit_signal("player_hurt", hp)
 	if bullet_time_bar.visible:
 		bullet_time(true)
-	.die()
+#	.die()
+	visible = false
+	$Addons/FlowerStem/FlowerStemTrail.visible = false
+	is_immune = true
+	var new_death_particle = death_particle.instance()
+	new_death_particle.position = position
+	particle_holder.add_child(new_death_particle)
+	set_physics_process(false)
 	
 func bullet_time(asap := false):
 	var slowed_time := 0.3
@@ -75,19 +82,22 @@ func bullet_time(asap := false):
 	var speed_multiplier = 3
 	is_bullet_time = !is_bullet_time
 	
-	play_audio("bullet_time")
+	
 	if asap:
+		play_audio("leave_bullet_time")
 		Engine.time_scale = 1.0
 		level.normal_theme.volume_db = normal_volume
 		level.bullet_theme.volume_db = -80
 		
 	elif is_bullet_time:
+		play_audio("enter_bullet_time")
 		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, slowed_time, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
 		tween.interpolate_property(self, "speed", speed, normal_speed * speed_multiplier, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
 		tween.interpolate_property(level.normal_theme, "volume_db", level.normal_theme.volume_db, -80, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		tween.interpolate_property(level.bullet_theme, "volume_db", level.bullet_theme.volume_db, normal_volume, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		#TODO add audio change as well!
 	else:
+		play_audio("leave_bullet_time")
 		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, 1.0, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)
 		tween.interpolate_property(self, "speed", speed, normal_speed, time_shift_duration,Tween.TRANS_LINEAR,Tween.EASE_IN)		
 		tween.interpolate_property(level.normal_theme, "volume_db", level.normal_theme.volume_db, normal_volume, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
@@ -104,8 +114,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func play_audio(action : String):
 	match action:
-		"bullet_time":
-			$Audio/BulletTime.play()
+		"enter_bullet_time":
+			$Audio/EnterBulletTime.play()
+		"leave_bullet_time":
+			$Audio/LeaveBulletTime.play()
 		"shoot_spec":
 			$Audio/ShootSpec.play()
 		_:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/addons/Petals.gd" type="Script" id=13]
 [ext_resource path="res://images/characters/sunflower/Pain Sprite.png" type="Texture" id=14]
+[ext_resource path="res://sounds/sfx/11-08/SBH Player Hit Sound Effect.wav" type="AudioStream" id=15]
+[ext_resource path="res://sounds/sfx/11-08/Enter Bullet Time SFX.wav" type="AudioStream" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -248,11 +250,17 @@ one_shot = true
 [node name="Shoot" parent="Audio" index="0"]
 pitch_scale = 0.7
 
-[node name="BulletTime" type="AudioStreamPlayer" parent="Audio" index="3"]
+[node name="Hurt" parent="Audio" index="2"]
+stream = ExtResource( 15 )
+
+[node name="EnterBulletTime" type="AudioStreamPlayer" parent="Audio" index="3"]
 stream = ExtResource( 8 )
 volume_db = 10.0
 
-[node name="ShootSpec" type="AudioStreamPlayer" parent="Audio" index="4"]
+[node name="LeaveBulletTime" type="AudioStreamPlayer" parent="Audio" index="4"]
+stream = ExtResource( 16 )
+
+[node name="ShootSpec" type="AudioStreamPlayer" parent="Audio" index="5"]
 volume_db = 4.0
 pitch_scale = 0.8
 [connection signal="animation_finished" from="Addons/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
