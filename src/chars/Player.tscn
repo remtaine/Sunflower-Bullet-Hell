@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
@@ -13,12 +13,18 @@
 [ext_resource path="res://src/states/Player/PlayerRespawn.gd" type="Script" id=11]
 [ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/addons/Petals.gd" type="Script" id=13]
+[ext_resource path="res://images/characters/sunflower/Pain Sprite.png" type="Texture" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "hurt",
 "speed": 5.0
 } ]
 
@@ -52,7 +58,7 @@ custom_data = {
 [sub_resource type="RectangleShape2D" id=6]
 
 [sub_resource type="BulletType" id=7]
-speed = 210.0
+speed = 350.0
 damage = 1.0
 texture = ExtResource( 9 )
 modulate = Color( 1.1, 1.1, 1.1, 1 )
@@ -75,6 +81,7 @@ radius = 4.08839
 [node name="Player" groups=[
 "allies",
 ] instance=ExtResource( 1 )]
+modulate = Color( 0.9, 0.9, 0.9, 1 )
 use_parent_material = true
 collision_layer = 2
 collision_mask = 24
@@ -172,9 +179,6 @@ collision_mask = 16
 scale = Vector2( 6.11111, 6.11111 )
 shape = SubResource( 2 )
 
-[node name="BulletSpawners" parent="." index="1"]
-visible = false
-
 [node name="BulletSpawner" parent="BulletSpawners" index="0"]
 shot_count = 1
 radius = 60.0
@@ -189,6 +193,7 @@ aim_angle = -1.5708
 position = Vector2( 0.424164, -17.7892 )
 shot_count = 1
 arc_rotation = -1.5708
+arc_offset = -1.0
 bullet_type = SubResource( 7 )
 
 [node name="CollisionShape2D" parent="." index="3"]
@@ -213,13 +218,13 @@ margin_top = -95.5467
 margin_right = 32.0663
 margin_bottom = 32.4533
 rect_scale = Vector2( 1.5, 1.5 )
-max_value = 500.0
-value = 500.0
+max_value = 600.0
+value = 600.0
 texture_under = ExtResource( 6 )
 texture_progress = ExtResource( 6 )
 fill_mode = 4
 tint_under = Color( 1, 1, 1, 0.588235 )
-tint_progress = Color( 0.396078, 0, 0.752941, 0.784314 )
+tint_progress = Color( 0.0470588, 0.0823529, 0.427451, 0.784314 )
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -232,14 +237,11 @@ position = Vector2( 0, 0 )
 margin_top = 40.5936
 margin_bottom = 87.5936
 
-[node name="ShotCooldown" parent="Timers" index="0"]
-wait_time = 0.3
-
-[node name="SpecCooldown" type="Timer" parent="Timers" index="1"]
+[node name="SpecCooldown" type="Timer" parent="Timers" index="0"]
 wait_time = 0.15
 one_shot = true
 
-[node name="PetalCooldown" type="Timer" parent="Timers" index="2"]
+[node name="PetalCooldown" type="Timer" parent="Timers" index="1"]
 wait_time = 0.175
 one_shot = true
 

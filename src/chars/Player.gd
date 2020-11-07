@@ -69,9 +69,10 @@ func die():
 	
 func bullet_time(asap := false):
 	var slowed_time := 0.3
-	var time_shift_duration:= 0.2
+	var time_shift_duration:= 0.3
 	var theme_shift_duration = 0.3
 	var normal_volume = -2
+	var speed_multiplier = 3
 	is_bullet_time = !is_bullet_time
 	
 	play_audio("bullet_time")
@@ -82,7 +83,7 @@ func bullet_time(asap := false):
 		
 	elif is_bullet_time:
 		tween.interpolate_property(Engine, "time_scale", Engine.time_scale, slowed_time, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
-		tween.interpolate_property(self, "speed", speed, normal_speed * 2, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
+		tween.interpolate_property(self, "speed", speed, normal_speed * speed_multiplier, time_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)		
 		tween.interpolate_property(level.normal_theme, "volume_db", level.normal_theme.volume_db, -80, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		tween.interpolate_property(level.bullet_theme, "volume_db", level.bullet_theme.volume_db, normal_volume, theme_shift_duration, Tween.TRANS_LINEAR, Tween.EASE_IN)
 		#TODO add audio change as well!

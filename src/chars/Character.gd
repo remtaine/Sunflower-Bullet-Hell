@@ -38,6 +38,7 @@ onready var death_particle = preload("res://src/particles/DeathParticle.tscn")
 
 #outside
 onready var objects_holder = get_parent().get_parent().get_node("Objects")
+onready var particle_holder = get_parent().get_parent().get_node("Particles")
 onready var level = get_parent().get_parent()
 
 enum TEAMS {
@@ -88,7 +89,7 @@ func die():
 	is_immune = true
 	var new_death_particle = death_particle.instance()
 	new_death_particle.position = position
-	objects_holder.add_child(new_death_particle)
+	particle_holder.add_child(new_death_particle)
 	queue_free()
 	
 func get_hurt(_dmg := 1):

@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/menus/LoseMenu.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Appear"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="LoseMenu" type="Node2D"]
+script = ExtResource( 4 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 185.0
+margin_right = 782.0
+margin_bottom = 555.0
+rect_scale = Vector2( 1, 0.88 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoseLabel" type="Label" parent="."]
+margin_top = 129.252
+margin_right = 960.0
+margin_bottom = 219.252
+custom_fonts/font = SubResource( 1 )
+text = "YOU LOSE"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLabel" parent="." instance=ExtResource( 3 )]
+margin_top = 272.424
+margin_right = 960.0
+margin_bottom = 326.424
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "CLICK R TO RESTART"
+align = 1
+valign = 1
+is_on = false
+action = "reset"
+
+[node name="AnimationPlayer" parent="RestartLabel" index="0"]
+autoplay = ""
+
+[node name="MenuLabel" parent="." instance=ExtResource( 3 )]
+margin_top = 319.154
+margin_right = 960.0
+margin_bottom = 373.154
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "CLICK M FOR MENU"
+align = 1
+valign = 1
+next_scene = "res://src/menus/MainMenu.tscn"
+is_on = false
+action = "menu"
+
+[node name="AnimationPlayer" parent="MenuLabel" index="0"]
+autoplay = ""
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Appear = SubResource( 3 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+
+[editable path="RestartLabel"]
+
+[editable path="MenuLabel"]

@@ -30,14 +30,14 @@ func get_raw_input() -> Dictionary:
 				inputs.is_moving = true
 				inputs.is_shooting = true
 				
-				if owner.global_position.x > 725 and inputs.input_direction.x > 0:
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 90)/57)
-				elif owner.global_position.y > 420 and inputs.input_direction.y > 0:
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 90)/57)
-				elif owner.global_position.x < 225 and inputs.input_direction.x < 0:
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 90)/57)
-				elif owner.global_position.y < 20  and inputs.input_direction.y < 0:
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 90)/57)
+				if owner.global_position.x > 725 and inputs.input_direction.x > 0: #hit right
+					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+				elif owner.global_position.y > 420 and inputs.input_direction.y > 0: # hit bottome
+					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+				elif owner.global_position.x < 225 and inputs.input_direction.x < 0: #hit left
+					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+				elif owner.global_position.y < 20  and inputs.input_direction.y < 0: #$hit top
+					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
 				else:
 					inputs.input_direction = inputs.input_direction
 		_:

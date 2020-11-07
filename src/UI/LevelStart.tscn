@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://src/UI/LevelStart.gd" type="Script" id=2]
+[ext_resource path="res://images/Circle Sprite Orange.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+outline_size = 5
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=2]
+length = 4.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.4, 2.6, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -687.357, 210 ), Vector2( 10, 210 ), Vector2( 10, 210 ), Vector2( 688.232, 210 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="LevelStart" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_left = -687.357
+margin_top = 210.0
+margin_right = 272.643
+margin_bottom = 300.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "LEVEL 1"
+align = 1
+valign = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+anims/ScrollRight = SubResource( 2 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Label"]
+visible = false
+show_behind_parent = true
+margin_left = 237.447
+margin_top = -60.6001
+margin_right = 713.446
+margin_bottom = 139.4
+texture = ExtResource( 3 )
+patch_margin_left = 70
+patch_margin_top = 70
+patch_margin_right = 70
+patch_margin_bottom = 70
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="animation_finished" from="Label/AnimationPlayer" to="Label" method="_on_AnimationPlayer_animation_finished"]

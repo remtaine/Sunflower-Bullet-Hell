@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sunflower Sisyphus (OGG).ogg-8a4fbd5a2ad9a240649553c01865c561.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/mainmenu/Sunflower Sisyphus (OGG).ogg"
+dest_files=[ "res://.import/Sunflower Sisyphus (OGG).ogg-8a4fbd5a2ad9a240649553c01865c561.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/chars/Character.gd"
 }, {
+"base": "Node2D",
+"class": "CoinHandler",
+"language": "GDScript",
+"path": "res://src/objects/CoinHandler.gd"
+}, {
 "base": "Character",
 "class": "Enemy",
 "language": "GDScript",
@@ -189,6 +194,7 @@ _global_script_class_icons={
 "BulletTimeBar": "",
 "ChangePhase": "",
 "Character": "",
+"CoinHandler": "",
 "Enemy": "",
 "EnemySpawner": "",
 "EnemyStatesHandler": "",
@@ -226,6 +232,7 @@ config/icon="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Spri
 [autoload]
 
 GameInfo="*res://src/global/GameInfo.gd"
+GlobalInfo="*res://src/global/GlobalInfo.gd"
 
 [debug]
 

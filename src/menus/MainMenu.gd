@@ -3,6 +3,7 @@ extends Node2D
 
 onready var normal_theme = $Audio/Theme
 onready var bullet_theme = $Audio/BulletTheme
+onready var version_label = $UI/UIControl/Labels/Version
 
 func _ready():
-	pass
+	version_label.text = GlobalInfo.version

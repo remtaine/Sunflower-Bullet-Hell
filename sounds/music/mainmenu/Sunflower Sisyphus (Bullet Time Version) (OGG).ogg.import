@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Sunflower Sisyphus (Bullet Time Version) (OGG).ogg-3f482caca2938fcb93ed944defd4ac42.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/mainmenu/Sunflower Sisyphus (Bullet Time Version) (OGG).ogg"
+dest_files=[ "res://.import/Sunflower Sisyphus (Bullet Time Version) (OGG).ogg-3f482caca2938fcb93ed944defd4ac42.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

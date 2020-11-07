@@ -39,7 +39,7 @@ extents = Vector2( 6.53855, 7.35595 )
 speed = 80.0
 damage = 1.0
 texture = ExtResource( 15 )
-modulate = Color( 0.992157, 0.376471, 0.254902, 1 )
+modulate = Color( 1.09, 0.48, 0.35, 1 )
 collision_shape = SubResource( 5 )
 collision_mask = 2
 h_wave_type = 108
@@ -59,6 +59,7 @@ font_data = ExtResource( 12 )
 [node name="Boss1" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 points_on_death = 50000
+coin_count = 20
 
 [node name="Sprite" parent="SpritePivot" index="0"]
 position = Vector2( -6.91797, -4.32445 )
@@ -134,12 +135,6 @@ script = ExtResource( 10 )
 is_manually_exited = true
 phase_positions = PoolVector2Array( 490, 125, 490, 125, 490, 220, 490, 125, 490, 125 )
 
-[node name="IdleAnimation" parent="Addons" index="3"]
-autoplay = ""
-
-[node name="Marker" parent="Addons/Node" index="0"]
-self_modulate = Color( 0.937255, 0.862745, 0.819608, 1 )
-
 [node name="UI" type="CanvasLayer" parent="." index="5"]
 layer = 2
 
@@ -152,18 +147,17 @@ __meta__ = {
 }
 
 [node name="HealthBar" type="TextureProgress" parent="UI/UIControl" index="0"]
-self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_left = 277.228
 margin_top = 27.5
 margin_right = 278.228
 margin_bottom = 28.5
 rect_scale = Vector2( 420, 15 )
 max_value = 20.0
-value = 20.0
+value = 15.0
 texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 4 )
-tint_under = Color( 1, 0, 0, 1 )
-tint_progress = Color( 0, 1, 0.0156863, 1 )
+tint_under = Color( 0, 0, 0, 0.0392157 )
+tint_progress = Color( 0.2, 0.45, 0.24, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -191,9 +185,6 @@ text = "X4"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="ShotCooldown" parent="Timers" index="0"]
-one_shot = false
 
 [editable path="SpritePivot/Hitboxes/Hitbox"]
 

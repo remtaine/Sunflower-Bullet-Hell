@@ -8,7 +8,7 @@
 speed = 80.0
 damage = 1.0
 texture = ExtResource( 1 )
-modulate = Color( 0.92549, 0.839216, 0.8, 1 )
+modulate = Color( 1.13, 1.04, 1, 1 )
 collision_shape = SubResource( 1 )
 collision_mask = 2
 h_wave_type = 108

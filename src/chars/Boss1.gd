@@ -28,4 +28,7 @@ func damage(dmg := 1):
 			if hp != 0 and phase < phase_count:
 				change_state("ChangePhase")
 
+func die():
+	GameInfo.current_level.bullet_server.clear_bullets()
+	.die()
 #TODO change death

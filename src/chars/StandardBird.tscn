@@ -20,7 +20,7 @@ animations = [ {
 [sub_resource type="BulletType" id=3]
 damage = 1.0
 texture = ExtResource( 6 )
-modulate = Color( 0.176471, 0.643137, 0.65098, 1 )
+modulate = Color( 0.08, 1.1, 1.1, 1 )
 collision_shape = SubResource( 2 )
 collision_mask = 2
 collision_detect_bodies = false
@@ -40,6 +40,7 @@ hp = 5
 speed = 300
 
 [node name="Sprite" parent="SpritePivot" index="0"]
+modulate = Color( 1.1, 1.1, 1.1, 1 )
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
 
@@ -63,9 +64,6 @@ margin_top = 27.9732
 margin_right = 62.0
 margin_bottom = 73.9732
 rect_min_size = Vector2( 0, 0 )
-
-[node name="Marker" parent="Addons/Node" index="0"]
-self_modulate = Color( 0.176471, 0.639216, 0.654902, 1 )
 
 [node name="Shoot" parent="Audio" index="0"]
 volume_db = -8.0

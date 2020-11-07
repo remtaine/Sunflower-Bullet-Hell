@@ -22,19 +22,21 @@ onready var bullet_theme = $Audio/BulletTheme
 onready var bullet_server = $BulletServer
 onready var tween = $Addons/Tween
 onready var object_holder = $Objects
+onready var particle_holder = $Particles
 
 onready var lose_menu = $UI/UIControl/ConditionMenus/LoseMenu
 
 onready var enemy_spawner = $Enemies
-onready var level_start_label_anim = $UI/UIControl/LevelStart/AnimationPlayer
+onready var level_start_label_anim = $UI/UIControl/LevelStart/Label/AnimationPlayer
 
 onready var bullet_hit_particle = preload("res://src/particles/BulletHitParticle.tscn")
 
 func _ready():
+	$UI/UIControl/Labels/Version.text = GlobalInfo.version
 	GameInfo.current_level = self
 	time_start = OS.get_unix_time()
 	bullet_server.connect("collision_detected",self,"handle_collision")
-	lose_menu.activate(false)
+#	lose_menu.activate(false)
 #	$Cutscenes/AnimatedSprite.play()
 	
 func _unhandled_input(event):
@@ -85,7 +87,7 @@ func handle_collision(bullet, colliders): #HANDLES BULLET COLLISION!
 		if !entity.is_immune:
 			var particle = bullet_hit_particle.instance()
 			particle.global_position = bullet.get_position()
-			object_holder.add_child(particle)
+			particle_holder.add_child(particle)
 			bullet.pop()
 			entity.damage(bullet.get_type().get_damage())# * collider.damage_multiplier)
 	#TODO check if collider is player
@@ -110,3 +112,6 @@ func lives_to_string() -> String:
 
 func screenshake():
 	$Addons/Camera2D/Screenshake.start()
+
+func spawn_coins(num : int, pos: Vector2, sc := 1, explosion_strength := 1, rand := 0.2):
+	$Objects/CoinHandler.spawn_coins(num,pos,sc,explosion_strength, rand)

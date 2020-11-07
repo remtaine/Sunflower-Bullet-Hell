@@ -9,8 +9,8 @@
 [ext_resource path="res://images/characters/birds/Bird Goose Boss.png" type="Texture" id=7]
 [ext_resource path="res://images/characters/birds/Bird Down.png" type="Texture" id=8]
 [ext_resource path="res://images/characters/birds/Bird Steady.png" type="Texture" id=9]
-[ext_resource path="res://sounds/music/mainmenu/First Level Theme In Bullet Time (OGG).ogg" type="AudioStream" id=10]
-[ext_resource path="res://sounds/music/mainmenu/First Level Theme (OGG).ogg" type="AudioStream" id=11]
+[ext_resource path="res://sounds/music/mainmenu/Sunflower Sisyphus (OGG).ogg" type="AudioStream" id=10]
+[ext_resource path="res://sounds/music/mainmenu/Sunflower Sisyphus (Bullet Time Version) (OGG).ogg" type="AudioStream" id=11]
 [ext_resource path="res://src/menus/MainMenu.gd" type="Script" id=12]
 [ext_resource path="res://src/menus/URLButton.tscn" type="PackedScene" id=13]
 [ext_resource path="res://fonts/custom fonts/MainMenuFont.tres" type="DynamicFont" id=14]
@@ -36,6 +36,7 @@ script = ExtResource( 12 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color( 0.9, 0.9, 0.9, 1 )
 motion_mirroring = Vector2( 1400, 0 )
 script = ExtResource( 2 )
 scroll_velocity_x = 20
@@ -74,6 +75,7 @@ texture = ExtResource( 7 )
 
 [node name="BulletServer" type="BulletServer" parent="."]
 max_lifetime = 1.42932e-43
+play_area_allow_incoming = true
 
 [node name="Characters" type="Node2D" parent="."]
 
@@ -137,7 +139,7 @@ custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "J/Z TO SHOOT
 K/X TO HOCKET
-L/C TO SLOW"
+HOLD L/C TO SLOW"
 align = 2
 valign = 1
 __meta__ = {
@@ -239,12 +241,12 @@ __meta__ = {
 [node name="Audio" type="Node2D" parent="."]
 
 [node name="Theme" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 11 )
+stream = ExtResource( 10 )
 volume_db = -5.0
 autoplay = true
 
 [node name="BulletTheme" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 10 )
+stream = ExtResource( 11 )
 volume_db = -80.0
 autoplay = true
 

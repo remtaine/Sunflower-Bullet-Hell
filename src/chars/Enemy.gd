@@ -4,12 +4,14 @@ extends Character
 const ENEMY_BORDER_START = Vector2(120, 40)
 const ENEMY_BORDER_END = Vector2(800, 450)
 export (int) var points_on_death := 5000
+export (int) var coin_count = 10
 signal enemy_died
 
 onready var bullet_spawner = $BulletSpawners/BulletSpawner
 var shoot_style := 0
 var default_accel = 50
 var aimed = false
+
 
 func _ready():
 	var _succesful_connection = connect("enemy_died",level,"update_score")
@@ -28,6 +30,7 @@ func set_aim():
 				
 func die():
 	emit_signal("enemy_died", points_on_death)
+	GameInfo.current_level.spawn_coins(coin_count, global_position)
 	.die()
 
 func shoot():
@@ -62,33 +65,39 @@ func set_shoot_style(s_style, bs := bullet_spawner):
 			bs.set_shot_count(3)
 			bs.set_arc_width_degrees(360)
 			bs.anim.play("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_interval_frames(14)
 		6: #spiral 3-way left
 			bs.set_shot_count(3)
 			bs.set_arc_width_degrees(360)
 			bs.anim.play_backwards("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_interval_frames(14)
 		7,8,9: #spiral 3-way right accel
 			bs.set_shot_count(3)
 			bs.anim.play("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_arc_width_degrees(360)
 			bs.set_interval_frames(14)			
 			bs.get_bullet_type().set_linear_acceleration(default_accel)
 		-8: #spiral 3-way left accel
 			bs.set_shot_count(3)
 			bs.anim.play_backwards("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_arc_width_degrees(360)
 			bs.set_interval_frames(14)
 			bs.get_bullet_type().set_linear_acceleration(default_accel)
 		-9: #spiral 3-way right decel
 			bs.set_shot_count(3)
 			bs.anim.play("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_interval_frames(14)
 			bs.get_bullet_type().set_linear_acceleration(-default_accel)
 			bs.get_bullet_type().set_rotation_degrees(180)
 		-10: #spiral 3-way left decel
 			bs.set_shot_count(3)
 			bs.anim.play_backwards("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_interval_frames(14)
 			bs.get_bullet_type().set_linear_acceleration(-default_accel)
 #			bullet_spawner.get_bullet_type().set_rotation_degrees(180)
@@ -103,13 +112,16 @@ func set_shoot_style(s_style, bs := bullet_spawner):
 			bs.set_shot_count(8)
 			bs.set_arc_width_degrees(270)
 			bs.anim.play("AttackRotation")
+			bs.anim.playback_speed *= 1.5
 			bs.set_interval_frames(17)
 			bs.get_bullet_type().set_linear_acceleration(default_accel)
 
 func reset_bullet(bs : BulletSpawner):
 	bs.set_aim_mode(0)
 	bs.set_shot_count(1)
+	bs.anim.stop()
 	bs.set_arc_width_degrees(30)
 	bs.set_scatter_mode(0)
 	bs.set_interval_frames(30)
 	bs.get_bullet_type().set_linear_acceleration(0)
+	bs.anim.playback_speed = 1
