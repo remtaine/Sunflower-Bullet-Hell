@@ -9,9 +9,7 @@ func run(_input):
 	pass
 
 func enter():
-	for bullet_pos in GameInfo.current_level.bullet_server.get_live_bullet_positions():
-		GameInfo.current_level.spawn_coins(1, bullet_pos)
-	GameInfo.current_level.bullet_server.clear_bullets()
+	GameInfo.current_level.spawn_coins_on_bullets()
 	var m = owner.sprite.modulate
 	owner.sprite.modulate = Color(m.r,m.g - color_change * owner.phase, m.b - color_change * owner.phase)
 	for timer in owner.timers.get_children():

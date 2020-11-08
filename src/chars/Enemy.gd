@@ -8,7 +8,7 @@ export (int) var coin_count = 10
 signal enemy_died
 
 onready var bullet_spawner = $BulletSpawners/BulletSpawner
-var shoot_style := 0
+export (int) var shoot_style := -1
 var default_accel = 50
 var aimed = false
 

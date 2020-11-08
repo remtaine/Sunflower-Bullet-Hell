@@ -127,3 +127,8 @@ func screenshake():
 
 func spawn_coins(num : int, pos: Vector2, sc := 1, explosion_strength := 1, rand := 0.2):
 	$Objects/CoinHandler.spawn_coins(num,pos,sc,explosion_strength, rand)
+
+func spawn_coins_on_bullets():
+	for bullet_pos in bullet_server.get_live_bullet_positions():
+		spawn_coins(1, bullet_pos)
+	bullet_server.clear_bullets()
