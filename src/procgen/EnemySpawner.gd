@@ -17,6 +17,8 @@ var spawn_tries := 0
 var enemy_pos := []
 var thread
 var ready_to_summon = true
+var start_summon_boss = false
+
 signal wave_cleared
 
 func _ready():
@@ -30,12 +32,14 @@ func _process(_delta):
 	if get_child_count() == 0 and ready_to_summon:# and player_holder.get_child_count() == 1:
 		if wave_number < waves_before_boss:
 			create_new_wave()
-		else:
-			summon_boss()
+		elif !start_summon_boss:
+			start_summon_boss = true
+			GameInfo.current_level.warning_label_anim.play("ScrollRight")
+			#summon_boss()
 
 func summon_boss():
 	var boss = boss_resource.instance()
-	boss.global_position = Vector2(490,125)
+	boss.global_position = Vector2(490,-125)
 	add_child(boss)
 	
 func create_new_wave():

@@ -1,6 +1,8 @@
 class_name Level
 extends Node2D
 
+
+export var debug_mode = false
 var menu_path = "res://src/menus/MainMenu.tscn"
 
 var graze_count := 0
@@ -16,7 +18,7 @@ var time_elapsed := 0
 
 var wave_displayed := 0
 
-onready var normal_theme = $Audio/Theme
+onready var normal_theme = $udio/Theme
 onready var bullet_theme = $Audio/BulletTheme
 
 onready var bullet_server = $BulletServer
@@ -24,27 +26,32 @@ onready var tween = $Addons/Tween
 onready var object_holder = $Objects
 onready var particle_holder = $Particles
 
+onready var win_timer = $Timers/Win
 onready var lose_menu = $UI/UIControl/ConditionMenus/LoseMenu
+onready var win_menu = $UI/UIControl/ConditionMenus/WinMenu
 
 onready var enemy_spawner = $Enemies
 onready var level_start_label_anim = $UI/UIControl/LevelStart/Label/AnimationPlayer
+onready var warning_label_anim = $UI/UIControl/Warning/Label/AnimationPlayer
 
 onready var bullet_hit_particle = preload("res://src/particles/BulletHitParticle.tscn")
 
+func _init() -> void:
+	GameInfo.current_level = self
+
 func _ready():
 	$UI/UIControl/Labels/Version.text = GlobalInfo.version
-	GameInfo.current_level = self
 	time_start = OS.get_unix_time()
 	bullet_server.connect("collision_detected",self,"handle_collision")
 #	lose_menu.activate(false)
 #	$Cutscenes/AnimatedSprite.play()
 	
 func _unhandled_input(event):
-	if event.is_action_pressed("reset"):
-		var _scene = get_tree().reload_current_scene()
-	elif event.is_action_pressed("menu"):
-		var _scene = get_tree().change_scene(menu_path)
-	pass
+	if debug_mode:
+		if event.is_action_pressed("reset"):
+			var _scene = get_tree().reload_current_scene()
+		elif event.is_action_pressed("menu"):
+			var _scene = get_tree().change_scene(menu_path)
 	
 func _process(_delta):
 	time_now = OS.get_unix_time()
@@ -59,13 +66,13 @@ func update_score(additional_points):
 
 func update_labels():
 	$UI/UIControl/Labels/FPS.text = "FPS: " + String(Engine.get_frames_per_second())
-	$UI/UIControl/Labels/BulletCount.text = "BULLETS: \n" + String(bullet_server.get_live_bullet_count())
-	$UI/UIControl/Labels/Lives.text = "LIVES: \n" + lives_to_string()
-	if (GameInfo.current_player):
-		$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score_displayed)))
+	$UI/UIControl/Labels/BulletCount.text = "BULLETS: " + String(bullet_server.get_live_bullet_count())
+	$UI/UIControl/Labels/Lives.text = "LIVES:\n" + lives_to_string()
+	if (GameInfo.current_player.visible):
+		$UI/UIControl/Labels/Score.text = "SCORE:\n" + String(int(ceil(score_displayed)))
 		$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
-		$UI/UIControl/Labels/Wave.text = "WAVE: \n" + String(wave_displayed)
-		$UI/UIControl/Labels/Graze.text = "GRAZE: \n" + String(graze_count)
+		$UI/UIControl/Labels/Wave.text = "WAVE:\n" + String(wave_displayed)
+		$UI/UIControl/Labels/Graze.text = "GRAZE:\n" + String(graze_count)
 	
 func get_time_string() -> String:
 	var mins = int(floor(time_elapsed/60.0))
@@ -132,3 +139,11 @@ func spawn_coins_on_bullets():
 	for bullet_pos in bullet_server.get_live_bullet_positions():
 		spawn_coins(1, bullet_pos)
 	bullet_server.clear_bullets()
+
+func play_cutscene():
+	pass
+#	$UI/Cutscenes/Intro.play("Intro")
+
+
+func _on_Win_timeout() -> void:
+	GameInfo.current_player.change_state("Win")

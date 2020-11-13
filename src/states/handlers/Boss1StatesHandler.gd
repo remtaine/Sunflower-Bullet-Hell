@@ -18,12 +18,12 @@ func get_raw_input() -> Dictionary:
 					is_shooting = true,
 			}
 			
-		2:
+		2: #bouncy phase
 			randomize()
 			if !inputs or inputs.input_direction == Vector2.ZERO or inputs.input_direction == Vector2.LEFT or inputs.input_direction == Vector2.RIGHT:
 				inputs = {
 					is_moving = true,
-					input_direction = Vector2.LEFT.rotated((randi() % 30)/57),
+					input_direction = Vector2(1,1).normalized(),
 					is_shooting = true,
 				}
 			else:
@@ -31,13 +31,17 @@ func get_raw_input() -> Dictionary:
 				inputs.is_shooting = true
 				
 				if owner.global_position.x > 725 and inputs.input_direction.x > 0: #hit right
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
-				elif owner.global_position.y > 420 and inputs.input_direction.y > 0: # hit bottome
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+#					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+					inputs.input_direction = inputs.input_direction.bounce(Vector2.RIGHT)
+				elif owner.global_position.y > 420 and inputs.input_direction.y > 0: # hit bottom
+#					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+					inputs.input_direction = inputs.input_direction.bounce(Vector2.DOWN)
 				elif owner.global_position.x < 225 and inputs.input_direction.x < 0: #hit left
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+#					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+					inputs.input_direction = inputs.input_direction.bounce(Vector2.LEFT)
 				elif owner.global_position.y < 20  and inputs.input_direction.y < 0: #$hit top
-					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+#					inputs.input_direction = inputs.input_direction.rotated((randi() % 30 + 75)/57)
+					inputs.input_direction = inputs.input_direction.bounce(Vector2.UP)
 				else:
 					inputs.input_direction = inputs.input_direction
 		_:

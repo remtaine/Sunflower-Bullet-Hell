@@ -6,10 +6,14 @@
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 32
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
 
 [sub_resource type="Animation" id=3]
@@ -54,10 +58,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RestartLabel" parent="." instance=ExtResource( 3 )]
-margin_top = 272.424
+[node name="BlinkingLabels" type="VBoxContainer" parent="."]
+margin_top = 278.65
 margin_right = 960.0
-margin_bottom = 326.424
+margin_bottom = 356.65
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLabel" parent="BlinkingLabels" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 960.0
+margin_bottom = 37.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "CLICK R TO RESTART"
@@ -66,13 +80,12 @@ valign = 1
 is_on = false
 action = "reset"
 
-[node name="AnimationPlayer" parent="RestartLabel" index="0"]
-autoplay = ""
-
-[node name="MenuLabel" parent="." instance=ExtResource( 3 )]
-margin_top = 319.154
+[node name="MenuLabel" parent="BlinkingLabels" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 47.0
 margin_right = 960.0
-margin_bottom = 373.154
+margin_bottom = 84.0
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "CLICK M FOR MENU"
@@ -82,13 +95,6 @@ next_scene = "res://src/menus/MainMenu.tscn"
 is_on = false
 action = "menu"
 
-[node name="AnimationPlayer" parent="MenuLabel" index="0"]
-autoplay = ""
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Appear = SubResource( 3 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-
-[editable path="RestartLabel"]
-
-[editable path="MenuLabel"]

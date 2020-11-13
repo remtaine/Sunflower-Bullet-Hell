@@ -9,6 +9,7 @@ func run(_input):
 	pass
 
 func enter():
+	owner.get_node("Audio/PhaseHurt").play()
 	GameInfo.current_level.spawn_coins_on_bullets()
 	var m = owner.sprite.modulate
 	owner.sprite.modulate = Color(m.r,m.g - color_change * owner.phase, m.b - color_change * owner.phase)

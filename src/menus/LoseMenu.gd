@@ -13,5 +13,8 @@ func activate(val := true):
 
 
 func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
-	$RestartLabel/AnimationPlayer.play("idle")
-	$MenuLabel/AnimationPlayer.play("idle")
+#	$RestartLabel/AnimationPlayer.play("idle")
+#	$MenuLabel/AnimationPlayer.play("idle")
+	for label in $BlinkingLabels.get_children():
+		label.is_on = true
+		label.get_node("AnimationPlayer").play("idle")

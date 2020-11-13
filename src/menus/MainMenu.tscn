@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://images/frames/Frame1.png" type="Texture" id=1]
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=2]
@@ -15,9 +15,7 @@
 [ext_resource path="res://src/menus/URLButton.tscn" type="PackedScene" id=13]
 [ext_resource path="res://fonts/custom fonts/MainMenuFont.tres" type="DynamicFont" id=14]
 [ext_resource path="res://images/font awesome/globe.svg" type="Texture" id=15]
-[ext_resource path="res://images/font awesome/itch-io.svg" type="Texture" id=16]
-[ext_resource path="res://images/font awesome/twitter-square.svg" type="Texture" id=17]
-[ext_resource path="res://images/font awesome/github-square.svg" type="Texture" id=18]
+[ext_resource path="res://images/frames/SBH_Cover_JPG 960x540 compressed v1.jpg" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 size = 96
@@ -39,7 +37,7 @@ script = ExtResource( 12 )
 modulate = Color( 0.9, 0.9, 0.9, 1 )
 motion_mirroring = Vector2( 1400, 0 )
 script = ExtResource( 2 )
-scroll_velocity_x = 20
+scroll_velocity_x = 30
 scroll_velocity_y = 0
 
 [node name="TextureRect" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
@@ -47,6 +45,15 @@ margin_right = 1400.0
 margin_bottom = 700.0
 texture = ExtResource( 1 )
 stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
+margin_right = 1400.0
+margin_bottom = 700.0
+texture = ExtResource( 18 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -135,8 +142,9 @@ __meta__ = {
 }
 
 [node name="Instructions2" type="Label" parent="UI/UIControl/Labels"]
+margin_left = -0.398132
 margin_top = 307.479
-margin_right = 760.0
+margin_right = 759.602
 margin_bottom = 524.479
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -164,9 +172,9 @@ __meta__ = {
 
 [node name="CreditsRemtaine" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 15.6064
-margin_top = 486.833
+margin_top = 489.966
 margin_right = 955.606
-margin_bottom = 505.833
+margin_bottom = 508.966
 mouse_filter = 1
 custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
@@ -176,31 +184,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Github" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
-margin_top = -7.75586
-margin_bottom = 504.244
-texture_normal = ExtResource( 18 )
-
-[node name="Twitter" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
-margin_left = 287.091
-margin_top = -7.75586
-margin_right = 735.091
-margin_bottom = 504.244
-texture_normal = ExtResource( 17 )
-url_path = "https://twitter.com/remtaine"
-
-[node name="Itch" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
-margin_left = 317.125
-margin_top = -8.03955
-margin_right = 829.125
-margin_bottom = 503.961
-texture_normal = ExtResource( 16 )
-url_path = "https://remtaine.itch.io/"
-
 [node name="Blog" parent="UI/UIControl/Labels/CreditsRemtaine" instance=ExtResource( 13 )]
-margin_left = 350.62
+margin_left = 255.647
 margin_top = -7.75586
-margin_right = 846.62
+margin_right = 751.647
 margin_bottom = 504.244
 texture_normal = ExtResource( 15 )
 url_path = "https://www.remtaine.com/"
@@ -214,15 +201,15 @@ mouse_filter = 1
 custom_fonts/font = ExtResource( 14 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_constants/line_spacing = 7
-text = " GRAPHICS AND MUSIC BY SEXUALIZED_GOAT:"
+text = " GRAPHICS AND MUSIC BY OVERDUBS:q"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Blog" parent="UI/UIControl/Labels/CreditsSexualizedGoat" instance=ExtResource( 13 )]
-margin_left = 397.623
+margin_left = 327.153
 margin_top = -9.43799
-margin_right = 893.623
+margin_right = 823.153
 margin_bottom = 502.562
 texture_normal = ExtResource( 15 )
 url_path = "https://linktr.ee/overdubs"

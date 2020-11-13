@@ -16,4 +16,5 @@ func _input(event):
 			$Sound.play()
 			anim.playback_speed = 10
 			yield(get_tree().create_timer(scene_change_delay), "timeout")
+#			SceneChanger.change_scene(next_scene)
 			var _scene_change_status = get_tree().change_scene(next_scene)

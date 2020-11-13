@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/UI/LevelStart.gd" type="Script" id=2]
-[ext_resource path="res://images/Circle Sprite Orange.png" type="Texture" id=3]
+[ext_resource path="res://images/objects/Circle Sprite Orange.png" type="Texture" id=3]
+[ext_resource path="res://src/UI/LevelStartMain.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 80
@@ -40,6 +41,7 @@ tracks/1/keys = {
 [node name="LevelStart" type="Control"]
 margin_right = 40.0
 margin_bottom = 40.0
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

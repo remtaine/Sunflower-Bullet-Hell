@@ -1,4 +1,4 @@
-class_name Moving
+class_name PlayerMoving
 extends State
 
 var last_direction : Vector2 = Vector2.ZERO
@@ -10,8 +10,8 @@ func _ready():
 	pass
 	
 func run(input):
-#	owner.position.x = clamp(owner.position.x, GameInfo.GAME_BORDER_START.x, GameInfo.GAME_BORDER_END.x)
-#	owner.position.y = clamp(owner.position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
+	owner.position.x = clamp(owner.position.x, GameInfo.GAME_BORDER_START.x, GameInfo.GAME_BORDER_END.x)
+	owner.position.y = clamp(owner.position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
 #	position.x = clamp(position.x, GameInfo.GAME_BORDER_START.x, GameInfo.GAME_BORDER_END.x)
 #	position.y = clamp(position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
 	owner.direction = input.input_direction.normalized()

@@ -38,6 +38,7 @@ custom_data = {
 
 [node name="SidewaysBird" instance=ExtResource( 1 )]
 script = ExtResource( 4 )
+hp = 5
 dir = Vector2( -1, 0 )
 
 [node name="Sprite" parent="SpritePivot" index="0"]
@@ -76,9 +77,6 @@ margin_top = 13.7061
 margin_right = 62.0
 margin_bottom = 59.7061
 rect_min_size = Vector2( 0, 0 )
-
-[node name="Marker" parent="Addons/Node" index="0"]
-self_modulate = Color( 0.909804, 0.384314, 0.384314, 1 )
 
 [editable path="SpritePivot/Hitboxes/Hitbox"]
 

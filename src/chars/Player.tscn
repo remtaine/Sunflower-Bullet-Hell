@@ -1,6 +1,6 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=34 format=2]
 
-[ext_resource path="res://src/chars/Character.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/states/Moving.tscn" type="PackedScene" id=1]
 [ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
 [ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Sprite.png" type="Texture" id=3]
 [ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Petal_Bullet_Sprite.png" type="Texture" id=4]
@@ -12,12 +12,22 @@
 [ext_resource path="res://src/addons/FlowerStem.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/states/Player/PlayerRespawn.gd" type="Script" id=11]
 [ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=12]
-[ext_resource path="res://src/addons/Petals.gd" type="Script" id=13]
+[ext_resource path="res://fonts/Pixels TEXT.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://images/characters/sunflower/Pain Sprite.png" type="Texture" id=14]
 [ext_resource path="res://sounds/sfx/11-08/SBH Player Hit Sound Effect.wav" type="AudioStream" id=15]
 [ext_resource path="res://sounds/sfx/11-08/Enter Bullet Time SFX.wav" type="AudioStream" id=16]
+[ext_resource path="res://src/states/Player/PlayerWin.gd" type="Script" id=17]
+[ext_resource path="res://src/states/PlayerMoving.gd" type="Script" id=18]
+[ext_resource path="res://src/shaders/CharacterHurt.shader" type="Shader" id=19]
+[ext_resource path="res://src/states/Idle.tscn" type="PackedScene" id=20]
+[ext_resource path="res://src/addons/Hitbox.tscn" type="PackedScene" id=21]
+[ext_resource path="res://src/addons/Petals.gd" type="Script" id=22]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 19 )
+shader_param/HIT = false
+
+[sub_resource type="SpriteFrames" id=2]
 animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
@@ -30,20 +40,20 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=3]
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 
-[sub_resource type="AnimatedTexture" id=4]
+[sub_resource type="AnimatedTexture" id=5]
 pause = true
 oneshot = true
 frame_0/texture = ExtResource( 4 )
 
-[sub_resource type="BulletType" id=5]
+[sub_resource type="BulletType" id=6]
 speed = 160.0
 damage = 1.0
-texture = SubResource( 4 )
-collision_shape = SubResource( 3 )
+texture = SubResource( 5 )
+collision_shape = SubResource( 4 )
 collision_mask = 8
 collision_detect_bodies = false
 h_wave_type = 108
@@ -57,14 +67,14 @@ custom_data = {
 
 }
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 
-[sub_resource type="BulletType" id=7]
-speed = 350.0
+[sub_resource type="BulletType" id=8]
+speed = 500.0
 damage = 1.0
 texture = ExtResource( 9 )
 modulate = Color( 1.1, 1.1, 1.1, 1 )
-collision_shape = SubResource( 6 )
+collision_shape = SubResource( 7 )
 collision_mask = 8
 linear_acceleration = 10.0
 h_wave_type = 108
@@ -77,143 +87,174 @@ custom_data = {
 
 }
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=9]
 radius = 4.08839
 
-[node name="Player" groups=[
+[sub_resource type="Animation" id=10]
+length = 0.4
+
+[sub_resource type="DynamicFont" id=11]
+size = 64
+font_data = ExtResource( 13 )
+
+[node name="Player" type="KinematicBody2D" groups=[
 "allies",
-] instance=ExtResource( 1 )]
-modulate = Color( 0.9, 0.9, 0.9, 1 )
+]]
+material = SubResource( 1 )
 use_parent_material = true
 collision_layer = 2
 collision_mask = 24
 script = ExtResource( 5 )
 speed = 240
 
-[node name="SpritePivot" parent="." index="0"]
+[node name="SpritePivot" type="Position2D" parent="."]
 scale = Vector2( 0.9, 0.9 )
 
-[node name="Sprite" parent="SpritePivot" index="0"]
-frames = SubResource( 1 )
+[node name="Sprite" type="AnimatedSprite" parent="SpritePivot"]
+position = Vector2( 0, 0.424164 )
+frames = SubResource( 2 )
 
-[node name="HitboxSprite" type="Sprite" parent="SpritePivot" index="1"]
+[node name="HitboxSprite" type="Sprite" parent="SpritePivot"]
 position = Vector2( -19.8759, 10.0667 )
 scale = Vector2( 0.13326, 0.13326 )
 texture = ExtResource( 2 )
 
-[node name="Petals" type="Node2D" parent="SpritePivot" index="2"]
-script = ExtResource( 13 )
+[node name="Petals" type="Node2D" parent="SpritePivot"]
+modulate = Color( 1, 1, 0.909804, 1 )
+script = ExtResource( 22 )
 
-[node name="Petal1" type="Sprite" parent="SpritePivot/Petals" index="0"]
+[node name="Petal1" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 24.6278, -40.2358 )
 rotation = 0.523599
 texture = ExtResource( 4 )
 
-[node name="Petal2" type="Sprite" parent="SpritePivot/Petals" index="1"]
+[node name="Petal2" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 40.6604, -22.7782 )
 rotation = 1.0472
 texture = ExtResource( 4 )
 
-[node name="Petal3" type="Sprite" parent="SpritePivot/Petals" index="2"]
+[node name="Petal3" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 44.4013, -0.867031 )
 rotation = 1.5708
 texture = ExtResource( 4 )
 
-[node name="Petal4" type="Sprite" parent="SpritePivot/Petals" index="3"]
+[node name="Petal4" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 36.385, 22.4692 )
 rotation = 2.0944
 texture = ExtResource( 4 )
 
-[node name="Petal5" type="Sprite" parent="SpritePivot/Petals" index="4"]
+[node name="Petal5" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 21.2432, 38.5018 )
 rotation = 2.61799
 texture = ExtResource( 4 )
 
-[node name="Petal6" type="Sprite" parent="SpritePivot/Petals" index="5"]
+[node name="Petal6" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 1.29156, 45.0929 )
 rotation = 3.14159
 texture = ExtResource( 4 )
 
-[node name="Petal7" type="Sprite" parent="SpritePivot/Petals" index="6"]
+[node name="Petal7" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( -21.154, 38.3236 )
 rotation = 3.66519
 texture = ExtResource( 4 )
 
-[node name="Petal8" type="Sprite" parent="SpritePivot/Petals" index="7"]
+[node name="Petal8" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( -38.4335, 23.0037 )
 rotation = 4.18879
 texture = ExtResource( 4 )
 
-[node name="Petal9" type="Sprite" parent="SpritePivot/Petals" index="8"]
+[node name="Petal9" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( -43.5996, 0.201801 )
 rotation = 4.71239
 texture = ExtResource( 4 )
 
-[node name="Petal10" type="Sprite" parent="SpritePivot/Petals" index="9"]
+[node name="Petal10" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( -36.474, -24.2033 )
 rotation = 5.23599
 texture = ExtResource( 4 )
 
-[node name="Petal11" type="Sprite" parent="SpritePivot/Petals" index="10"]
+[node name="Petal11" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( -18.8382, -40.7703 )
 rotation = 5.75959
 texture = ExtResource( 4 )
 
-[node name="Petal12" type="Sprite" parent="SpritePivot/Petals" index="11"]
+[node name="Petal12" type="Sprite" parent="SpritePivot/Petals"]
 position = Vector2( 1.11342, -45.7582 )
 texture = ExtResource( 4 )
 
-[node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
+[node name="Hitboxes" type="Node2D" parent="SpritePivot"]
+
+[node name="Hitbox" parent="SpritePivot/Hitboxes" instance=ExtResource( 21 )]
 position = Vector2( -19.5889, 10.056 )
 scale = Vector2( 0.422221, 0.422221 )
 collision_layer = 2
 collision_mask = 24
 
-[node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox" index="0"]
-scale = Vector2( 0.68421, 0.68421 )
-
-[node name="Graze" type="Area2D" parent="SpritePivot/Hitboxes" index="1"]
+[node name="Graze" type="Area2D" parent="SpritePivot/Hitboxes"]
 scale = Vector2( 0.555556, 0.555556 )
 collision_layer = 2
 collision_mask = 16
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpritePivot/Hitboxes/Graze" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpritePivot/Hitboxes/Graze"]
+visible = false
 scale = Vector2( 6.11111, 6.11111 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
-[node name="BulletSpawner" parent="BulletSpawners" index="0"]
+[node name="BulletSpawners" type="Node2D" parent="."]
+
+[node name="BulletSpawner" parent="BulletSpawners" instance=ExtResource( 12 )]
 shot_count = 1
 radius = 60.0
 arc_width = 0.523599
-bullet_type = SubResource( 5 )
+bullet_type = SubResource( 6 )
 aim_mode = 1
 aim_angle = -1.5708
 
-[node name="SpecBulletSpawners" type="Node2D" parent="." index="2"]
+[node name="SpecBulletSpawners" type="Node2D" parent="."]
 
-[node name="BulletSpawnerSpec" parent="SpecBulletSpawners" index="0" instance=ExtResource( 12 )]
-position = Vector2( 0.424164, -17.7892 )
+[node name="BulletSpawnerSpec" parent="SpecBulletSpawners" instance=ExtResource( 12 )]
+position = Vector2( 0.424164, 13.0425 )
 shot_count = 1
 arc_rotation = -1.5708
 arc_offset = -1.0
-bullet_type = SubResource( 7 )
+bullet_type = SubResource( 8 )
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -17.6951, 8.75808 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
+disabled = true
 
-[node name="Respawn" type="Node2D" parent="States" index="0"]
+[node name="States" type="Node2D" parent="."]
+
+[node name="Spawn" type="Node2D" parent="States"]
 script = ExtResource( 11 )
 is_manually_exited = true
 
-[node name="Moving" parent="States" index="2"]
-lean_on_move = true
-lean_angle = 20
+[node name="Idle" parent="States" instance=ExtResource( 20 )]
 
-[node name="Bars" type="Node2D" parent="Addons" index="2"]
+[node name="Moving" parent="States" instance=ExtResource( 1 )]
+script = ExtResource( 18 )
+
+[node name="Win" type="Node2D" parent="States"]
+script = ExtResource( 17 )
+is_manually_exited = true
+
+[node name="StateAddons" type="Node2D" parent="States"]
+
+[node name="Tween" type="Tween" parent="States/StateAddons"]
+
+[node name="Addons" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Addons"]
+anims/hurt = SubResource( 10 )
+
+[node name="Tween" type="Tween" parent="Addons"]
+
+[node name="Bars" type="Node2D" parent="Addons"]
 z_index = 10
 
-[node name="BulletTimeBar" type="TextureProgress" parent="Addons/Bars" index="0"]
+[node name="BulletTimeBar" type="TextureProgress" parent="Addons/Bars"]
 visible = false
 margin_left = -95.9337
 margin_top = -95.5467
@@ -232,40 +273,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="FlowerStem" parent="Addons" index="3" instance=ExtResource( 10 )]
+[node name="FlowerStem" parent="Addons" instance=ExtResource( 10 )]
 position = Vector2( 0, 0 )
 
-[node name="StateLabel" parent="Addons" index="4"]
+[node name="StateLabel" type="Label" parent="Addons"]
+visible = false
+margin_left = -240.0
 margin_top = 40.5936
+margin_right = 240.0
 margin_bottom = 87.5936
+rect_min_size = Vector2( 480, 0 )
+custom_fonts/font = SubResource( 11 )
+text = "State"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="SpecCooldown" type="Timer" parent="Timers" index="0"]
-wait_time = 0.15
+[node name="Timers" type="Node2D" parent="."]
+
+[node name="SpecCooldown" type="Timer" parent="Timers"]
+wait_time = 0.1
 one_shot = true
 
-[node name="PetalCooldown" type="Timer" parent="Timers" index="1"]
-wait_time = 0.175
+[node name="PetalCooldown" type="Timer" parent="Timers"]
+wait_time = 0.13
 one_shot = true
 
-[node name="Shoot" parent="Audio" index="0"]
+[node name="Audio" type="Node2D" parent="."]
+
+[node name="Shoot" type="AudioStreamPlayer" parent="Audio"]
 pitch_scale = 0.7
 
-[node name="Hurt" parent="Audio" index="2"]
-stream = ExtResource( 15 )
+[node name="Move" type="AudioStreamPlayer" parent="Audio"]
 
-[node name="EnterBulletTime" type="AudioStreamPlayer" parent="Audio" index="3"]
+[node name="Hurt" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource( 15 )
+volume_db = 20.0
+
+[node name="EnterBulletTime" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 8 )
 volume_db = 10.0
 
-[node name="LeaveBulletTime" type="AudioStreamPlayer" parent="Audio" index="4"]
+[node name="LeaveBulletTime" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 16 )
 
-[node name="ShootSpec" type="AudioStreamPlayer" parent="Audio" index="5"]
+[node name="ShootSpec" type="AudioStreamPlayer" parent="Audio"]
 volume_db = 4.0
 pitch_scale = 0.8
 [connection signal="animation_finished" from="Addons/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="Timers/PetalCooldown" to="SpritePivot/Petals" method="_on_PetalCooldown_timeout"]
-
-[editable path="SpritePivot/Hitboxes/Hitbox"]
 
 [editable path="SpecBulletSpawners/BulletSpawnerSpec"]

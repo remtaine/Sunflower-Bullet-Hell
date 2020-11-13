@@ -1,0 +1,176 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/menus/WinMenu.gd" type="Script" id=1]
+[ext_resource path="res://images/frames/SBH_Cover_JPG 960x540 compressed v1.jpg" type="Texture" id=2]
+[ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://sounds/sfx/Shoot Sound Effect 2.wav" type="AudioStream" id=5]
+[ext_resource path="res://src/UI/BlinkingLabel.gd" type="Script" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 40
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 32
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=2]
+length = 4.0
+loop = true
+step = 1.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.02, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 32
+outline_size = 6
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Appear"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.5, 1.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="WinMenu" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_left = 185.0
+margin_right = 782.0
+margin_bottom = 555.0
+rect_scale = Vector2( 1, 0.88 )
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoseLabel" type="Label" parent="."]
+margin_top = 111.266
+margin_right = 960.0
+margin_bottom = 201.266
+custom_fonts/font = SubResource( 1 )
+text = "YOU WIN!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="."]
+margin_top = 200.446
+margin_right = 960.0
+margin_bottom = 290.446
+custom_fonts/font = SubResource( 6 )
+custom_colors/font_color = Color( 1, 0.788235, 0, 1 )
+text = "SCORE: 23312311"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlinkingLabels" type="VBoxContainer" parent="."]
+margin_top = 306.103
+margin_right = 960.0
+margin_bottom = 437.103
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlinkingLabel" type="Label" parent="BlinkingLabels"]
+margin_right = 960.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 5 )
+text = "CLICK J/C FOR NEXT LEVEL"
+align = 1
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+is_on = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BlinkingLabels/BlinkingLabel"]
+autoplay = "idle"
+anims/idle = SubResource( 2 )
+
+[node name="Sound" type="AudioStreamPlayer" parent="BlinkingLabels/BlinkingLabel"]
+stream = ExtResource( 5 )
+volume_db = 4.0
+pitch_scale = 0.7
+
+[node name="RestartLabel" parent="BlinkingLabels" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 47.0
+margin_right = 960.0
+margin_bottom = 84.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "CLICK R TO RESTART"
+align = 1
+valign = 1
+is_on = false
+action = "reset"
+
+[node name="MenuLabel" parent="BlinkingLabels" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 94.0
+margin_right = 960.0
+margin_bottom = 131.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "CLICK M FOR MENU"
+align = 1
+valign = 1
+next_scene = "res://src/menus/MainMenu.tscn"
+is_on = false
+action = "menu"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Appear = SubResource( 3 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

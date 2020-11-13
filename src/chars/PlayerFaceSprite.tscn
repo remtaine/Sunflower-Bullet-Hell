@@ -1,0 +1,116 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Player_Sprite.png" type="Texture" id=1]
+[ext_resource path="res://images/characters/sunflower/Potential Hitbox Sprite.png" type="Texture" id=2]
+[ext_resource path="res://src/addons/Hitbox.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/addons/Petals.gd" type="Script" id=5]
+[ext_resource path="res://images/characters/sunflower/Pain Sprite.png" type="Texture" id=6]
+[ext_resource path="res://images/characters/sunflower/Sunflower_Bullet_Hell_Petal_Bullet_Sprite.png" type="Texture" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "hurt",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[node name="SpritePivot" type="Position2D"]
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 0.424164 )
+frames = SubResource( 1 )
+
+[node name="HitboxSprite" type="Sprite" parent="."]
+position = Vector2( -19.8759, 10.0667 )
+scale = Vector2( 0.13326, 0.13326 )
+texture = ExtResource( 2 )
+
+[node name="Petals" type="Node2D" parent="."]
+modulate = Color( 1, 1, 0.909804, 1 )
+script = ExtResource( 5 )
+
+[node name="Petal1" type="Sprite" parent="Petals"]
+position = Vector2( 24.6278, -40.2358 )
+rotation = 0.523599
+texture = ExtResource( 7 )
+
+[node name="Petal2" type="Sprite" parent="Petals"]
+position = Vector2( 40.6604, -22.7782 )
+rotation = 1.0472
+texture = ExtResource( 7 )
+
+[node name="Petal3" type="Sprite" parent="Petals"]
+position = Vector2( 44.4013, -0.867031 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="Petal4" type="Sprite" parent="Petals"]
+position = Vector2( 36.385, 22.4692 )
+rotation = 2.0944
+texture = ExtResource( 7 )
+
+[node name="Petal5" type="Sprite" parent="Petals"]
+position = Vector2( 21.2432, 38.5018 )
+rotation = 2.61799
+texture = ExtResource( 7 )
+
+[node name="Petal6" type="Sprite" parent="Petals"]
+position = Vector2( 1.29156, 45.0929 )
+rotation = 3.14159
+texture = ExtResource( 7 )
+
+[node name="Petal7" type="Sprite" parent="Petals"]
+position = Vector2( -21.154, 38.3236 )
+rotation = 3.66519
+texture = ExtResource( 7 )
+
+[node name="Petal8" type="Sprite" parent="Petals"]
+position = Vector2( -38.4335, 23.0037 )
+rotation = 4.18879
+texture = ExtResource( 7 )
+
+[node name="Petal9" type="Sprite" parent="Petals"]
+position = Vector2( -43.5996, 0.201801 )
+rotation = 4.71239
+texture = ExtResource( 7 )
+
+[node name="Petal10" type="Sprite" parent="Petals"]
+position = Vector2( -36.474, -24.2033 )
+rotation = 5.23599
+texture = ExtResource( 7 )
+
+[node name="Petal11" type="Sprite" parent="Petals"]
+position = Vector2( -18.8382, -40.7703 )
+rotation = 5.75959
+texture = ExtResource( 7 )
+
+[node name="Petal12" type="Sprite" parent="Petals"]
+position = Vector2( 1.11342, -45.7582 )
+texture = ExtResource( 7 )
+
+[node name="Hitboxes" type="Node2D" parent="."]
+
+[node name="Hitbox" parent="Hitboxes" instance=ExtResource( 3 )]
+position = Vector2( -19.5889, 10.056 )
+scale = Vector2( 0.422221, 0.422221 )
+collision_layer = 2
+collision_mask = 24
+
+[node name="Graze" type="Area2D" parent="Hitboxes"]
+scale = Vector2( 0.555556, 0.555556 )
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/Graze"]
+visible = false
+scale = Vector2( 6.11111, 6.11111 )
+shape = SubResource( 2 )

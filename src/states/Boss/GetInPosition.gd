@@ -17,8 +17,9 @@ func enter():
 	owner.speed /= speed_divider
 #	owner.change_state("GetInPosition")
 	owner.is_immune = true
+	owner.modulate = Color(owner.modulate.r, owner.modulate.g, owner.modulate.b, 1.0)
 func exit():
-	owner.speed *= speed_divider * 1.2
+	owner.speed *= speed_divider * 1.2 #move faster than before
 	owner.is_immune = false
 #what to put in change phase?
 #health_bar.value and current_phase_hp filledup again

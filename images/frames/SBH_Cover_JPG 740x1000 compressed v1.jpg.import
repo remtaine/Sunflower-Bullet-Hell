@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Circle Sprite Orange.png-2d6d340e26df0ed93d839cfde6b65149.stex"
+path="res://.import/SBH_Cover_JPG 740x1000 compressed v1.jpg-1d3ff8114d6f0e086d103236a61899cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Circle Sprite Orange.png"
-dest_files=[ "res://.import/Circle Sprite Orange.png-2d6d340e26df0ed93d839cfde6b65149.stex" ]
+source_file="res://images/frames/SBH_Cover_JPG 740x1000 compressed v1.jpg"
+dest_files=[ "res://.import/SBH_Cover_JPG 740x1000 compressed v1.jpg-1d3ff8114d6f0e086d103236a61899cc.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=true
+flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -30,5 +30,5 @@ process/HDR_as_SRGB=false
 process/invert_color=false
 stream=false
 size_limit=0
-detect_3d=true
+detect_3d=false
 svg/scale=1.0
