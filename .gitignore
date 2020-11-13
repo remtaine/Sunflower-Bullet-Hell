@@ -7,3 +7,6 @@ export_presets.cfg
 # Mono-specific ignores
 .mono/
 data_*/
+.DS_Store
+builds/.DS_Store
+builds/HTML5/.DS_Store
