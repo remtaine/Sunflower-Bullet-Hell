@@ -2,6 +2,9 @@ class_name Moving
 extends State
 
 var last_direction : Vector2 = Vector2.ZERO
+
+
+
 export (bool) var lean_on_move = false
 export (int) var lean_angle = 10
 export (float) var lean_duration = 0.5
@@ -14,6 +17,12 @@ func run(input):
 #	owner.position.y = clamp(owner.position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
 #	position.x = clamp(position.x, GameInfo.GAME_BORDER_START.x, GameInfo.GAME_BORDER_END.x)
 #	position.y = clamp(position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
+
+#	if owner.waypoints.size() and owner.position.distance_to(owner.waypoints[owner.current_waypoint]) < 3:
+#		print("I'm here!")
+#		owner.current_waypoint += 1
+		#TODO insert change state depending on waypoint
+		
 	owner.direction = input.input_direction.normalized()
 	var mult = 1
 	if Input.is_action_pressed("move_slow") and owner.is_in_group("allies"):
