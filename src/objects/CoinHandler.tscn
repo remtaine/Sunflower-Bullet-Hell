@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/objects/CoinHandler.gd" type="Script" id=1]
+[ext_resource path="res://sounds/sfx/coins/SBH Coin SFX v1.wav" type="AudioStream" id=2]
+[ext_resource path="res://sounds/sfx/coins/SBH Coin SFX v2.wav" type="AudioStream" id=3]
 
 [node name="CoinHandler" type="Node2D"]
 script = ExtResource( 1 )
+coin_score = 300
+
+[node name="CoinPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 10.0
+pitch_scale = 1.2
+
+[node name="CoinSpawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 4.0
+pitch_scale = 1.2

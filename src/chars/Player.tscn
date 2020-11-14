@@ -235,6 +235,9 @@ is_manually_exited = true
 
 [node name="Moving" parent="States" instance=ExtResource( 1 )]
 script = ExtResource( 18 )
+lean_on_move = true
+lean_angle = 15
+lean_duration = 0.3
 
 [node name="Win" type="Node2D" parent="States"]
 script = ExtResource( 17 )
@@ -252,10 +255,10 @@ anims/hurt = SubResource( 10 )
 [node name="Tween" type="Tween" parent="Addons"]
 
 [node name="Bars" type="Node2D" parent="Addons"]
-z_index = 10
 
 [node name="BulletTimeBar" type="TextureProgress" parent="Addons/Bars"]
 visible = false
+show_behind_parent = true
 margin_left = -95.9337
 margin_top = -95.5467
 margin_right = 32.0663

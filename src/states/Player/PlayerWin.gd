@@ -11,6 +11,7 @@ func run(input):
 	pass
 
 func enter():
+	owner.has_won = true
 	GameInfo.last_score = int(GameInfo.current_level.score)
 	tween.interpolate_property(owner, "global_position", owner.global_position, owner.global_position + Vector2.UP * 500, spawn_time, Tween.TRANS_LINEAR, Tween.EASE_IN)
 	tween.start()

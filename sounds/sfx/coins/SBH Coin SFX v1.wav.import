@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SBH Coin SFX v1.wav-9ed2da29da71770fe747f45d28e1658a.sample"
+
+[deps]
+
+source_file="res://sounds/sfx/coins/SBH Coin SFX v1.wav"
+dest_files=[ "res://.import/SBH Coin SFX v1.wav-9ed2da29da71770fe747f45d28e1658a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

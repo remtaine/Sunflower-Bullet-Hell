@@ -31,5 +31,6 @@ func damage(dmg := 1):
 func die():
 	GameInfo.current_level.spawn_coins_on_bullets()
 	GameInfo.current_level.win_timer.start()
+	GameInfo.current_level.change_win_theme()
 	.die()
 #TODO change death

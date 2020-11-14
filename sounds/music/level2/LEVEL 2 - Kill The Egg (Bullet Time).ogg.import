@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/LEVEL 2 - Kill The Egg (Bullet Time).ogg-d8b817e557606dfe9c8a3c4f259b9d25.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/level2/LEVEL 2 - Kill The Egg (Bullet Time).ogg"
+dest_files=[ "res://.import/LEVEL 2 - Kill The Egg (Bullet Time).ogg-d8b817e557606dfe9c8a3c4f259b9d25.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Gooses.ogg-efc80a7b6a4a985364464750fa8703bc.oggstr"
+
+[deps]
+
+source_file="res://sounds/music/winmenu/Gooses.ogg"
+dest_files=[ "res://.import/Gooses.ogg-efc80a7b6a4a985364464750fa8703bc.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

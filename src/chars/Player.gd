@@ -5,6 +5,7 @@ extends Character
 #const GAME_BORDER_END = Vector2(740, 450)
 
 var is_bullet_time := false
+var has_won := false
 
 onready var bullet_time_bar = $Addons/Bars/BulletTimeBar
 onready var spec_cd_timer = $Timers/SpecCooldown

@@ -18,7 +18,9 @@ var time_elapsed := 0
 
 var wave_displayed := 0
 
-onready var normal_theme = $udio/Theme
+onready var win_theme = preload("res://sounds/music/winmenu/Gooses.ogg")
+onready var win_bullet_theme = preload("res://sounds/music/winmenu/Gice (Bullet Time).ogg")
+onready var normal_theme = $Audio/Theme
 onready var bullet_theme = $Audio/BulletTheme
 
 onready var bullet_server = $BulletServer
@@ -35,11 +37,18 @@ onready var level_start_label_anim = $UI/UIControl/LevelStart/Label/AnimationPla
 onready var warning_label_anim = $UI/UIControl/Warning/Label/AnimationPlayer
 
 onready var bullet_hit_particle = preload("res://src/particles/BulletHitParticle.tscn")
+onready var bullet_hit_particle2 = preload("res://src/particles/BulletHitParticle2.tscn")
+var used_bullet_hit_particle
 
 func _init() -> void:
 	GameInfo.current_level = self
 
 func _ready():
+	match get_name():
+		"Level1":
+			used_bullet_hit_particle = bullet_hit_particle
+		"Level2", "Level3":
+			used_bullet_hit_particle = bullet_hit_particle2
 	$UI/UIControl/Labels/Version.text = GlobalInfo.version
 	time_start = OS.get_unix_time()
 	bullet_server.connect("collision_detected",self,"handle_collision")
@@ -70,7 +79,7 @@ func update_labels():
 	$UI/UIControl/Labels/Lives.text = "LIVES:\n" + lives_to_string()
 	if (GameInfo.current_player.visible):
 		$UI/UIControl/Labels/Score.text = "SCORE:\n" + String(int(ceil(score_displayed)))
-		$UI/UIControl/Labels/Time.text = "TIME " + get_time_string()
+		$UI/UIControl/Labels/Time.text = "TIME\n" + get_time_string()
 		$UI/UIControl/Labels/Wave.text = "WAVE:\n" + String(wave_displayed)
 		$UI/UIControl/Labels/Graze.text = "GRAZE:\n" + String(graze_count)
 	
@@ -95,13 +104,13 @@ func handle_collision(bullet, colliders): #HANDLES BULLET COLLISION!
 		if !entity.is_immune:
 			create_bullet_particle(bullet.get_position())
 			bullet.pop()
-			entity.damage(bullet.get_type().get_damage())# * collider.damage_multiplier)
+			entity.damage(bullet.get_type().get_damage()) # * collider.damage_multiplier)
 			
 	#TODO check if collider is player
 	#if so destroy all bullets
 	#and respawn player!
 func create_bullet_particle(pos : Vector2):
-	var particle = bullet_hit_particle.instance()
+	var particle = used_bullet_hit_particle.instance()
 	particle.position = pos
 	particle_holder.add_child(particle)
 	
@@ -144,6 +153,11 @@ func play_cutscene():
 	pass
 #	$UI/Cutscenes/Intro.play("Intro")
 
-
+func change_win_theme():
+	normal_theme.set_stream(win_theme)
+	normal_theme.play()
+	bullet_theme.set_stream(win_bullet_theme)
+	bullet_theme.play()
+	
 func _on_Win_timeout() -> void:
 	GameInfo.current_player.change_state("Win")

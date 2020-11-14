@@ -18,11 +18,17 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	for coin in get_children():
+		if coin is AudioStreamPlayer:
+			continue
 		coin.rotation_degrees += 3
 #		print(get_child_count())
 		if player.visible:
 			var dist = coin.global_position.distance_to(player.global_position)
 			if dist < DISTANCES.PICKUP:
+#				if !$CoinPickup.playing:
+#					$CoinPickup.play()
+				$CoinSpawn.play()
+#				$CoinPickup.play()
 				emit_signal("coin_picked_up",coin_score * coin.scale.x)
 				#TODO add pickup sound
 				coin.queue_free()
@@ -37,6 +43,7 @@ func _physics_process(delta: float) -> void:
 				
 func spawn_coins(num : int, pos: Vector2, sc := 1, explosion_strength := 1, rand := 0.6):
 	for i in range (num):
+		$CoinSpawn.play()
 		randomize()
 		var coin = coin_resource.instance()
 
