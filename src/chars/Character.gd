@@ -26,7 +26,7 @@ onready var state_label = $Addons/StateLabel
 
 #timers
 onready var timers = $Timers
-onready var shot_cooldown_timer = $Timers/ShotCooldown
+#onready var shot_cooldown_timer = $Timers/ShotCooldown
 
 #audio
 onready var audio_shoot = $Audio/Shoot
@@ -106,7 +106,7 @@ func shoot():
 	play_audio("shoot")
 	for bullet_spawner in bullet_spawners.get_children():
 		bullet_spawner.fire()
-		shot_cooldown_timer.start()
+#		shot_cooldown_timer.start()
 	#TODO add sfx
 
 func set_immunity(val : bool):
@@ -118,7 +118,7 @@ func set_immunity(val : bool):
 		
 func _on_Timer_timeout():
 	shoot()
-	shot_cooldown_timer.start()
+#	shot_cooldown_timer.start()
 
 func play_audio(action : String):
 	match action:
