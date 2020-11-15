@@ -1,0 +1,163 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://src/chars/Boss.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/characters/boss2/Battleship 0.png" type="Texture" id=2]
+[ext_resource path="res://images/characters/boss2/Battleship Falling Tank.png" type="Texture" id=3]
+[ext_resource path="res://src/chars/Boss2.gd" type="Script" id=4]
+[ext_resource path="res://src/addons/BulletSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/states/Boss2Moving.gd" type="Script" id=6]
+[ext_resource path="res://src/addons/Fire.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/bullets/Boss2Bullet.tres" type="BulletType" id=8]
+[ext_resource path="res://images/characters/ships/SBH_Projectile_Black__White.png" type="Texture" id=9]
+[ext_resource path="res://src/states/handlers/Boss2StatesHandler.gd" type="Script" id=10]
+[ext_resource path="res://images/characters/boss2/Battleship 1.png" type="Texture" id=11]
+[ext_resource path="res://images/characters/boss2/Battleship 2.png" type="Texture" id=12]
+[ext_resource path="res://images/characters/boss2/Battleship 3.png" type="Texture" id=13]
+[ext_resource path="res://images/characters/boss2/Battleship 4.png" type="Texture" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "empty",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "close",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": false,
+"name": "open",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "_default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+
+[sub_resource type="BulletType" id=3]
+speed = 80.0
+damage = 1.0
+texture = ExtResource( 9 )
+modulate = Color( 1, 0.482353, 0.247059, 1 )
+collision_shape = SubResource( 2 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}
+
+[sub_resource type="BulletType" id=4]
+speed = 80.0
+damage = 1.0
+texture = ExtResource( 9 )
+modulate = Color( 0.294118, 1, 0.407843, 1 )
+collision_shape = SubResource( 2 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}
+
+[sub_resource type="BulletType" id=5]
+speed = 80.0
+damage = 1.0
+texture = ExtResource( 9 )
+modulate = Color( 0.188235, 0.611765, 0.984314, 1 )
+collision_shape = SubResource( 2 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}
+
+[node name="Boss2" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
+hp = 120
+speed = 80
+coin_count = 30
+
+[node name="Sprite" parent="SpritePivot" index="0"]
+scale = Vector2( 0.15, 0.15 )
+frames = SubResource( 1 )
+animation = "_default"
+
+[node name="Fire" parent="SpritePivot/Sprite" index="0" instance=ExtResource( 7 )]
+position = Vector2( -1615.34, 17.0449 )
+rotation = -1.57079
+scale = Vector2( 1.29999, 1.44665 )
+frame = 2
+
+[node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
+position = Vector2( 71.5036, -4.68204 )
+scale = Vector2( 83.8269, 4.28513 )
+
+[node name="Hitbox2" parent="SpritePivot/Hitboxes" index="1"]
+position = Vector2( -100.651, 24.8073 )
+scale = Vector2( 5.2, 1 )
+
+[node name="Hitbox3" parent="SpritePivot/Hitboxes" index="2"]
+position = Vector2( 102.025, -37.8731 )
+scale = Vector2( 2.32, 0.239999 )
+
+[node name="BulletSpawner" parent="BulletSpawners" index="0"]
+position = Vector2( -161.806, 30.0721 )
+radius = 10.0
+bullet_type = SubResource( 3 )
+
+[node name="BulletSpawn" parent="BulletSpawners" index="1"]
+position = Vector2( 66.6448, 62.5694 )
+radius = 10.0
+bullet_type = SubResource( 4 )
+
+[node name="BulletSpawn2" parent="BulletSpawners" index="2" instance=ExtResource( 5 )]
+position = Vector2( 197.409, -4.68204 )
+bullet_type = SubResource( 5 )
+
+[node name="BulletSpawn3" parent="BulletSpawners" index="3" instance=ExtResource( 5 )]
+position = Vector2( 91.6715, -37.8731 )
+bullet_type = ExtResource( 8 )
+
+[node name="States" parent="." index="3"]
+script = ExtResource( 10 )
+
+[node name="GetInPosition" parent="States" index="0"]
+phase_positions = PoolVector2Array( 490, 125, 490, 125, 490, 250, 490, 125, 490, 125 )
+
+[node name="Moving" parent="States" index="2"]
+script = ExtResource( 6 )
+
+[node name="Duck" parent="UI/UIControl/HealthBar" index="0"]
+position = Vector2( -0.0193809, 0.359403 )
+scale = Vector2( 0.000379447, 0.00715755 )
+texture = ExtResource( 3 )
+
+[node name="TankSpawn" type="Timer" parent="Timers" index="0"]
+wait_time = 2.2
+[connection signal="timeout" from="Timers/TankSpawn" to="." method="_on_TankSpawn_timeout"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox2"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox3"]

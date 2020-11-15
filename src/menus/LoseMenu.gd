@@ -5,7 +5,7 @@ extends Node2D
 func _ready():
 	modulate = 0
 
-func activate(val := true):
+func activate(_val := true):
 #	visible = val
 #	$RestartLabel.is_on = val
 #	$MenuLabel.is_on = val

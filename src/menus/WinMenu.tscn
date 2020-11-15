@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/menus/WinMenu.gd" type="Script" id=1]
-[ext_resource path="res://images/frames/SBH_Cover_JPG 960x540 compressed v1.jpg" type="Texture" id=2]
+[ext_resource path="res://images/backgrounds/SBH SCB V5.png" type="Texture" id=2]
 [ext_resource path="res://fonts/PWChalk.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://src/UI/BlinkingLabel.tscn" type="PackedScene" id=4]
 [ext_resource path="res://sounds/sfx/Shoot Sound Effect 2.wav" type="AudioStream" id=5]
@@ -13,19 +13,19 @@ outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 size = 40
 outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 size = 32
 outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 length = 4.0
 loop = true
 step = 1.0
@@ -42,14 +42,13 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=5]
 size = 32
 outline_size = 6
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
 
-[sub_resource type="Animation" id=3]
-resource_name = "Appear"
+[sub_resource type="Animation" id=6]
 length = 1.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -80,17 +79,18 @@ __meta__ = {
 }
 
 [node name="BG" type="TextureRect" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_top = -1841.5
+margin_right = 960.0
+margin_bottom = 780.504
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LoseLabel" type="Label" parent="."]
-margin_top = 111.266
+margin_top = 98.4818
 margin_right = 960.0
-margin_bottom = 201.266
+margin_bottom = 188.482
 custom_fonts/font = SubResource( 1 )
 text = "YOU WIN!"
 align = 1
@@ -100,12 +100,25 @@ __meta__ = {
 }
 
 [node name="ScoreLabel" type="Label" parent="."]
-margin_top = 200.446
+margin_top = 169.043
 margin_right = 960.0
-margin_bottom = 290.446
-custom_fonts/font = SubResource( 6 )
+margin_bottom = 259.043
+custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 0.788235, 0, 1 )
 text = "SCORE: 23312311"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="."]
+margin_top = 226.519
+margin_right = 960.0
+margin_bottom = 316.519
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0.788235, 0, 1 )
+text = "TIME: 11:11w"
 align = 1
 valign = 1
 __meta__ = {
@@ -124,7 +137,7 @@ __meta__ = {
 [node name="BlinkingLabel" type="Label" parent="BlinkingLabels"]
 margin_right = 960.0
 margin_bottom = 37.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 3 )
 text = "CLICK J/C FOR NEXT LEVEL"
 align = 1
 script = ExtResource( 6 )
@@ -135,7 +148,7 @@ is_on = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BlinkingLabels/BlinkingLabel"]
 autoplay = "idle"
-anims/idle = SubResource( 2 )
+anims/idle = SubResource( 4 )
 
 [node name="Sound" type="AudioStreamPlayer" parent="BlinkingLabels/BlinkingLabel"]
 stream = ExtResource( 5 )
@@ -148,7 +161,7 @@ anchor_bottom = 0.0
 margin_top = 47.0
 margin_right = 960.0
 margin_bottom = 84.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "CLICK R TO RESTART"
 align = 1
@@ -162,7 +175,7 @@ anchor_bottom = 0.0
 margin_top = 94.0
 margin_right = 960.0
 margin_bottom = 131.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "CLICK M FOR MENU"
 align = 1
@@ -172,5 +185,5 @@ is_on = false
 action = "menu"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Appear = SubResource( 3 )
+anims/Appear = SubResource( 6 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

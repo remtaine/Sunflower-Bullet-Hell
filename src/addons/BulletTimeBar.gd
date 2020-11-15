@@ -11,5 +11,5 @@ func _process(_delta):
 	else:
 		value += 1;
 	
-	if value == 0:
+	if value == 0 and owner.visible:
 		owner.bullet_time()

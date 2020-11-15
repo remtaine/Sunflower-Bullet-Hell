@@ -8,7 +8,7 @@
 [ext_resource path="res://images/characters/birds/Bird Projectile.png" type="Texture" id=6]
 [ext_resource path="res://src/states/StandardBirdMoving.gd" type="Script" id=7]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 3 ) ],
 "loop": true,
@@ -40,10 +40,18 @@ script = ExtResource( 2 )
 hp = 7
 speed = 300
 
+[node name="SpritePivot" parent="." index="0"]
+position = Vector2( -5.46616, 8.63077 )
+
 [node name="Sprite" parent="SpritePivot" index="0"]
 modulate = Color( 1.1, 1.1, 1.1, 1 )
+position = Vector2( 5.39474, -11.3173 )
 scale = Vector2( 0.25, 0.25 )
-frames = SubResource( 1 )
+frames = SubResource( 4 )
+
+[node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
+position = Vector2( 4.01562, -12.2697 )
+scale = Vector2( 0.96, 1.02479 )
 
 [node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox" index="0"]
 position = Vector2( 0, 1.43755 )

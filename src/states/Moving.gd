@@ -27,9 +27,6 @@ func run(input):
 	if Input.is_action_pressed("move_slow") and owner.is_in_group("allies"):
 		mult = 0.5
 	owner.velocity = owner.direction * owner.speed * mult
-#	host.move_and_slide(velocity)
-#	tween.interpolate_property(host,"position", host.position, host.position + velocity, 0.2, Tween.TRANS_LINEAR,Tween.EASE_IN)
-#	tween.start()
 	owner.velocity = owner.move_and_slide(owner.velocity)
 
 	if lean_on_move:

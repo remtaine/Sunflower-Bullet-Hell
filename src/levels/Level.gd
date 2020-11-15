@@ -2,7 +2,7 @@ class_name Level
 extends Node2D
 
 
-export var debug_mode = false
+export var debug_mode = true
 var menu_path = "res://src/menus/MainMenu.tscn"
 
 var graze_count := 0
@@ -82,7 +82,10 @@ func update_labels():
 		$UI/UIControl/Labels/Time.text = "TIME\n" + get_time_string()
 		$UI/UIControl/Labels/Wave.text = "WAVE:\n" + String(wave_displayed)
 		$UI/UIControl/Labels/Graze.text = "GRAZE:\n" + String(graze_count)
-	
+
+func get_last_time():
+	return $UI/UIControl/Labels/Time.text
+
 func get_time_string() -> String:
 	var mins = int(floor(time_elapsed/60.0))
 	var secs = time_elapsed % 60
@@ -121,6 +124,7 @@ func update_player_lives(new_hp):
 	lives_displayed = new_hp
 	
 	if lives_displayed <= 0: #ie lose
+		debug_mode = false
 		$UI/UIControl/Labels/Score.text = "SCORE: \n" + String(int(ceil(score)))
 		lose_menu.activate()
 		bullet_server.clear_bullets()
@@ -153,11 +157,17 @@ func play_cutscene():
 	pass
 #	$UI/Cutscenes/Intro.play("Intro")
 
+func activate_win_menu():
+#	$Background/ParallaxBackground/MainBG.visible = false
+#	$Background/ParallaxBackground/WinBG.visible = true
+	$UI/UIControl/ConditionMenus/WinMenu.activate()
+	
 func change_win_theme():
 	normal_theme.set_stream(win_theme)
 	normal_theme.play()
 	bullet_theme.set_stream(win_bullet_theme)
 	bullet_theme.play()
+	debug_mode = false
 	
 func _on_Win_timeout() -> void:
 	GameInfo.current_player.change_state("Win")

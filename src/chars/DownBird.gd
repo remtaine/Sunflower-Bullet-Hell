@@ -4,7 +4,7 @@ extends Enemy
 export var dir = Vector2.DOWN
 export (float) var speed_multiplier = 1.5
 
-func setup(pos):
+func setup(pos, _gp = Vector2.ZERO):
 	position = pos
 
 func _ready():

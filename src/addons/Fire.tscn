@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://images/characters/ships/Exhaust Flames.png" type="Texture" id=1]
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 268, 396 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 268, 0, 268, 396 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 536, 0, 268, 396 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+} ]
+
+[node name="Fire" type="AnimatedSprite"]
+show_behind_parent = true
+position = Vector2( -27.3811, -188.411 )
+scale = Vector2( 0.5, 0.7 )
+frames = SubResource( 5 )
+frame = 1
+playing = true

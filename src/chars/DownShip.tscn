@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/chars/DownBird.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/chars/DownShip.gd" type="Script" id=2]
+[ext_resource path="res://src/states/DownShipCharge.gd" type="Script" id=3]
+[ext_resource path="res://src/states/DownShipMoving.gd" type="Script" id=4]
+[ext_resource path="res://images/characters/ships/SBH Space Ship 1 Without Fire.png" type="Texture" id=5]
+[ext_resource path="res://src/addons/Fire.tscn" type="PackedScene" id=6]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="DownShip" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+speed_multiplier = 1.5
+
+[node name="SpritePivot" parent="." index="0"]
+position = Vector2( 5.40527, 0.982773 )
+rotation = -1.57872
+
+[node name="Sprite" parent="SpritePivot" index="0"]
+position = Vector2( 2.45694, -19.2314 )
+rotation = 0.0
+scale = Vector2( 0.2, 0.2 )
+frames = SubResource( 1 )
+
+[node name="Fire" parent="SpritePivot/Sprite" index="0" instance=ExtResource( 6 )]
+position = Vector2( -20.8293, -180.221 )
+scale = Vector2( 0.65, 1 )
+
+[node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
+position = Vector2( 0.491379, -7.61652 )
+scale = Vector2( 0.672644, 1.02758 )
+
+[node name="BeakHitbox2" parent="SpritePivot/Hitboxes" index="1"]
+position = Vector2( 35.9404, -31.1487 )
+resistant = true
+
+[node name="States" parent="." index="3"]
+script = null
+
+[node name="Moving" parent="States" index="1"]
+script = ExtResource( 4 )
+
+[node name="Charge" type="Node2D" parent="States" index="2"]
+script = ExtResource( 3 )
+
+[editable path="SpritePivot/Hitboxes/Hitbox"]
+
+[editable path="SpritePivot/Hitboxes/BeakHitbox2"]

@@ -16,16 +16,21 @@ animations = [ {
 [node name="DownBird" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 hp = 3
-team = 0
 dir = Vector2( 0, 1 )
 speed_multiplier = 2.5
 
 [node name="Sprite" parent="SpritePivot" index="0"]
+modulate = Color( 1.02, 1.06, 1.19, 1 )
 rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox" index="0"]
-scale = Vector2( 3.24, 3.04 )
+visible = false
+scale = Vector2( 2.9033, 2.72408 )
+
+[node name="BeakHitbox2" parent="SpritePivot/Hitboxes" index="1"]
+position = Vector2( 33.9576, 6.91925 )
 
 [node name="CollisionShape2D" parent="SpritePivot/Hitboxes/BeakHitbox2" index="0"]
 position = Vector2( -54.1581, 42.8812 )

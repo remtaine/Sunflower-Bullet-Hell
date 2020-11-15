@@ -11,7 +11,6 @@ onready var health_multiplier = $UI/UIControl/HealthMultiplier
 
 func _ready() -> void:
 	health_multiplier.text = "X" + String(phase_count - phase)
-	hp = 105
 	phase_hp = hp/ phase_count
 	current_phase_hp = phase_hp
 	

@@ -63,6 +63,7 @@ func damage(dmg :=1):
 
 func die():
 #	GameInfo.current_player = null
+	set_collision_layer(0)
 	emit_signal("player_hurt", hp)
 	if bullet_time_bar.visible:
 		bullet_time(true)
@@ -85,7 +86,6 @@ func bullet_time(asap := false):
 	var normal_volume = -2
 	var speed_multiplier = 3
 	is_bullet_time = !is_bullet_time
-	
 	
 	if asap:
 		play_audio("leave_bullet_time")

@@ -18,7 +18,7 @@ func _ready() -> void:
 		names_array[current_name].get_node("AnimationPlayer").play("Appear")	
 #	play_name(current_name)
 
-func next_name(anim_name : String):
+func next_name(_anim_name : String):
 	if current_name < names.get_child_count() - 1:
 		current_name += 1
 		names_array[current_name].get_node("AnimationPlayer").play("Appear")

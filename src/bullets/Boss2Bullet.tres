@@ -1,0 +1,22 @@
+[gd_resource type="BulletType" load_steps=3 format=2]
+
+[ext_resource path="res://images/characters/ships/Projectile 1.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[resource]
+speed = 80.0
+damage = 1.0
+texture = ExtResource( 1 )
+modulate = Color( 1.13, 1.04, 1, 1 )
+collision_shape = SubResource( 1 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}

@@ -44,16 +44,16 @@ func shoot():
 		for bs in bullet_spawners.get_children():
 			bs.fire()
 
-func set_shoot_style(s_style, bs := bullet_spawner):
+func set_shoot_style(s_style, bs := bullet_spawner, bullet_frequency = 1):
 	shoot_style = s_style
 	reset_bullet(bs)
-	
 	match shoot_style:
 		0: #linear
 			bs.set_aim_mode(0)
 			bs.set_shot_count(1)
 			bs.set_arc_width_degrees(45)
-			bs.set_interval_frames(9)
+			bs.set_interval_frames(10 * bullet_frequency)
+			
 		1: #linear aim
 			bs.set_aim_mode(3)
 		2: #linear accel aim

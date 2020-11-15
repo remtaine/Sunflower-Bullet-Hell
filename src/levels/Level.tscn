@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/backgrounds/Background.gd" type="Script" id=1]
 [ext_resource path="res://src/objects/CoinHandler.tscn" type="PackedScene" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://src/chars/Player.tscn" type="PackedScene" id=16]
 [ext_resource path="res://src/menus/WinMenu.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/addons/Screenshake.tscn" type="PackedScene" id=18]
+[ext_resource path="res://images/backgrounds/SBH SCB V5.png" type="Texture" id=19]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -46,40 +47,65 @@ modulate = Color( 100, 100, 100, 1 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Background"]
 
-[node name="ParallaxLayer1" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+[node name="MainBG" type="ParallaxLayer" parent="Background/ParallaxBackground"]
 modulate = Color( 0.9, 0.9, 0.9, 1 )
 motion_mirroring = Vector2( 600, 2119 )
 script = ExtResource( 1 )
 scroll_velocity_y = 120
 
-[node name="BGRight" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer1"]
+[node name="BGRight" type="Sprite" parent="Background/ParallaxBackground/MainBG"]
 visible = false
 position = Vector2( 480, 270 )
 texture = ExtResource( 10 )
 
-[node name="BGMid" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer1"]
+[node name="BGMid" type="Sprite" parent="Background/ParallaxBackground/MainBG"]
 position = Vector2( 180.772, 0 )
 texture = ExtResource( 9 )
 centered = false
 
-[node name="BGLeft" type="Sprite" parent="Background/ParallaxBackground/ParallaxLayer1"]
+[node name="BGLeft" type="Sprite" parent="Background/ParallaxBackground/MainBG"]
 position = Vector2( -420, 0 )
 texture = ExtResource( 9 )
 centered = false
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+[node name="Cloud" parent="Background/ParallaxBackground/MainBG" instance=ExtResource( 3 )]
+position = Vector2( 672.572, 377.476 )
+
+[node name="Cloud2" parent="Background/ParallaxBackground/MainBG" instance=ExtResource( 3 )]
+position = Vector2( 395.973, -321.193 )
+
+[node name="Cloud3" parent="Background/ParallaxBackground/MainBG" instance=ExtResource( 3 )]
+position = Vector2( 535.297, -847.755 )
+
+[node name="WinBG" type="ParallaxLayer" parent="Background/ParallaxBackground"]
+visible = false
 modulate = Color( 0.9, 0.9, 0.9, 1 )
-motion_mirroring = Vector2( 0, 1800 )
+motion_mirroring = Vector2( 0, 2622 )
 script = ExtResource( 1 )
 scroll_velocity_y = 120
 
-[node name="Cloud" parent="Background/ParallaxBackground/ParallaxLayer2" instance=ExtResource( 3 )]
+[node name="BGMid2" type="TextureRect" parent="Background/ParallaxBackground/WinBG"]
+margin_right = 960.0
+margin_bottom = 2622.0
+texture = ExtResource( 19 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BGLeft2" type="Sprite" parent="Background/ParallaxBackground/WinBG"]
+visible = false
+position = Vector2( -420, 0 )
+texture = ExtResource( 9 )
+centered = false
+
+[node name="Cloud4" parent="Background/ParallaxBackground/WinBG" instance=ExtResource( 3 )]
 position = Vector2( 672.572, 377.476 )
 
-[node name="Cloud2" parent="Background/ParallaxBackground/ParallaxLayer2" instance=ExtResource( 3 )]
+[node name="Cloud5" parent="Background/ParallaxBackground/WinBG" instance=ExtResource( 3 )]
 position = Vector2( 395.973, -321.193 )
 
-[node name="Cloud3" parent="Background/ParallaxBackground/ParallaxLayer2" instance=ExtResource( 3 )]
+[node name="Cloud6" parent="Background/ParallaxBackground/WinBG" instance=ExtResource( 3 )]
 position = Vector2( 535.297, -847.755 )
 
 [node name="Characters" type="Node2D" parent="."]
@@ -101,7 +127,7 @@ max_lifetime = 16.0
 pop_on_collide = false
 play_area_mode = 1
 play_area_rect = Rect2( 165, -10, 620, 520 )
-play_area_allow_incoming = false
+play_area_allow_incoming = true
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource( 8 )
@@ -225,9 +251,9 @@ __meta__ = {
 
 [node name="Time" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 10.0
-margin_top = 151.541
+margin_top = 137.95
 margin_right = 180.0
-margin_bottom = 228.541
+margin_bottom = 214.95
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "TIME:
@@ -285,9 +311,9 @@ __meta__ = {
 
 [node name="Lives" type="Label" parent="UI/UIControl/Labels"]
 margin_left = 810.0
-margin_top = 169.653
+margin_top = 156.368
 margin_right = 950.0
-margin_bottom = 246.653
+margin_bottom = 233.368
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "LIVES: 

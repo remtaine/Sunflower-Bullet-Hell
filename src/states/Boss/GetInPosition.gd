@@ -17,7 +17,8 @@ func enter():
 	owner.speed /= speed_divider
 #	owner.change_state("GetInPosition")
 	owner.is_immune = true
-	owner.modulate = Color(owner.modulate.r, owner.modulate.g, owner.modulate.b, 1.0)
+	if owner.phase == 1:
+		owner.modulate = Color(owner.modulate.r, owner.modulate.g, owner.modulate.b, 1.0)
 func exit():
 	owner.speed *= speed_divider * 1.2 #move faster than before
 	owner.is_immune = false

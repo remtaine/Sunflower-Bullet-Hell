@@ -1,13 +1,19 @@
 class_name EnemySpawner
 extends Node2D
 
-var wave_number := 0
-
 onready var standard_bird_resource = preload("res://src/chars/StandardBird.tscn")
 onready var sideways_bird_resource = preload("res://src/chars/SidewaysBird.tscn")
+onready var down_bird_resource = preload("res://src/chars/DownBird.tscn")
+onready var down_ship_resource = preload("res://src/chars/DownShip.tscn")
+onready var standard_ship_resource = preload("res://src/chars/StandardShip.tscn")
+
+var wave_number := 0
+
 onready var level = get_parent()
 onready var player_holder = get_parent().get_node("Characters")
 onready var wave_timer = get_parent().get_node("Timers/Wave")
+
+var enemy_spawn_counts = {}
 
 export (String) var boss_path = "res://src/chars/Boss1.tscn"
 var boss_resource
@@ -30,6 +36,7 @@ func _ready():
 
 func _process(_delta):
 	if get_child_count() == 0 and ready_to_summon:# and player_holder.get_child_count() == 1:
+		
 		if wave_number < waves_before_boss:
 			create_new_wave()
 		elif !start_summon_boss:
@@ -62,41 +69,48 @@ func spawn_enemies():
 	create_enemies(num)
 #	yield(get_tree().create_timer(0.5), "timeout")
 
-func create_enemies(num: int):
-	enemy_pos = []
-	for _i in range (num):
+func create_enemies(_num: int):
+	for _j in range (1):
 		var enemy
+		
+		var current_spawn_counts = enemy_spawn_counts[wave_number]
+		
+		enemy_pos = []
 		spawn_tries = 0
-		randomize()
-		match (randi() % 5):
-			0,1,2,3:
+		for _i in range (current_spawn_counts[0]): #standard enemy
+			enemy = standard_bird_resource.instance()
+			add_child(enemy)
+			
+			var x = -1
+			var y = -1
+			while overlapping_previous_enemies(x,y):
+				x = 250 + randi() % 425
+				y = randi() % 100 - 150 #-150 to -50 is like 0 to 100 - 150
+				spawn_tries += 1
+			
+			enemy_pos.append(Vector2(x,y))
+			
+			var shoot_style
+			randomize()
+			if wave_number < 11:
+				shoot_style = (randi() % wave_number) + 1
+			else:
+				shoot_style = (randi() % 11) + 1
+			enemy.setup(Vector2(x, y), Vector2(x, y + 200), shoot_style)
+			yield(get_tree().create_timer(0.5), "timeout")
+		
+		spawn_tries = 0
+		enemy_pos = []
+		for _i in range (current_spawn_counts[1]): #sideways enemy
+			enemy = sideways_bird_resource.instance()
+			add_child(enemy)
 
-				enemy = standard_bird_resource.instance()
-				add_child(enemy)
-				var x = -1
-				var y = -1
-				while overlapping_previous_enemies(x,y):
-					x = 250 + randi() % 425
-					y = randi() % 100 - 150 #-150 to -50 is like 0 to 100 - 150
-					spawn_tries += 1
-				enemy_pos.append(Vector2(x,y))
-				
-				var shoot_style
-				randomize()
-				if wave_number < 11:
-					shoot_style = (randi() % wave_number) + 1
-				else:
-					shoot_style = (randi() % 11) + 1
-				enemy.setup(Vector2(x, y), Vector2(x, y + 200), shoot_style)
-
-			4: #BIRD
-				enemy = sideways_bird_resource.instance()
-				add_child(enemy)
-
-				var x
-				var y = 100 + randi() % 60
-				var planned_dir
-				
+			var x = -1
+			var y = -1
+			var planned_dir
+			while overlapping_previous_enemies(x,y):
+				spawn_tries += 1
+				y = 100 + randi() % 60
 				match randi() % 2:
 					0: #going right!
 						x = 80 + randi() % 50#-150 to -50 is like 0 to 100 - 150
@@ -104,10 +118,78 @@ func create_enemies(num: int):
 					1: #going left!
 						x = 850 + randi() % 50#-150 to -50 is like 0 to 100 - 150
 						planned_dir = Vector2.LEFT
-						
-				enemy.setup(Vector2(x,y), planned_dir)
+			enemy_pos.append(Vector2(x,y))
+			enemy.setup(Vector2(x,y), planned_dir)
+			yield(get_tree().create_timer(0.5), "timeout")
+			
+		spawn_tries = 0
+		enemy_pos = []
+		for _i in range (current_spawn_counts[2]): #down enemy
+			enemy = down_bird_resource.instance()
+			add_child(enemy)
+
+			var x = -1
+			var y = -1
+			
+			while overlapping_previous_enemies(x,y):
+				spawn_tries += 1
+				
+				match randi() % 2:
+					1:
+						x = 500 + randi() % 250
+					0:
+						x = 500 - randi() % 250
+				y = -80 + randi() % 50 #-150 to -50 is like 0 to 100 - 150
+			enemy_pos.append(Vector2(x,y))
+			enemy.setup(Vector2(x,y))
+			yield(get_tree().create_timer(0.5), "timeout")
+		
+		enemy_pos = []
+		spawn_tries = 0
+		for _i in range (current_spawn_counts[3]): #standard ship
+			enemy = standard_ship_resource.instance()
+			add_child(enemy)
+			
+			var x = -1
+			var y = -1
+			while overlapping_previous_enemies(x,y):
+				x = 250 + randi() % 425
+				y = randi() % 100 - 150 #-150 to -50 is like 0 to 100 - 150
+				spawn_tries += 1
+			
+			enemy_pos.append(Vector2(x,y))
+			
+			var shoot_style = 0
+			randomize()
+			if wave_number < 11:
+				shoot_style = 3#(randi() % wave_number) + 1
+			else:
+				shoot_style = (randi() % 11) + 1
+			enemy.setup(Vector2(x, y), shoot_style, 6)
+			yield(get_tree().create_timer(0.5), "timeout")
+		
+		for _i in range (current_spawn_counts[4]): #down ship
+			enemy = down_ship_resource.instance()
+			add_child(enemy)
+
+			var x = -1
+			var y = -1
+			
+			while overlapping_previous_enemies(x,y):
+				spawn_tries += 1
+				
+				match randi() % 2:
+					1:
+						x = 500 + randi() % 250
+					0:
+						x = 500 - randi() % 250
+				y = -80 + randi() % 50 #-150 to -50 is like 0 to 100 - 150
+			enemy_pos.append(Vector2(x,y))
+			enemy.setup(Vector2(x,y),Vector2(x,y + 200))
+			yield(get_tree().create_timer(0.5), "timeout")
+		
 	ready_to_summon = true
-	return
+
 
 func overlapping_previous_enemies(x : float,y : float, dist := 100):
 	if x == -1 and y == -1:

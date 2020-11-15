@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://src/chars/Boss.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/characters/boss3/Sun Sprite.png" type="Texture" id=2]
+[ext_resource path="res://src/states/Boss3Moving.gd" type="Script" id=3]
+[ext_resource path="res://images/characters/ships/Projectile 1.png" type="Texture" id=4]
+[ext_resource path="res://images/characters/ships/SBH_Projectile_Black__White.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+
+[sub_resource type="RectangleShape2D" id=3]
+
+[sub_resource type="BulletType" id=4]
+speed = 50.0
+damage = 1.0
+texture = ExtResource( 4 )
+modulate = Color( 1.13, 1.04, 1, 1 )
+collision_shape = SubResource( 3 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+
+[sub_resource type="BulletType" id=6]
+speed = 80.0
+damage = 1.0
+texture = ExtResource( 5 )
+modulate = Color( 1.09, 0.48, 0.35, 1 )
+collision_shape = SubResource( 5 )
+collision_mask = 2
+h_wave_type = 108
+h_wave_amplitude = 2.8026e-45
+v_wave_type = 32709
+face_direction = true
+rotation = 4.59093e-41
+scale = Vector2( 0.3, 0.3 )
+custom_data = {
+
+}
+
+[node name="Boss3" instance=ExtResource( 1 )]
+hp = 120
+
+[node name="Sprite" parent="SpritePivot" index="0"]
+scale = Vector2( 0.1, 0.1 )
+frames = SubResource( 1 )
+
+[node name="Hitbox" parent="SpritePivot/Hitboxes" index="0"]
+position = Vector2( 22.6953, -6.63652 )
+scale = Vector2( 31, 8.96 )
+
+[node name="CollisionShape2D" parent="SpritePivot/Hitboxes/Hitbox" index="0"]
+position = Vector2( -0.796886, -1.27573 )
+scale = Vector2( 0.168648, 0.607112 )
+shape = SubResource( 2 )
+
+[node name="Hitbox2" parent="SpritePivot/Hitboxes" index="1"]
+position = Vector2( -26.7859, -30.6354 )
+
+[node name="Hitbox3" parent="SpritePivot/Hitboxes" index="2"]
+position = Vector2( 28.9312, -18.1298 )
+
+[node name="BulletSpawner" parent="BulletSpawners" index="0"]
+bullet_type = SubResource( 4 )
+
+[node name="BulletSpawn" parent="BulletSpawners" index="1"]
+bullet_type = SubResource( 6 )
+
+[node name="Moving" parent="States" index="2"]
+script = ExtResource( 3 )
+
+[node name="Duck" parent="UI/UIControl/HealthBar" index="0"]
+position = Vector2( -0.034668, 0 )
+scale = Vector2( 0.000121277, 0.0033781 )
+texture = ExtResource( 2 )
+
+[editable path="SpritePivot/Hitboxes/Hitbox"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox2"]
+
+[editable path="SpritePivot/Hitboxes/Hitbox3"]

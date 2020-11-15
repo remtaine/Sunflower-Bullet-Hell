@@ -1,6 +1,6 @@
 extends Node
 
-var version = "V0.2.2"
+var version = "V1.0"
 
 enum MOVEMENTS {
 	KEYBOARD	,

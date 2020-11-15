@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 				var v = coin.global_position.direction_to(player.global_position)
 				coin.global_position += v * delta * 1.2 * (DISTANCES.MOVE - dist)
 			
-			coin.global_position += Vector2.DOWN * delta * 80
+			coin.global_position += Vector2.DOWN * delta * 100
 		
 		if coin.global_position.y > GameInfo.GAME_BORDER_END.y + 100:
 			coin.queue_free()

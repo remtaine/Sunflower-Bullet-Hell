@@ -10,6 +10,7 @@ func activate(val := true):
 #	$RestartLabel.is_on = val
 #	$MenuLabel.is_on = val
 	$ScoreLabel.text = "SCORE: " + String(GameInfo.last_score)
+	$TimeLabel.text = "TIME: " + GameInfo.current_level.get_time_string()
 	.activate(val)
 
 #func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
