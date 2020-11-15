@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/chars/StandardBird.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/states/StandardShipStandShoot.gd" type="Script" id=2]
+[ext_resource path="res://src/states/StandardShipMoving.gd" type="Script" id=3]
+
+[node name="StandardShip" instance=ExtResource( 1 )]
+uses_waypoints = true
+waypoints = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0 )
+
+[node name="States" parent="." index="3"]
+script = null
+
+[node name="Moving" parent="States" index="0"]
+script = ExtResource( 3 )
+
+[node name="StandShoot" parent="States" index="1"]
+script = ExtResource( 2 )
+
+[editable path="SpritePivot/Hitboxes/Hitbox"]

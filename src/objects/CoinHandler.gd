@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 		if coin is AudioStreamPlayer:
 			continue
 		coin.rotation_degrees += 3
-#		print(get_child_count())
 		if player.visible:
 			var dist = coin.global_position.distance_to(player.global_position)
 			if dist < DISTANCES.PICKUP:
@@ -53,4 +52,3 @@ func spawn_coins(num : int, pos: Vector2, sc := 1, explosion_strength := 1, rand
 		coin.rotation_degrees = randi() % 360
 
 		self.add_child(coin)
-#		print(coin.global_position)

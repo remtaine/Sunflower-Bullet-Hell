@@ -19,11 +19,9 @@ func enter():
 	owner.phase += 1
 	
 	owner.health_multiplier.text = "X" + String(owner.phase_count - owner.phase)
-	print(owner.phase_count, " DDDD ", owner.phase)
 	owner.health_bar.value = owner.phase_hp
 	owner.current_phase_hp = owner.phase_hp
 	
-	print("PAHSE IS NOW ", owner.phase)
 	owner.change_state("GetInPosition")
 	
 func exit():

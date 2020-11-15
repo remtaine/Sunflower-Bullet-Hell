@@ -3,10 +3,11 @@ extends EnemyStatesHandler
 
 
 func get_raw_input() -> Dictionary:
+	var planned_waypoint = owner.goal_position
 	inputs = {
-		is_moving = owner.position.distance_to(owner.goal_position) > 3,
-		input_direction = owner.position.direction_to(owner.goal_position), #direction to goal_position
-		is_shooting = owner.position.distance_to(owner.goal_position) < 3, #at goal_position
+		is_moving = owner.position.distance_to(planned_waypoint) > 3,
+		input_direction = owner.position.direction_to(planned_waypoint), 
+		is_shooting = owner.position.distance_to(planned_waypoint) < 3,
 	}
 	return inputs
 

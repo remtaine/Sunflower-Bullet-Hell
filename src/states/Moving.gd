@@ -19,7 +19,6 @@ func run(input):
 #	position.y = clamp(position.y, GameInfo.GAME_BORDER_START.y, GameInfo.GAME_BORDER_END.y)
 
 #	if owner.waypoints.size() and owner.position.distance_to(owner.waypoints[owner.current_waypoint]) < 3:
-#		print("I'm here!")
 #		owner.current_waypoint += 1
 		#TODO insert change state depending on waypoint
 		

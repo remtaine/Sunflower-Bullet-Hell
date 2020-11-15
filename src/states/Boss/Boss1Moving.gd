@@ -19,7 +19,6 @@ func run(input):
 			owner.rotation_degrees += 3
 
 func enter():
-	print(owner.phase)
 	match owner.phase:
 		1:
 			owner.set_shoot_style(11, owner.bullet_spawners.get_child(0))

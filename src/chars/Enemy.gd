@@ -7,6 +7,10 @@ export (int) var points_on_death := 5000
 export (int) var coin_count = 10
 signal enemy_died
 
+export (bool) var uses_waypoints = false
+export (PoolVector2Array) var waypoints
+var current_waypoint = 0
+
 onready var bullet_spawner = $BulletSpawners/BulletSpawner
 export (int) var shoot_style := -1
 var default_accel = 50
@@ -15,6 +19,7 @@ var aimed = false
 
 func _ready():
 	var _succesful_connection = connect("enemy_died",level,"update_score")
+	
 	set_aim()
 	
 func _process(_delta):

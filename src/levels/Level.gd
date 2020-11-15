@@ -47,7 +47,7 @@ func _ready():
 	match get_name():
 		"Level1":
 			used_bullet_hit_particle = bullet_hit_particle
-		"Level2", "Level3":
+		"Level0", "Level2", "Level3":
 			used_bullet_hit_particle = bullet_hit_particle2
 	$UI/UIControl/Labels/Version.text = GlobalInfo.version
 	time_start = OS.get_unix_time()

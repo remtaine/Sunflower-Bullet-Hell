@@ -5,7 +5,7 @@ export var goal_position : Vector2
 func setup(pos, goal_pos, s_style):
 	self.position = pos
 	
-	waypoints.append(goal_pos)
+	goal_position = goal_pos
 	
 	if shoot_style == -1:
 		set_shoot_style(s_style)

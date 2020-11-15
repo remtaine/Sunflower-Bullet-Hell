@@ -15,15 +15,12 @@ func _ready() -> void:
 		for name in names.get_children():
 			name.get_node("AnimationPlayer").connect("animation_finished", self, "next_name")
 			names_array.append(name)
-		print(names_array)
 		names_array[current_name].get_node("AnimationPlayer").play("Appear")	
 #	play_name(current_name)
 
 func next_name(anim_name : String):
-	print("NEXT NAME!")
 	if current_name < names.get_child_count() - 1:
 		current_name += 1
-		print(names_array[current_name].get_name())
 		names_array[current_name].get_node("AnimationPlayer").play("Appear")
 	else:
 		var _scene_change_status = get_tree().change_scene(next_scene)
